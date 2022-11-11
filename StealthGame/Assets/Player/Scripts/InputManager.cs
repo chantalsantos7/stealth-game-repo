@@ -87,14 +87,5 @@ public class InputManager : MonoBehaviour
             playerLocomotion.IsCrouched = !playerLocomotion.IsCrouched;
             crouchModifierPressed = !crouchModifierPressed; 
         } 
-      
-        /*if (crouchModifierPressed)
-        {
-            playerLocomotion.IsCrouched = true;
-        }
-        else
-        {
-            playerLocomotion.IsCrouched = false;
-        }*/
     }
 }

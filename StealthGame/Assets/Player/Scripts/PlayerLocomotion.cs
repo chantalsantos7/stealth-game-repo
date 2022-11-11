@@ -10,6 +10,8 @@ public class PlayerLocomotion : MonoBehaviour
     Rigidbody playerRigidbody;
 
     public bool IsSprinting { get; set; }
+    public bool IsCrouched { get; set; }
+
 
     [Header("Movement Speeds")]
     public float walkingSpeed = 3f;

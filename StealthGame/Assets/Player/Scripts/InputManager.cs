@@ -16,6 +16,7 @@ public class InputManager : MonoBehaviour
     public float horizontalInput;
 
     public bool sprintModifierPressed;
+    public bool crouchModifierPressed;
 
     public float cameraVerticalInput;
     public float cameraHorizontalInput;
@@ -24,6 +25,7 @@ public class InputManager : MonoBehaviour
     {
         animatorManager = GetComponent<AnimatorManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
+        //crouchModifierPressed = false;
     }
 
     private void OnEnable()
@@ -35,6 +37,7 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
             playerControls.PlayerActions.Sprint.performed += i => sprintModifierPressed = true;
             playerControls.PlayerActions.Sprint.canceled += i => sprintModifierPressed = false;
+            //playerControls.PlayerActions.Crouch.triggered += i => crouchModifierPressed = true ? crouchModifierPressed = false : crouchModifierPressed = true;
         }
 
         playerControls.Enable();
@@ -46,9 +49,11 @@ public class InputManager : MonoBehaviour
     }
 
     public void HandleAllInputs()
-    {
+    {   
+        HandleCrouchInput();
         HandleMovementInput();
         HandleSprintingInput();
+        //Debug.Log(crouchModifierPressed);
     }
 
     private void HandleMovementInput()
@@ -60,7 +65,7 @@ public class InputManager : MonoBehaviour
         cameraHorizontalInput = cameraInput.x;
 
         moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
-        animatorManager.UpdateAnimatorValues(0, moveAmount, playerLocomotion.IsSprinting);
+        animatorManager.UpdateAnimatorValues(0, moveAmount, playerLocomotion.IsSprinting, playerLocomotion.IsCrouched);
     }
 
     private void HandleSprintingInput()
@@ -73,5 +78,23 @@ public class InputManager : MonoBehaviour
         {
             playerLocomotion.IsSprinting = false;
         }
+    }
+
+    private void HandleCrouchInput()
+    {
+        if (playerControls.PlayerActions.Crouch.triggered)
+        {
+            playerLocomotion.IsCrouched = !playerLocomotion.IsCrouched;
+            crouchModifierPressed = !crouchModifierPressed; 
+        } 
+      
+        /*if (crouchModifierPressed)
+        {
+            playerLocomotion.IsCrouched = true;
+        }
+        else
+        {
+            playerLocomotion.IsCrouched = false;
+        }*/
     }
 }

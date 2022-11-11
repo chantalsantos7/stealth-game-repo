@@ -5,17 +5,19 @@ using UnityEngine;
 public class AnimatorManager : MonoBehaviour
 {
     Animator animator;
+    int crouched;
     int horizontal;
     int vertical;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
+        crouched = Animator.StringToHash("Crouched");
         horizontal = Animator.StringToHash("Horizontal");
         vertical = Animator.StringToHash("Vertical");
     }
 
-    public void UpdateAnimatorValues(float horizontalMovement, float verticalMovement, bool isSprinting)
+    public void UpdateAnimatorValues(float horizontalMovement, float verticalMovement, bool isSprinting, bool isCrouched)
     {
         //Animation Snapping
         float snappedHorizontal = SnapMovementValue(horizontalMovement, 0.55f);
@@ -28,6 +30,7 @@ public class AnimatorManager : MonoBehaviour
 
         }
 
+        animator.SetBool(crouched, isCrouched);
         animator.SetFloat(horizontal, snappedHorizontal, 0.1f, Time.deltaTime);
         animator.SetFloat (vertical, snappedVertical, 0.1f, Time.deltaTime);
     }

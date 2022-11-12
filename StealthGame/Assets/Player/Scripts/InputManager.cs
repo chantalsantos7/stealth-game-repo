@@ -17,6 +17,7 @@ public class InputManager : MonoBehaviour
 
     public bool sprintModifierPressed;
     public bool crouchModifierPressed;
+    public bool jumpKeyPressed;
 
     public float cameraVerticalInput;
     public float cameraHorizontalInput;
@@ -37,6 +38,7 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
             playerControls.PlayerActions.Sprint.performed += i => sprintModifierPressed = true;
             playerControls.PlayerActions.Sprint.canceled += i => sprintModifierPressed = false;
+            playerControls.PlayerActions.Jump.performed += i => jumpKeyPressed = true;
             //playerControls.PlayerActions.Crouch.triggered += i => crouchModifierPressed = true ? crouchModifierPressed = false : crouchModifierPressed = true;
         }
 
@@ -53,6 +55,7 @@ public class InputManager : MonoBehaviour
         HandleCrouchInput();
         HandleMovementInput();
         HandleSprintingInput();
+        HandleJumpInput();
         //Debug.Log(crouchModifierPressed);
     }
 
@@ -85,7 +88,16 @@ public class InputManager : MonoBehaviour
         if (playerControls.PlayerActions.Crouch.triggered)
         {
             playerLocomotion.IsCrouched = !playerLocomotion.IsCrouched;
-            crouchModifierPressed = !crouchModifierPressed; 
-        } 
+            crouchModifierPressed = !crouchModifierPressed;
+        }
+    }
+
+    private void HandleJumpInput()
+    {
+        if (jumpKeyPressed)
+        {
+            playerLocomotion.HandleJumping();
+            jumpKeyPressed = false;
+        }
     }
 }

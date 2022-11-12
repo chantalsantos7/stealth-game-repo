@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AnimatorManager : MonoBehaviour
 {
-    Animator animator;
+    public Animator animator;
     int crouched;
     int horizontal;
     int vertical;
@@ -31,12 +31,12 @@ public class AnimatorManager : MonoBehaviour
 
         if (isSprinting)
         {
-            snappedHorizontal = SnapMovementValue(horizontalMovement, 0.55f);
+            //snappedHorizontal = SnapMovementValue(horizontalMovement, 0.55f);
             snappedVertical = 2;
 
         }
 
-        animator.SetBool(crouched, isCrouched);
+        animator.SetBool(crouched, isCrouched);  
         animator.SetFloat(horizontal, snappedHorizontal, 0.1f, Time.deltaTime);
         animator.SetFloat (vertical, snappedVertical, 0.1f, Time.deltaTime);
     }

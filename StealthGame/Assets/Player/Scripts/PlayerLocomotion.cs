@@ -12,6 +12,7 @@ public class PlayerLocomotion : MonoBehaviour
     Vector3 movementVelocity;
     Transform cameraObject;
     Rigidbody playerRigidbody;
+    CapsuleCollider playerCollider;
 
     //public Transform combatLookAt;
 
@@ -53,6 +54,7 @@ public class PlayerLocomotion : MonoBehaviour
         cameraObject = Camera.main.transform;
         cameraManager = Camera.main.GetComponent<CameraManager>();
         isGrounded = true;
+        playerCollider = GetComponent<CapsuleCollider>();
     }
 
     public void HandleAllMovement()
@@ -87,6 +89,21 @@ public class PlayerLocomotion : MonoBehaviour
 
         //give the player drag while its on the ground, so they're not just sliding around, but remove it when they're in the air
         playerRigidbody.drag = isGrounded ? groundDrag : 0;
+
+        if (IsCrouched)
+        {
+            //change height and center of collider
+            //OR
+            //swap out for a new collider when crouched
+            playerCollider.height = 1;
+            playerCollider.center = new Vector3(0, 0.5f, 0);
+
+            //playerCollider.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        } else
+        {
+            playerCollider.height = 1.85f;
+            playerCollider.center = new Vector3(0, 0.9f, 0);
+        }
         /*
         if (isGrounded)
         {

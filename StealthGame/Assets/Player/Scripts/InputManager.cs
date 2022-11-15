@@ -6,6 +6,7 @@ public class InputManager : MonoBehaviour
 {
     PlayerControls playerControls;
     PlayerLocomotion playerLocomotion;
+    PlayerAbilities playerAbilities;
     AnimatorManager animatorManager;
    
     public Vector2 movementInput;
@@ -18,6 +19,8 @@ public class InputManager : MonoBehaviour
     public bool sprintModifierPressed;
     public bool crouchModifierPressed;
     public bool jumpKeyPressed;
+    public bool teleportModifierPressed;
+    public bool cancelTeleportKeyPressed;
 
     public float cameraVerticalInput;
     public float cameraHorizontalInput;
@@ -31,8 +34,8 @@ public class InputManager : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+       /* Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;*/
     }
 
     private void OnEnable()
@@ -45,7 +48,12 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Sprint.performed += i => sprintModifierPressed = true;
             playerControls.PlayerActions.Sprint.canceled += i => sprintModifierPressed = false;
             playerControls.PlayerActions.Jump.performed += i => jumpKeyPressed = true;
+            playerControls.PlayerActions.Teleport.performed += i => teleportModifierPressed = true;
+            playerControls.PlayerActions.Teleport.canceled += i => teleportModifierPressed = false;
+            playerControls.PlayerActions.CancelTeleport.performed += i => cancelTeleportKeyPressed = true;
             //playerControls.PlayerActions.Crouch.triggered += i => crouchModifierPressed = true ? crouchModifierPressed = false : crouchModifierPressed = true;
+            //even if main teleport button is being pressed, the cancel button should disable the teleport entirely
+            //if cancel button not pressed, teleport happens when button is released
         }
 
         playerControls.Enable();
@@ -62,6 +70,7 @@ public class InputManager : MonoBehaviour
         HandleMovementInput();
         HandleSprintingInput();
         HandleJumpInput();
+        //HandleTeleportInput();
         //Debug.Log(crouchModifierPressed);
     }
 

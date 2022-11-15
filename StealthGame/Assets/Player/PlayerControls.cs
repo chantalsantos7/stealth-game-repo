@@ -145,6 +145,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Teleport"",
+                    ""type"": ""Button"",
+                    ""id"": ""15af6f87-a3ba-4e31-b6a2-a686d19b75f0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CancelTeleport"",
+                    ""type"": ""Button"",
+                    ""id"": ""68d1848b-a07c-4eb7-8067-d19940c559a9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -180,6 +198,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a0e5d20b-a736-4680-824a-d4742e73ad32"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Teleport"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1462ff7e-9b1e-4e79-9681-8917f4fb644d"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CancelTeleport"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -195,6 +235,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerActions_Sprint = m_PlayerActions.FindAction("Sprint", throwIfNotFound: true);
         m_PlayerActions_Crouch = m_PlayerActions.FindAction("Crouch", throwIfNotFound: true);
         m_PlayerActions_Jump = m_PlayerActions.FindAction("Jump", throwIfNotFound: true);
+        m_PlayerActions_Teleport = m_PlayerActions.FindAction("Teleport", throwIfNotFound: true);
+        m_PlayerActions_CancelTeleport = m_PlayerActions.FindAction("CancelTeleport", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -298,6 +340,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Sprint;
     private readonly InputAction m_PlayerActions_Crouch;
     private readonly InputAction m_PlayerActions_Jump;
+    private readonly InputAction m_PlayerActions_Teleport;
+    private readonly InputAction m_PlayerActions_CancelTeleport;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
@@ -305,6 +349,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_PlayerActions_Sprint;
         public InputAction @Crouch => m_Wrapper.m_PlayerActions_Crouch;
         public InputAction @Jump => m_Wrapper.m_PlayerActions_Jump;
+        public InputAction @Teleport => m_Wrapper.m_PlayerActions_Teleport;
+        public InputAction @CancelTeleport => m_Wrapper.m_PlayerActions_CancelTeleport;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -323,6 +369,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnJump;
+                @Teleport.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnTeleport;
+                @Teleport.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnTeleport;
+                @Teleport.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnTeleport;
+                @CancelTeleport.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnCancelTeleport;
+                @CancelTeleport.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnCancelTeleport;
+                @CancelTeleport.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnCancelTeleport;
             }
             m_Wrapper.m_PlayerActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -336,6 +388,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Teleport.started += instance.OnTeleport;
+                @Teleport.performed += instance.OnTeleport;
+                @Teleport.canceled += instance.OnTeleport;
+                @CancelTeleport.started += instance.OnCancelTeleport;
+                @CancelTeleport.performed += instance.OnCancelTeleport;
+                @CancelTeleport.canceled += instance.OnCancelTeleport;
             }
         }
     }
@@ -350,5 +408,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnTeleport(InputAction.CallbackContext context);
+        void OnCancelTeleport(InputAction.CallbackContext context);
     }
 }

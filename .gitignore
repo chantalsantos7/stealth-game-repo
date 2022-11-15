@@ -9,6 +9,9 @@
 [Bb]uilds/
 [Ll]ogs/
 [Mm]emoryCaptures/
+[Bb]link/
+[Cc]astle/
+[Tt]ooManyCrosshairs/
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta

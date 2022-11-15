@@ -29,6 +29,12 @@ public class InputManager : MonoBehaviour
         //crouchModifierPressed = false;
     }
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     private void OnEnable()
     {
         if (playerControls == null)
@@ -92,7 +98,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    private void HandleJumpInput()
+    public void HandleJumpInput()
     {
         if (jumpKeyPressed)
         {

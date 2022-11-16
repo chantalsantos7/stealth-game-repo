@@ -20,7 +20,7 @@ public class PlayerLocomotion : MonoBehaviour
     public float inAirTimer;
     public float leapingVelocity;
     public float fallingVelocity;
-    public float maxDistance = 0.5f;
+    public float maxDistance = 0.5f; //if using floating collider for stairs, change this and rayCastHeightOffset to 0.8f
     public LayerMask groundLayers;
     public float raycastHeightOffset = 0.5f;
 
@@ -45,6 +45,13 @@ public class PlayerLocomotion : MonoBehaviour
     [Header("Drag")]
     public float groundDrag;
 
+    [Header("Step Climbing")]
+    [SerializeField] GameObject stepRayUpper;
+    [SerializeField] GameObject stepRayLower;
+    [SerializeField] float stepHeight = 0.4f;
+    [SerializeField] float stepSmooth = 0.1f;
+    bool climbingStairs;
+
     private void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
@@ -53,8 +60,10 @@ public class PlayerLocomotion : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody>();
         cameraObject = Camera.main.transform;
         cameraManager = Camera.main.GetComponent<CameraManager>();
-        isGrounded = true;
         playerCollider = GetComponent<CapsuleCollider>();
+
+        stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepHeight, stepRayUpper.transform.position.z);
+        isGrounded = true;
     }
 
     public void HandleAllMovement()
@@ -63,6 +72,7 @@ public class PlayerLocomotion : MonoBehaviour
         if (playerManager.isInteracting) return;
         HandleMovement();
         HandleRotation();
+        HandleStairs();
         //HandleJumping();
     }
 
@@ -85,6 +95,7 @@ public class PlayerLocomotion : MonoBehaviour
             movementVelocity *= walkingSpeed;
         }
 
+        //playerRigidbody.AddForce(movementVelocity * 10f, ForceMode.Force);
         playerRigidbody.velocity = movementVelocity;
 
         //give the player drag while its on the ground, so they're not just sliding around, but remove it when they're in the air
@@ -99,29 +110,17 @@ public class PlayerLocomotion : MonoBehaviour
             playerCollider.center = new Vector3(0, 0.5f, 0);
 
             //playerCollider.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        } else
+        }
+        else
         {
             playerCollider.height = 1.85f;
-            playerCollider.center = new Vector3(0, 0.9f, 0);
+            playerCollider.center = new Vector3(0, 0.92f, 0);
         }
-        /*
-        if (isGrounded)
-        {
-            playerRigidbody.drag = groundDrag;
-        } 
-        else if (!isGrounded)
-        {
-            playerRigidbody.drag = 0;
-        }*/
     }
 
     private void HandleRotation()
     {
         if (isJumping) return;
-        //Vector3 targetDirection = Vector3.zero;
-        //targetDirection = 
-        //transform.rotation *= Quaternion.AngleAxis(inputManager.horizontalInput * rotationSpeed, Vector3.up);
-        // Vector3 viewDirection = transform.position - new Vector3(transform.position)
 
         Vector3 targetDirection;
         targetDirection = new Vector3(cameraObject.forward.x, 0f, cameraObject.forward.z) * inputManager.verticalInput;
@@ -146,10 +145,10 @@ public class PlayerLocomotion : MonoBehaviour
         RaycastHit hit;
         Vector3 raycastOrigin = transform.position;
         //Vector3 targetPosition = transform.position;
-        raycastOrigin.y += raycastHeightOffset;
-        if (!isGrounded)
+        raycastOrigin.y += raycastHeightOffset; //offset the height of the raycast so player does not fall through the world
+        if (!isGrounded && !climbingStairs)
         {
-            if (!playerManager.isInteracting && !isJumping)
+            if (!playerManager.isInteracting && !isJumping) //TODO: Add more checks when climbing stairs so animation isn't triggered - raycast distance, if smaller than jump height don't fall?
             {
                 animatorManager.PlayTargetAnimation("Falling", true);
             }
@@ -169,7 +168,7 @@ public class PlayerLocomotion : MonoBehaviour
             {
                 //animatorManager.PlayTargetAnimation("Landing", true);
             }
-            /*Vector3 raycastHitPoint = hit.point;
+           /* Vector3 raycastHitPoint = hit.point;
             targetPosition.y = raycastHitPoint.y;*/
             inAirTimer = 0;
             isGrounded = true;
@@ -178,13 +177,52 @@ public class PlayerLocomotion : MonoBehaviour
         {
             isGrounded = false;
         }
-        
+
+
+        //Floating collider stairs code
+        /*if (isGrounded && !isJumping)
+        {
+            if (playerManager.isInteracting || inputManager.moveAmount > 0)
+            {
+                transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime / 0.1f);
+            }
+            else
+            {
+                transform.position = targetPosition;
+            }
+        }*/
+
     }
 
     private void HandleStairs()
     {
         //Send out raycasts in front of the player to check if there is a collider in front
         //starting from bottom, send at regular intervals until one ray passes a minimum stair depth
+        RaycastHit hitLower;
+        if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(Vector3.forward), out hitLower, 0.1f))
+        {
+            Debug.DrawLine(stepRayLower.transform.position, hitLower.point, Color.green);
+            RaycastHit hitUpper;
+            if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(Vector3.forward), out hitUpper, 0.2f))
+            {
+                climbingStairs = true;
+                Debug.DrawLine(stepRayLower.transform.position, hitUpper.point, Color.magenta);
+                playerRigidbody.position -= new Vector3(0f, -stepSmooth, 0f);
+            }
+        }
+        climbingStairs = false;
+
+        /*RaycastHit hitLower;
+        if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(Vector3.forward), out hitLower, 0.1f))
+        {
+            RaycastHit hitUpper;
+            if (Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(Vector3.forward), out hitUpper, 0.2f))
+            {
+                playerRigidbody.position -= new Vector3(0f, -stepSmooth, 0f);
+            }
+        }*/
+
+
     }
 
     public void HandleJumping()

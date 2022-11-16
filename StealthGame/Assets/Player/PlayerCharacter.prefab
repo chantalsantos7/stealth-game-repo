@@ -88,6 +88,8 @@ MonoBehaviour:
   sprintModifierPressed: 0
   crouchModifierPressed: 0
   jumpKeyPressed: 0
+  teleportModifierPressed: 0
+  cancelTeleportKeyPressed: 0
   cameraVerticalInput: 0
   cameraHorizontalInput: 0
 --- !u!114 &1166822577810127362
@@ -108,7 +110,7 @@ MonoBehaviour:
   maxDistance: 0.5
   groundLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   raycastHeightOffset: 0.5
   isGrounded: 0
   jumpHeight: 3
@@ -117,6 +119,10 @@ MonoBehaviour:
   sprintingSpeed: 7
   rotationSpeed: 15
   groundDrag: 0
+  stepRayUpper: {fileID: 0}
+  stepRayLower: {fileID: 0}
+  stepHeight: 0.4
+  stepSmooth: 0.1
 --- !u!114 &1166822577810127373
 MonoBehaviour:
   m_ObjectHideFlags: 0

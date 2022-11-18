@@ -5,6 +5,8 @@ using UnityEngine;
 public class AnimatorManager : MonoBehaviour
 {
     public Animator animator;
+    PlayerManager playerManager;
+    PlayerLocomotion playerLocomotion;
     int crouched;
     int horizontal;
     int vertical;
@@ -12,12 +14,14 @@ public class AnimatorManager : MonoBehaviour
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
+        playerManager = GetComponent<PlayerManager>();
+        playerLocomotion = GetComponent<PlayerLocomotion>();
         crouched = Animator.StringToHash("Crouched");
         horizontal = Animator.StringToHash("Horizontal");
         vertical = Animator.StringToHash("Vertical");
     }
 
-    public void PlayTargetAnimation(string targetAnimation, bool isInteracting)
+    public void PlayTargetAnimation(string targetAnimation, bool isInteracting, bool useRootMotion = false)
     {
         animator.SetBool("IsInteracting", isInteracting);
         animator.CrossFade(targetAnimation, 0.2f);
@@ -67,5 +71,17 @@ public class AnimatorManager : MonoBehaviour
         }
 
         return snappedValue;
+    }
+
+    private void OnAnimatorMove()
+    {
+        if (playerManager.isUsingRootMotion)
+        {
+            playerLocomotion.playerRigidbody.drag = 0;
+            Vector3 deltaPosition = animator.deltaPosition;
+            deltaPosition.y = 0;
+            Vector3 velocity = deltaPosition / Time.deltaTime;
+            playerLocomotion.playerRigidbody.velocity = velocity;
+        }
     }
 }

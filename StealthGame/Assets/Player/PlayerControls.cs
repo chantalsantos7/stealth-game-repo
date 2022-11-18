@@ -163,6 +163,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dodge"",
+                    ""type"": ""Button"",
+                    ""id"": ""2d147a71-e78b-4959-85a3-ef2c0e65ee10"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""MultiTap"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -220,6 +229,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""CancelTeleport"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""45ee1398-5a03-4572-b8f3-6ad27fa0040f"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dodge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -237,6 +257,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerActions_Jump = m_PlayerActions.FindAction("Jump", throwIfNotFound: true);
         m_PlayerActions_Teleport = m_PlayerActions.FindAction("Teleport", throwIfNotFound: true);
         m_PlayerActions_CancelTeleport = m_PlayerActions.FindAction("CancelTeleport", throwIfNotFound: true);
+        m_PlayerActions_Dodge = m_PlayerActions.FindAction("Dodge", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -342,6 +363,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Jump;
     private readonly InputAction m_PlayerActions_Teleport;
     private readonly InputAction m_PlayerActions_CancelTeleport;
+    private readonly InputAction m_PlayerActions_Dodge;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
@@ -351,6 +373,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_PlayerActions_Jump;
         public InputAction @Teleport => m_Wrapper.m_PlayerActions_Teleport;
         public InputAction @CancelTeleport => m_Wrapper.m_PlayerActions_CancelTeleport;
+        public InputAction @Dodge => m_Wrapper.m_PlayerActions_Dodge;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -375,6 +398,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @CancelTeleport.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnCancelTeleport;
                 @CancelTeleport.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnCancelTeleport;
                 @CancelTeleport.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnCancelTeleport;
+                @Dodge.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnDodge;
+                @Dodge.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnDodge;
+                @Dodge.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnDodge;
             }
             m_Wrapper.m_PlayerActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -394,6 +420,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @CancelTeleport.started += instance.OnCancelTeleport;
                 @CancelTeleport.performed += instance.OnCancelTeleport;
                 @CancelTeleport.canceled += instance.OnCancelTeleport;
+                @Dodge.started += instance.OnDodge;
+                @Dodge.performed += instance.OnDodge;
+                @Dodge.canceled += instance.OnDodge;
             }
         }
     }
@@ -410,5 +439,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnTeleport(InputAction.CallbackContext context);
         void OnCancelTeleport(InputAction.CallbackContext context);
+        void OnDodge(InputAction.CallbackContext context);
     }
 }

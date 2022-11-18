@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.Interactions;
 
 public class InputManager : MonoBehaviour
 {
@@ -51,6 +52,13 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Teleport.performed += i => teleportModifierPressed = true;
             playerControls.PlayerActions.Teleport.canceled += i => teleportModifierPressed = false;
             playerControls.PlayerActions.CancelTeleport.performed += i => cancelTeleportKeyPressed = true;
+            playerControls.PlayerActions.Dodge.performed += context =>
+            {
+                if (context.interaction is MultiTapInteraction)
+                {
+                    playerLocomotion.HandleDodging();
+                }
+            };
             //playerControls.PlayerActions.Crouch.triggered += i => crouchModifierPressed = true ? crouchModifierPressed = false : crouchModifierPressed = true;
             //even if main teleport button is being pressed, the cancel button should disable the teleport entirely
             //if cancel button not pressed, teleport happens when button is released

@@ -125,7 +125,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Teleport",
+                    "name": "AimTeleport",
                     "type": "Button",
                     "id": "15af6f87-a3ba-4e31-b6a2-a686d19b75f0",
                     "expectedControlType": "Button",
@@ -137,6 +137,15 @@
                     "name": "CancelTeleport",
                     "type": "Button",
                     "id": "68d1848b-a07c-4eb7-8067-d19940c559a9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Teleport",
+                    "type": "Button",
+                    "id": "239d614f-c2b8-4ee6-8cf0-84f189164199",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -189,11 +198,11 @@
                 {
                     "name": "",
                     "id": "a0e5d20b-a736-4680-824a-d4742e73ad32",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/t",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Teleport",
+                    "action": "AimTeleport",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -216,6 +225,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Dodge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e79545cc-9b0e-4cd5-a80e-d8a432efa3fb",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Teleport",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

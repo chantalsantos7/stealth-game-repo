@@ -30,6 +30,7 @@ public class InputManager : MonoBehaviour
     {
         animatorManager = GetComponent<AnimatorManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
+        playerAbilities = GetComponent<PlayerAbilities>();
         //crouchModifierPressed = false;
     }
 
@@ -49,8 +50,21 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Sprint.performed += i => sprintModifierPressed = true;
             playerControls.PlayerActions.Sprint.canceled += i => sprintModifierPressed = false;
             playerControls.PlayerActions.Jump.performed += i => jumpKeyPressed = true;
-            playerControls.PlayerActions.Teleport.performed += i => teleportModifierPressed = true;
-            playerControls.PlayerActions.Teleport.canceled += i => teleportModifierPressed = false;
+            playerControls.PlayerActions.AimTeleport.performed += i =>
+            {
+                teleportModifierPressed = !teleportModifierPressed;
+                playerAbilities.AimTeleport();
+            };
+            playerControls.PlayerActions.Teleport.performed += i =>
+            {
+                if (playerAbilities.teleportAiming)
+                {
+                    playerAbilities.Teleport();
+                }
+            };
+
+            /*playerControls.PlayerActions.Teleport.performed += i => teleportModifierPressed = true;
+            playerControls.PlayerActions.Teleport.canceled += i => teleportModifierPressed = false;*/
             playerControls.PlayerActions.CancelTeleport.performed += i => cancelTeleportKeyPressed = true;
             playerControls.PlayerActions.Dodge.performed += context =>
             {
@@ -104,6 +118,12 @@ public class InputManager : MonoBehaviour
         {
             playerLocomotion.IsSprinting = false;
         }
+    }
+
+    private void HandleTeleportInput()
+    {
+        //reverse the aimingMode bool like the crouched bool
+        //set the 
     }
 
     private void HandleCrouchInput()

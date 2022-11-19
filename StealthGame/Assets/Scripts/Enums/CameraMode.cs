@@ -2,5 +2,6 @@
 public enum CameraMode
 {
     Basic,
-    Combat
+    Combat,
+    AimTeleport
 }

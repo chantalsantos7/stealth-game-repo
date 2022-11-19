@@ -263,15 +263,10 @@ public class PlayerLocomotion : MonoBehaviour
         //animatorManager.PlayTargetAnimation("Dodge", true, true);
         playerRigidbody.drag = 0;
         //dodge always moves back
-        Vector3 dodgeForce = -transform.forward * 250f;
+        Vector3 dodgeForce = -transform.forward * 2000f * Time.deltaTime;
+        animatorManager.PlayTargetAnimation("Dodge", true);
         playerRigidbody.AddForce(dodgeForce, ForceMode.Impulse);
-
-        //apply an Impulse force on the rigidbody in the direction that you're moving
-        //playerRigidbody.AddForce()
-
-        /*if (isGrounded && !IsCrouched && !isJumping)
-        {
-            //Toggle invulnerable bool
-        }*/
+        //toggle invulnerability bool so dodge prevents damage
+       
     }
 }

@@ -9,25 +9,26 @@ public class PlayerAbilities : MonoBehaviour
     [Header("Player Stats")]
     public float maxStamina = 500f;
     public float maxHealth = 100f;
-    public float maxSprintTime;
 
     public float health;
     public float currentStamina;
-    
 
     [Header("Cooldown Times")]
     public float teleportCooldown;
 
     [Header("Object References")]
     public Camera cameraObject;
+    public CameraManager cameraManager;
     public LineRenderer lineRenderer;
 
     PlayerLocomotion playerLocomotion;
     InputManager inputManager;
     
-    bool teleportAiming;
+    public bool teleportAiming { get; set; }
     bool canceledTeleport;
     bool sprinting;
+
+    public Vector3 teleportPos { get; set; }
 
     // Start is called before the first frame update
     private void Awake()
@@ -37,14 +38,13 @@ public class PlayerAbilities : MonoBehaviour
         inputManager = GetComponent<InputManager>();
         currentStamina = maxStamina;
         health = maxHealth;
+        teleportAiming = false;
     }
 
     // Update is called once per frame
     void Update()
-    {
-        GetTeleportInput();
-        TeleportAiming();
-        var worldPos = cameraObject.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+    { 
+        
         
         if (playerLocomotion.IsSprinting)
         {
@@ -58,14 +58,14 @@ public class PlayerAbilities : MonoBehaviour
         {
             StopCoroutine(UseStamina(1f));
             StartCoroutine(RechargeStamina(0.5f));
-        }
-        
-    }
+        }   
 
-    private void Sprint()
-    {
-        //while player is sprinting, decrease stamina
-        //once they're not
+        if (teleportAiming)
+        {
+            teleportAiming = false;
+            //rn being triggered by the press of T button
+            //Teleport();
+        }
     }
 
     private IEnumerator UseStamina(float amount)
@@ -85,47 +85,29 @@ public class PlayerAbilities : MonoBehaviour
         }
     }
 
-    public void TeleportAiming()
+    public void AimTeleport()
     {
-        ///var worldPos = cameraObject.ScreenToWorldPoint(Mouse.current.position);
+        Debug.Log("AimTeleport function reached");
+        teleportAiming = !teleportAiming;
+
         if (teleportAiming)
         {
-            Ray ray = cameraObject.ViewportPointToRay(new Vector3(0.5f, 0.5f));
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                Debug.Log("I'm looking at " + hit.transform.name);
-                Vector3[] pointsArray = new[] { lineRenderer.transform.position, hit.point };
-                lineRenderer.SetPositions(pointsArray);
-                //Debug.DrawRay(transform.position, hit.point, Color.yellow);
-            }
-            else
-            {
-                Debug.Log("I'm looking at nothing!");
-            }
-            
-            GetTeleportInput();
-
-            if (!teleportAiming && !canceledTeleport)
-            {
-                HandleTeleport(hit);
-            }
+            cameraManager.cameraMode = CameraMode.AimTeleport;
+            teleportPos = cameraObject.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        } else
+        {
+            cameraManager.cameraMode = CameraMode.Basic;
         }
         
         
-
+        //get the worldPosition of where the user clicks, pass it on to the Teleport function
+        
     }
 
-    private void GetTeleportInput()
+    public void Teleport()
     {
-        teleportAiming = inputManager.teleportModifierPressed;
-        canceledTeleport = inputManager.cancelTeleportKeyPressed;
-    }
-
-    public void HandleTeleport(RaycastHit hit)
-    {
-        //move the player to the position indicated by the raycast
-        transform.position = hit.point;
+        //var worldPos = cameraObject.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        playerLocomotion.playerRigidbody.position = teleportPos;
     }
 
    

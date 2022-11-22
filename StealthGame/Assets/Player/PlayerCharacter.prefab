@@ -149,14 +149,15 @@ MonoBehaviour:
     m_Bits: 1
   raycastHeightOffset: 0.4
   isGrounded: 0
+  canMove: 0
   jumpHeight: 2
   gravityIntensity: -15
   walkingSpeed: 4
   sprintingSpeed: 8
   rotationSpeed: 15
   groundDrag: 4
-  stepRayUpper: {fileID: 0}
-  stepRayLower: {fileID: 0}
+  stepRayUpper: {fileID: 3563893718616286741}
+  stepRayLower: {fileID: 922419438109145596}
   stepHeight: 0.5
   stepSmooth: 2
 --- !u!114 &1166822577810127373
@@ -206,6 +207,7 @@ MonoBehaviour:
   cameraObject: {fileID: 0}
   cameraManager: {fileID: 0}
   lineRenderer: {fileID: 0}
+  teleportView: {fileID: 0}
 --- !u!1 &3563893718616286741
 GameObject:
   m_ObjectHideFlags: 0

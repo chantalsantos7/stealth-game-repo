@@ -36,8 +36,8 @@ public class InputManager : MonoBehaviour
 
     private void Start()
     {
-       /* Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;*/
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void OnEnable()
@@ -53,7 +53,7 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.AimTeleport.performed += i =>
             {
                 teleportModifierPressed = !teleportModifierPressed;
-                playerAbilities.AimTeleport();
+                playerAbilities.AimTeleport(); //BUG: NullReferenceException: Object reference not set to an instance of an object, but the code operates correctly?
             };
             playerControls.PlayerActions.Teleport.performed += i =>
             {

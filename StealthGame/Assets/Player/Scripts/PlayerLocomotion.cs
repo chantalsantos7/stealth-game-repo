@@ -9,7 +9,7 @@ public class PlayerLocomotion : MonoBehaviour
     AnimatorManager animatorManager;
     InputManager inputManager;
     CameraManager cameraManager;
-    Vector3 movementVelocity;
+    
     Transform cameraObject;
     public Rigidbody playerRigidbody;
     CapsuleCollider playerCollider;
@@ -26,7 +26,7 @@ public class PlayerLocomotion : MonoBehaviour
 
     [Header("MovementFlags")]
     public bool isGrounded;
-    
+    public bool canMove;
     public bool isJumping { get; set; }
     public bool IsSprinting { get; set; }
     public bool IsCrouched { get; set; }
@@ -52,6 +52,9 @@ public class PlayerLocomotion : MonoBehaviour
     [SerializeField] float stepSmooth = 0.1f;
     bool climbingStairs;
 
+
+    Vector3 movementVelocity;
+
     private void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
@@ -64,28 +67,30 @@ public class PlayerLocomotion : MonoBehaviour
 
         stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepHeight, stepRayUpper.transform.position.z);
         isGrounded = true;
+        canMove = true;
     }
 
     public void HandleAllMovement()
     {
         HandleFallingAndLanding();
         if (playerManager.isInteracting) return;
-        HandleMovement();
-        HandleRotation();
+        HandleMovementAndRotation();
+        //HandleRotation();
         HandleStairs();
         //HandleJumping();
     }
 
-    private void HandleMovement()
+    private void HandleMovementAndRotation()
     {
-        if (isJumping) return;
+        if (isJumping || !canMove) return;
 
         //movement in the direction that the camera is facing
+        movementVelocity = Vector3.zero;
         movementVelocity = new Vector3(cameraObject.forward.x, 0f, cameraObject.forward.z) * inputManager.verticalInput;
-        movementVelocity = movementVelocity + cameraObject.right * inputManager.horizontalInput;
+        movementVelocity += cameraObject.right * inputManager.horizontalInput;
         movementVelocity.Normalize();
         movementVelocity.y = 0f;
-        
+
         //change movement speed depending on if player is walking or sprinting
         if (IsSprinting)
         {
@@ -97,6 +102,15 @@ public class PlayerLocomotion : MonoBehaviour
 
         //playerRigidbody.AddForce(movementVelocity * 10f, ForceMode.Force);
         playerRigidbody.velocity = movementVelocity;
+
+        if (movementVelocity == Vector3.zero)
+        {
+            movementVelocity = transform.forward;
+        }
+
+        Quaternion targetRotation = Quaternion.LookRotation(movementVelocity);
+        Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        transform.rotation = playerRotation;
 
         //give the player drag while its on the ground, so they're not just sliding around, but remove it when they're in the air
         playerRigidbody.drag = isGrounded ? groundDrag : 0;
@@ -118,9 +132,9 @@ public class PlayerLocomotion : MonoBehaviour
         }
     }
 
-    private void HandleRotation()
+    /*private void HandleRotation()
     {
-        if (isJumping) return;
+        if (isJumping || !canMove) return;
 
         Vector3 targetDirection;
         targetDirection = new Vector3(cameraObject.forward.x, 0f, cameraObject.forward.z) * inputManager.verticalInput;
@@ -138,7 +152,7 @@ public class PlayerLocomotion : MonoBehaviour
 
         transform.rotation = playerRotation;
 
-    }
+    }*/
 
     private void HandleFallingAndLanding()
     {

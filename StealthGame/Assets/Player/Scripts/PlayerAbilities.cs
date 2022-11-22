@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerAbilities : MonoBehaviour
 {
@@ -17,25 +14,32 @@ public class PlayerAbilities : MonoBehaviour
     public float teleportCooldown;
 
     [Header("Object References")]
-    public Camera cameraObject;
+    public Transform cameraObject;
     public CameraManager cameraManager;
     public LineRenderer lineRenderer;
+    public GameObject teleportView;
+    Rigidbody teleportRigidbody;
+    //public GameObject TeleportViewCam;
 
     PlayerLocomotion playerLocomotion;
     InputManager inputManager;
-    
+
+    [Header("Teleport View Movement")]
+    public float movementSpeed = 5f;
+    public float rotationSpeed = 10f;
     public bool teleportAiming { get; set; }
     bool canceledTeleport;
     bool sprinting;
 
-    public Vector3 teleportPos { get; set; }
+    public Vector3 TeleportPos { get; set; }
 
     // Start is called before the first frame update
     private void Awake()
     {
-        cameraObject = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        cameraObject = Camera.main.transform;
         playerLocomotion = GetComponent<PlayerLocomotion>();
         inputManager = GetComponent<InputManager>();
+        teleportRigidbody = teleportView.GetComponent<Rigidbody>();
         currentStamina = maxStamina;
         health = maxHealth;
         teleportAiming = false;
@@ -43,9 +47,15 @@ public class PlayerAbilities : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    { 
-        
-        
+    {
+
+        Sprint();
+        TeleportViewMove();
+   
+    }
+
+    private void Sprint()
+    {
         if (playerLocomotion.IsSprinting)
         {
             StopCoroutine(RechargeStamina(1f));
@@ -54,17 +64,14 @@ public class PlayerAbilities : MonoBehaviour
             {
                 playerLocomotion.IsSprinting = false;
             }
-        } else if (!playerLocomotion.IsSprinting)
+        }
+        else if (!playerLocomotion.IsSprinting)
         {
             StopCoroutine(UseStamina(1f));
-            StartCoroutine(RechargeStamina(0.5f));
-        }   
-
-        if (teleportAiming)
-        {
-            teleportAiming = false;
-            //rn being triggered by the press of T button
-            //Teleport();
+            if (currentStamina < maxStamina)
+            {
+                StartCoroutine(RechargeStamina(0.5f));
+            }
         }
     }
 
@@ -87,27 +94,64 @@ public class PlayerAbilities : MonoBehaviour
 
     public void AimTeleport()
     {
-        Debug.Log("AimTeleport function reached");
         teleportAiming = !teleportAiming;
 
         if (teleportAiming)
         {
+            Debug.Log("Teleport mode entered");
+            Debug.Log(teleportAiming);
             cameraManager.cameraMode = CameraMode.AimTeleport;
-            teleportPos = cameraObject.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            teleportView.transform.position = transform.position + Vector3.right;
+            //freeze player movement
+            playerLocomotion.canMove = false;
+            //deactivate the model, switch to TVB (and TVB cam)
+             teleportView.SetActive(true);
+            //disable the third person controller
+            //move the FP controller to player position
+            //enable the TVB
+            
+            //teleportPos = cameraObject.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         } else
         {
             cameraManager.cameraMode = CameraMode.Basic;
+            playerLocomotion.canMove = true;
+            //playerLocomotion.enabled = true;
+            //inputManager.enabled = true;
+            Debug.Log(teleportAiming);
+            Debug.Log("Teleport mode left");
         }
-        
-        
         //get the worldPosition of where the user clicks, pass it on to the Teleport function
         
+    }
+
+    private void TeleportViewMove()
+    {
+        if (!teleportAiming) return;
+        Vector3 movementVelocity = new Vector3(cameraObject.forward.x, 0f, cameraObject.forward.z) * inputManager.verticalInput;
+        movementVelocity += cameraObject.right * inputManager.horizontalInput;
+        movementVelocity.Normalize();
+        movementVelocity.y = 0f;
+
+        teleportRigidbody.velocity = movementVelocity * movementSpeed;
+
+        if (movementVelocity == Vector3.zero)
+        {
+            movementVelocity = teleportRigidbody.transform.forward;
+        }
+
+        Quaternion targetRotation = Quaternion.LookRotation(movementVelocity);
+        Quaternion playerRotation = Quaternion.Slerp(teleportRigidbody.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        teleportRigidbody.transform.rotation = playerRotation;
     }
 
     public void Teleport()
     {
         //var worldPos = cameraObject.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        playerLocomotion.playerRigidbody.position = teleportPos;
+        TeleportPos = teleportView.transform.position;
+        teleportView.SetActive(false);
+        playerLocomotion.playerRigidbody.position = TeleportPos;
+        cameraManager.cameraMode = CameraMode.Basic;
+        playerLocomotion.canMove = true;
     }
 
    

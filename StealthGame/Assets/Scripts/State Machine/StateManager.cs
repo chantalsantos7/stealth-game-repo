@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class StateManager : MonoBehaviour
 {
-    State currentState;
+    public State currentState;
 
-    // Update is called once per frame
-    void Update()
+    public void SwitchState(State state)
     {
-        
+        currentState = state;
+        state.EnterState(this);
     }
 
    

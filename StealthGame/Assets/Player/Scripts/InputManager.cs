@@ -53,7 +53,7 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.AimTeleport.performed += i =>
             {
                 teleportModifierPressed = !teleportModifierPressed;
-                playerAbilities.AimTeleport(); //BUG: NullReferenceException: Object reference not set to an instance of an object, but the code operates correctly?
+                playerAbilities.AimTeleport();
             };
             playerControls.PlayerActions.Teleport.performed += i =>
             {

@@ -30,6 +30,7 @@ public class AnimatorManager : MonoBehaviour
     public void UpdateAnimatorValues(float horizontalMovement, float verticalMovement, bool isSprinting, bool isCrouched)
     {
         //Animation Snapping
+        if (!playerLocomotion.canMove) return;
         float snappedHorizontal = SnapMovementValue(horizontalMovement, 0.55f);
         float snappedVertical = SnapMovementValue(verticalMovement, 0.55f);
 

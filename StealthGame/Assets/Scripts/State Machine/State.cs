@@ -1,26 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class State
 {
-    public void OnStateEnter()
-    {
+    public abstract void EnterState(StateManager context);
 
-    }
-    
-    public void Execute()
-    {
+    public abstract void UpdateState(StateManager context);
+    public abstract void ExitState(StateManager context);
 
-    }
-
-    public void Update()
-    {
-
-    }
-
-    public void OnStateExit()
-    {
-
-    }
+    public abstract void OnCollisionEnter(StateManager context, Collision collision);
 }

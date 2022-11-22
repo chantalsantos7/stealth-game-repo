@@ -6,23 +6,15 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
 
-    public bool inCombat;
+    //public bool inCombat;
     public CameraMode cameraMode;
     public Transform combatLookAt;
-    /*public CinemachineFreeLook combatCam;*/
     public CinemachineFreeLook basicCam;
     public GameObject aimCam;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
-        //cameraMode = inCombat ? CameraMode.Combat : CameraMode.Basic;
         switch (cameraMode)
         {
             case CameraMode.AimTeleport:

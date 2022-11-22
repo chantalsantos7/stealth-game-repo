@@ -102,23 +102,12 @@ public class PlayerAbilities : MonoBehaviour
             Debug.Log(teleportAiming);
             cameraManager.cameraMode = CameraMode.AimTeleport;
             teleportView.transform.position = transform.position + Vector3.right;
-            //freeze player movement
             playerLocomotion.canMove = false;
-            //deactivate the model, switch to TVB (and TVB cam)
-             teleportView.SetActive(true);
-            //disable the third person controller
-            //move the FP controller to player position
-            //enable the TVB
-            
-            //teleportPos = cameraObject.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            teleportView.SetActive(true);
         } else
         {
             cameraManager.cameraMode = CameraMode.Basic;
             playerLocomotion.canMove = true;
-            //playerLocomotion.enabled = true;
-            //inputManager.enabled = true;
-            Debug.Log(teleportAiming);
-            Debug.Log("Teleport mode left");
         }
         //get the worldPosition of where the user clicks, pass it on to the Teleport function
         
@@ -151,6 +140,7 @@ public class PlayerAbilities : MonoBehaviour
         teleportView.SetActive(false);
         playerLocomotion.playerRigidbody.position = TeleportPos;
         cameraManager.cameraMode = CameraMode.Basic;
+        teleportAiming = false;
         playerLocomotion.canMove = true;
     }
 

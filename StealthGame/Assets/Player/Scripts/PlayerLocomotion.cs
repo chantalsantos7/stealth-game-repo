@@ -27,7 +27,7 @@ public class PlayerLocomotion : MonoBehaviour
     [Header("MovementFlags")]
     public bool isGrounded;
     public bool canMove;
-    public bool isJumping { get; set; }
+    public bool IsJumping { get; set; }
     public bool IsSprinting { get; set; }
     public bool IsCrouched { get; set; }
 
@@ -82,7 +82,7 @@ public class PlayerLocomotion : MonoBehaviour
 
     private void HandleMovementAndRotation()
     {
-        if (isJumping || !canMove) return;
+        if (IsJumping || !canMove) return;
 
         //movement in the direction that the camera is facing
         movementVelocity = Vector3.zero;
@@ -162,7 +162,7 @@ public class PlayerLocomotion : MonoBehaviour
         raycastOrigin.y += raycastHeightOffset; //offset the height of the raycast so player does not fall through the world
         if (!isGrounded)
         {
-            if (!playerManager.isInteracting && !isJumping) //TODO: Add more checks when climbing stairs so animation isn't triggered - raycast distance, if smaller than jump height don't fall?
+            if (!playerManager.isInteracting && !IsJumping) //TODO: Add more checks when climbing stairs so animation isn't triggered - raycast distance, if smaller than jump height don't fall?
             {
                 animatorManager.PlayTargetAnimation("Falling", true);
             }
@@ -171,7 +171,7 @@ public class PlayerLocomotion : MonoBehaviour
             //BUG: Not actually handling the fall from jump, so gravity not being applied to jump
             inAirTimer += Time.deltaTime;
             playerRigidbody.drag = 0;
-            if (!isJumping) playerRigidbody.AddForce(transform.forward * leapingVelocity);
+            if (!IsJumping) playerRigidbody.AddForce(transform.forward * leapingVelocity);
             playerRigidbody.AddForce(fallingVelocity * inAirTimer * -Vector3.up);
         }
 

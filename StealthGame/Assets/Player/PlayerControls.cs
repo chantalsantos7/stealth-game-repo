@@ -156,15 +156,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""CancelTeleport"",
-                    ""type"": ""Button"",
-                    ""id"": ""68d1848b-a07c-4eb7-8067-d19940c559a9"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Teleport"",
                     ""type"": ""Button"",
                     ""id"": ""239d614f-c2b8-4ee6-8cf0-84f189164199"",
@@ -180,6 +171,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""MultiTap"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""7ee9a5a4-0f57-4d9f-9995-c39ebe22b1b1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 }
             ],
@@ -230,17 +230,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1462ff7e-9b1e-4e79-9681-8917f4fb644d"",
-                    ""path"": ""<Keyboard>/g"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""CancelTeleport"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""45ee1398-5a03-4572-b8f3-6ad27fa0040f"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -260,6 +249,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Teleport"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6b335895-5a1a-44e6-a61d-50ef6c56a80f"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -276,9 +276,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerActions_Crouch = m_PlayerActions.FindAction("Crouch", throwIfNotFound: true);
         m_PlayerActions_Jump = m_PlayerActions.FindAction("Jump", throwIfNotFound: true);
         m_PlayerActions_AimTeleport = m_PlayerActions.FindAction("AimTeleport", throwIfNotFound: true);
-        m_PlayerActions_CancelTeleport = m_PlayerActions.FindAction("CancelTeleport", throwIfNotFound: true);
         m_PlayerActions_Teleport = m_PlayerActions.FindAction("Teleport", throwIfNotFound: true);
         m_PlayerActions_Dodge = m_PlayerActions.FindAction("Dodge", throwIfNotFound: true);
+        m_PlayerActions_Attack = m_PlayerActions.FindAction("Attack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -383,9 +383,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Crouch;
     private readonly InputAction m_PlayerActions_Jump;
     private readonly InputAction m_PlayerActions_AimTeleport;
-    private readonly InputAction m_PlayerActions_CancelTeleport;
     private readonly InputAction m_PlayerActions_Teleport;
     private readonly InputAction m_PlayerActions_Dodge;
+    private readonly InputAction m_PlayerActions_Attack;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
@@ -394,9 +394,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Crouch => m_Wrapper.m_PlayerActions_Crouch;
         public InputAction @Jump => m_Wrapper.m_PlayerActions_Jump;
         public InputAction @AimTeleport => m_Wrapper.m_PlayerActions_AimTeleport;
-        public InputAction @CancelTeleport => m_Wrapper.m_PlayerActions_CancelTeleport;
         public InputAction @Teleport => m_Wrapper.m_PlayerActions_Teleport;
         public InputAction @Dodge => m_Wrapper.m_PlayerActions_Dodge;
+        public InputAction @Attack => m_Wrapper.m_PlayerActions_Attack;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -418,15 +418,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @AimTeleport.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnAimTeleport;
                 @AimTeleport.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnAimTeleport;
                 @AimTeleport.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnAimTeleport;
-                @CancelTeleport.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnCancelTeleport;
-                @CancelTeleport.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnCancelTeleport;
-                @CancelTeleport.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnCancelTeleport;
                 @Teleport.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnTeleport;
                 @Teleport.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnTeleport;
                 @Teleport.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnTeleport;
                 @Dodge.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnDodge;
                 @Dodge.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnDodge;
                 @Dodge.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnDodge;
+                @Attack.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnAttack;
+                @Attack.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnAttack;
             }
             m_Wrapper.m_PlayerActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -443,15 +443,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @AimTeleport.started += instance.OnAimTeleport;
                 @AimTeleport.performed += instance.OnAimTeleport;
                 @AimTeleport.canceled += instance.OnAimTeleport;
-                @CancelTeleport.started += instance.OnCancelTeleport;
-                @CancelTeleport.performed += instance.OnCancelTeleport;
-                @CancelTeleport.canceled += instance.OnCancelTeleport;
                 @Teleport.started += instance.OnTeleport;
                 @Teleport.performed += instance.OnTeleport;
                 @Teleport.canceled += instance.OnTeleport;
                 @Dodge.started += instance.OnDodge;
                 @Dodge.performed += instance.OnDodge;
                 @Dodge.canceled += instance.OnDodge;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
             }
         }
     }
@@ -467,8 +467,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnCrouch(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnAimTeleport(InputAction.CallbackContext context);
-        void OnCancelTeleport(InputAction.CallbackContext context);
         void OnTeleport(InputAction.CallbackContext context);
         void OnDodge(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
     }
 }

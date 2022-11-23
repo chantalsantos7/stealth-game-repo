@@ -7,4 +7,8 @@ public class WeaponItem : Item
 {
     public GameObject modelPrefab;
     public bool isUnarmed;
+
+    [Header("Attack Animations")]
+    public List<string> attackAnimations;
+    //public string[] heavyAttackAnims;
 }

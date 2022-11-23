@@ -15,3 +15,6 @@ MonoBehaviour:
   itemName: Dagger
   modelPrefab: {fileID: 4102057493747925261, guid: d5770e143efb7934693ad6bd75bd7018, type: 3}
   isUnarmed: 0
+  attackAnimations:
+  - Attack01L
+  - Attack01R

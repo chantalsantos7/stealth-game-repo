@@ -13,6 +13,10 @@
 [Cc]astle/
 [Tt]ooManyCrosshairs/
 [Ss]teelDagger/
+[Dd]ark_Brown_GUI_kit/
+[Gg]UI_Parts/
+[Ii]nfinityPBR/
+_TerrainAutoUpgrade/
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta

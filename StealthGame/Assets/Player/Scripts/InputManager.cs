@@ -8,6 +8,8 @@ public class InputManager : MonoBehaviour
     PlayerControls playerControls;
     PlayerLocomotion playerLocomotion;
     PlayerAbilities playerAbilities;
+    PlayerCombat playerCombat;
+    PlayerInventory playerInventory;
     AnimatorManager animatorManager;
    
     public Vector2 movementInput;
@@ -17,11 +19,10 @@ public class InputManager : MonoBehaviour
     public float verticalInput;
     public float horizontalInput;
 
-    public bool sprintModifierPressed;
-    public bool crouchModifierPressed;
-    public bool jumpKeyPressed;
-    public bool teleportModifierPressed;
-    public bool cancelTeleportKeyPressed;
+    private bool sprintModifierPressed;
+    private bool crouchModifierPressed;
+    private bool jumpKeyPressed;
+    private bool teleportModifierPressed;
 
     public float cameraVerticalInput;
     public float cameraHorizontalInput;
@@ -31,6 +32,8 @@ public class InputManager : MonoBehaviour
         animatorManager = GetComponent<AnimatorManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
         playerAbilities = GetComponent<PlayerAbilities>();
+        playerInventory = GetComponent<PlayerInventory>();
+        playerCombat = GetComponent<PlayerCombat>();
         //crouchModifierPressed = false;
     }
 
@@ -63,9 +66,6 @@ public class InputManager : MonoBehaviour
                 }
             };
 
-            /*playerControls.PlayerActions.Teleport.performed += i => teleportModifierPressed = true;
-            playerControls.PlayerActions.Teleport.canceled += i => teleportModifierPressed = false;*/
-            playerControls.PlayerActions.CancelTeleport.performed += i => cancelTeleportKeyPressed = true;
             playerControls.PlayerActions.Dodge.performed += context =>
             {
                 if (context.interaction is MultiTapInteraction)
@@ -73,9 +73,11 @@ public class InputManager : MonoBehaviour
                     playerLocomotion.HandleDodging();
                 }
             };
-            //playerControls.PlayerActions.Crouch.triggered += i => crouchModifierPressed = true ? crouchModifierPressed = false : crouchModifierPressed = true;
-            //even if main teleport button is being pressed, the cancel button should disable the teleport entirely
-            //if cancel button not pressed, teleport happens when button is released
+
+            playerControls.PlayerActions.Attack.performed += i =>
+            {
+                playerCombat.Attack(playerInventory.leftWeapon);
+            };
         }
 
         playerControls.Enable();
@@ -118,12 +120,6 @@ public class InputManager : MonoBehaviour
         {
             playerLocomotion.IsSprinting = false;
         }
-    }
-
-    private void HandleTeleportInput()
-    {
-        //reverse the aimingMode bool like the crouched bool
-        //set the 
     }
 
     private void HandleCrouchInput()

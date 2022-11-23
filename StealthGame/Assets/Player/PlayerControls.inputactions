@@ -134,15 +134,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "CancelTeleport",
-                    "type": "Button",
-                    "id": "68d1848b-a07c-4eb7-8067-d19940c559a9",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Teleport",
                     "type": "Button",
                     "id": "239d614f-c2b8-4ee6-8cf0-84f189164199",
@@ -158,6 +149,15 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "MultiTap",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "7ee9a5a4-0f57-4d9f-9995-c39ebe22b1b1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -208,17 +208,6 @@
                 },
                 {
                     "name": "",
-                    "id": "1462ff7e-9b1e-4e79-9681-8917f4fb644d",
-                    "path": "<Keyboard>/g",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CancelTeleport",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "45ee1398-5a03-4572-b8f3-6ad27fa0040f",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -236,6 +225,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Teleport",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6b335895-5a1a-44e6-a61d-50ef6c56a80f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

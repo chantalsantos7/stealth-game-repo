@@ -12,6 +12,7 @@
 [Bb]link/
 [Cc]astle/
 [Tt]ooManyCrosshairs/
+[Ss]teelDagger/
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta

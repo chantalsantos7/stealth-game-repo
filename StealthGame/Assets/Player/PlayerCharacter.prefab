@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 1166822577810127373}
   - component: {fileID: 1166822577810127372}
   - component: {fileID: 7588985004677506354}
+  - component: {fileID: 593345371723105703}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -208,6 +209,22 @@ MonoBehaviour:
   cameraManager: {fileID: 0}
   lineRenderer: {fileID: 0}
   teleportView: {fileID: 0}
+  movementSpeed: 5
+  rotationSpeed: 10
+--- !u!114 &593345371723105703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166822577810127368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ef2f0611abff2540bea0a79f6e4a804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightWeapon: {fileID: 11400000, guid: 6290fa687d28fd845b79086598a1667a, type: 2}
+  leftWeapon: {fileID: 11400000, guid: 6290fa687d28fd845b79086598a1667a, type: 2}
 --- !u!1 &3563893718616286741
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,3 +375,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6082040345634368865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085178868247761156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8561baf82c0c55d4b918bfd8f81b87bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -174,9 +174,27 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack"",
+                    ""name"": ""LeftAttack"",
                     ""type"": ""Button"",
                     ""id"": ""7ee9a5a4-0f57-4d9f-9995-c39ebe22b1b1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""891f3730-15e3-40de-b230-7f9a476fad55"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""StealthAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""969c579d-4efa-4583-8400-d3a4e53a5a1b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -257,7 +275,29 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack"",
+                    ""action"": ""LeftAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""23b5d35d-7a78-4daa-8ddf-e01218622e62"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4b32d8a7-38ee-4118-82fb-f215f7123b62"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StealthAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -278,7 +318,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerActions_AimTeleport = m_PlayerActions.FindAction("AimTeleport", throwIfNotFound: true);
         m_PlayerActions_Teleport = m_PlayerActions.FindAction("Teleport", throwIfNotFound: true);
         m_PlayerActions_Dodge = m_PlayerActions.FindAction("Dodge", throwIfNotFound: true);
-        m_PlayerActions_Attack = m_PlayerActions.FindAction("Attack", throwIfNotFound: true);
+        m_PlayerActions_LeftAttack = m_PlayerActions.FindAction("LeftAttack", throwIfNotFound: true);
+        m_PlayerActions_RightAttack = m_PlayerActions.FindAction("RightAttack", throwIfNotFound: true);
+        m_PlayerActions_StealthAttack = m_PlayerActions.FindAction("StealthAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -385,7 +427,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_AimTeleport;
     private readonly InputAction m_PlayerActions_Teleport;
     private readonly InputAction m_PlayerActions_Dodge;
-    private readonly InputAction m_PlayerActions_Attack;
+    private readonly InputAction m_PlayerActions_LeftAttack;
+    private readonly InputAction m_PlayerActions_RightAttack;
+    private readonly InputAction m_PlayerActions_StealthAttack;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
@@ -396,7 +440,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @AimTeleport => m_Wrapper.m_PlayerActions_AimTeleport;
         public InputAction @Teleport => m_Wrapper.m_PlayerActions_Teleport;
         public InputAction @Dodge => m_Wrapper.m_PlayerActions_Dodge;
-        public InputAction @Attack => m_Wrapper.m_PlayerActions_Attack;
+        public InputAction @LeftAttack => m_Wrapper.m_PlayerActions_LeftAttack;
+        public InputAction @RightAttack => m_Wrapper.m_PlayerActions_RightAttack;
+        public InputAction @StealthAttack => m_Wrapper.m_PlayerActions_StealthAttack;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -424,9 +470,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Dodge.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnDodge;
                 @Dodge.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnDodge;
                 @Dodge.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnDodge;
-                @Attack.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnAttack;
-                @Attack.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnAttack;
-                @Attack.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnAttack;
+                @LeftAttack.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLeftAttack;
+                @LeftAttack.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLeftAttack;
+                @LeftAttack.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLeftAttack;
+                @RightAttack.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRightAttack;
+                @RightAttack.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRightAttack;
+                @RightAttack.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRightAttack;
+                @StealthAttack.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnStealthAttack;
+                @StealthAttack.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnStealthAttack;
+                @StealthAttack.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnStealthAttack;
             }
             m_Wrapper.m_PlayerActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -449,9 +501,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Dodge.started += instance.OnDodge;
                 @Dodge.performed += instance.OnDodge;
                 @Dodge.canceled += instance.OnDodge;
-                @Attack.started += instance.OnAttack;
-                @Attack.performed += instance.OnAttack;
-                @Attack.canceled += instance.OnAttack;
+                @LeftAttack.started += instance.OnLeftAttack;
+                @LeftAttack.performed += instance.OnLeftAttack;
+                @LeftAttack.canceled += instance.OnLeftAttack;
+                @RightAttack.started += instance.OnRightAttack;
+                @RightAttack.performed += instance.OnRightAttack;
+                @RightAttack.canceled += instance.OnRightAttack;
+                @StealthAttack.started += instance.OnStealthAttack;
+                @StealthAttack.performed += instance.OnStealthAttack;
+                @StealthAttack.canceled += instance.OnStealthAttack;
             }
         }
     }
@@ -469,6 +527,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnAimTeleport(InputAction.CallbackContext context);
         void OnTeleport(InputAction.CallbackContext context);
         void OnDodge(InputAction.CallbackContext context);
-        void OnAttack(InputAction.CallbackContext context);
+        void OnLeftAttack(InputAction.CallbackContext context);
+        void OnRightAttack(InputAction.CallbackContext context);
+        void OnStealthAttack(InputAction.CallbackContext context);
     }
 }

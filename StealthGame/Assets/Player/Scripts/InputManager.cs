@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
     PlayerAbilities playerAbilities;
     PlayerCombat playerCombat;
     PlayerInventory playerInventory;
+    PlayerAbilitiesStateManager abilitiesManager;
     AnimatorManager animatorManager;
    
     public Vector2 movementInput;
@@ -23,6 +24,7 @@ public class InputManager : MonoBehaviour
     private bool crouchModifierPressed;
     private bool jumpKeyPressed;
     private bool teleportModifierPressed;
+    public bool teleportKeyPressed;
 
     public float cameraVerticalInput;
     public float cameraHorizontalInput;
@@ -34,6 +36,7 @@ public class InputManager : MonoBehaviour
         playerAbilities = GetComponent<PlayerAbilities>();
         playerInventory = GetComponent<PlayerInventory>();
         playerCombat = GetComponent<PlayerCombat>();
+        abilitiesManager = GetComponent<PlayerAbilitiesStateManager>();
         //crouchModifierPressed = false;
     }
 
@@ -56,13 +59,15 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.AimTeleport.performed += i =>
             {
                 teleportModifierPressed = !teleportModifierPressed;
-                playerAbilities.AimTeleport();
+                abilitiesManager.SwitchState(abilitiesManager.teleportingState);
+                //playerAbilities.AimTeleport();
+
             };
             playerControls.PlayerActions.Teleport.performed += i =>
             {
-                if (playerAbilities.teleportAiming)
+                if (abilitiesManager.currentState == abilitiesManager.teleportingState)
                 {
-                    playerAbilities.Teleport();
+                    teleportKeyPressed = true;
                 }
             };
 
@@ -74,9 +79,20 @@ public class InputManager : MonoBehaviour
                 }
             };
 
-            playerControls.PlayerActions.Attack.performed += i =>
+            playerControls.PlayerActions.LeftAttack.performed += i =>
             {
-                playerCombat.Attack(playerInventory.leftWeapon);
+                playerCombat.Attack(playerInventory.leftWeapon, true);
+                //random choose betwen left or right weapon
+            };
+
+            playerControls.PlayerActions.RightAttack.performed += i =>
+            {
+                playerCombat.Attack(playerInventory.rightWeapon, false);
+            };
+
+            playerControls.PlayerActions.StealthAttack.performed += i =>
+            {
+                playerCombat.StealthAttack(playerInventory.rightWeapon);
             };
         }
 

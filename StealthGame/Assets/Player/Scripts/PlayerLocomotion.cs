@@ -100,7 +100,6 @@ public class PlayerLocomotion : MonoBehaviour
             movementVelocity *= walkingSpeed;
         }
 
-        //playerRigidbody.AddForce(movementVelocity * 10f, ForceMode.Force);
         playerRigidbody.velocity = movementVelocity;
 
         if (movementVelocity == Vector3.zero)
@@ -131,28 +130,6 @@ public class PlayerLocomotion : MonoBehaviour
             playerCollider.center = new Vector3(0, 0.92f, 0);
         }
     }
-
-    /*private void HandleRotation()
-    {
-        if (isJumping || !canMove) return;
-
-        Vector3 targetDirection;
-        targetDirection = new Vector3(cameraObject.forward.x, 0f, cameraObject.forward.z) * inputManager.verticalInput;
-        targetDirection = targetDirection + cameraObject.right * inputManager.horizontalInput;
-        targetDirection.Normalize();
-        targetDirection.y = 0f;
-          
-        if (targetDirection == Vector3.zero)
-        {
-            targetDirection = transform.forward;
-        }
-
-        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-        Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-
-        transform.rotation = playerRotation;
-
-    }*/
 
     private void HandleFallingAndLanding()
     {

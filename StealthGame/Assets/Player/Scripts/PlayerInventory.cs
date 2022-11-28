@@ -19,4 +19,9 @@ public class PlayerInventory : MonoBehaviour
         weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
         weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
     }
+
+    public void SheatheWeapon()
+    {
+        
+    }
 }

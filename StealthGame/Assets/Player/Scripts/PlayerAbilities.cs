@@ -12,24 +12,15 @@ public class PlayerAbilities : MonoBehaviour
 
     [Header("Cooldown Times")]
     public float teleportCooldown;
+    public float staminaCooldown;
 
     [Header("Object References")]
     public Transform cameraObject;
     public CameraManager cameraManager;
-    public LineRenderer lineRenderer;
-    public GameObject teleportView;
-    Rigidbody teleportRigidbody;
-    //public GameObject TeleportViewCam;
 
     PlayerLocomotion playerLocomotion;
     InputManager inputManager;
 
-    [Header("Teleport View Movement")]
-    public float movementSpeed = 5f;
-    public float rotationSpeed = 10f;
-    public float teleportRadiusLimit;
-    public bool teleportAiming { get; set; }
-    bool canceledTeleport;
     bool sprinting;
 
     public Vector3 TeleportPos { get; set; }
@@ -40,18 +31,14 @@ public class PlayerAbilities : MonoBehaviour
         cameraObject = Camera.main.transform;
         playerLocomotion = GetComponent<PlayerLocomotion>();
         inputManager = GetComponent<InputManager>();
-        teleportRigidbody = teleportView.GetComponent<Rigidbody>();
         currentStamina = maxStamina;
         health = maxHealth;
-        teleportAiming = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Sprint();
-        TeleportViewMove();
-   
+        Sprint();  
     }
 
     private void Sprint()
@@ -90,62 +77,5 @@ public class PlayerAbilities : MonoBehaviour
             currentStamina += amount;
             yield return new WaitForSeconds(1f);
         }
-    }
-
-    public void AimTeleport()
-    {
-        teleportAiming = !teleportAiming;
-
-        if (teleportAiming)
-        {
-            Debug.Log("Teleport mode entered");
-            Debug.Log(teleportAiming);
-            cameraManager.cameraMode = CameraMode.AimTeleport;
-            teleportView.transform.position = transform.position + Vector3.right;
-            playerLocomotion.canMove = false;
-            teleportView.SetActive(true);
-        } else
-        {
-            cameraManager.cameraMode = CameraMode.Basic;
-            playerLocomotion.canMove = true;
-        }
-        //get the worldPosition of where the user clicks, pass it on to the Teleport function
-    }
-
-    private void TeleportViewMove()
-    {
-        //limit an area
-        //attach invisible colliders to the player (on a layer only the teleport view can collide with?) 
-
-        if (!teleportAiming) return;
-        Vector3 movementVelocity = new Vector3(cameraObject.forward.x, 0f, cameraObject.forward.z) * inputManager.verticalInput;
-        movementVelocity += cameraObject.right * inputManager.horizontalInput;
-        movementVelocity.Normalize();
-        movementVelocity.y = 0f;
-
-        teleportRigidbody.velocity = movementVelocity * movementSpeed;
-
-        if (movementVelocity == Vector3.zero)
-        {
-            movementVelocity = teleportRigidbody.transform.forward;
-        }
-
-        Quaternion targetRotation = Quaternion.LookRotation(movementVelocity);
-        Quaternion playerRotation = Quaternion.Slerp(teleportRigidbody.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        teleportRigidbody.transform.rotation = playerRotation;
-    }
-
-    public void Teleport()                          
-    {
-        //var worldPos = cameraObject.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        //check if the position is within range of the original position
-        TeleportPos = teleportView.transform.position;
-        teleportView.SetActive(false);
-        playerLocomotion.playerRigidbody.position = TeleportPos;
-        cameraManager.cameraMode = CameraMode.Basic;
-        teleportAiming = false;
-        playerLocomotion.canMove = true;
-    }
-
-   
+    }   
 }

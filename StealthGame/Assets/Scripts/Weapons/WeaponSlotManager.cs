@@ -34,4 +34,10 @@ public class WeaponSlotManager : MonoBehaviour
             rightHandSlot.LoadWeaponModel(weaponItem);
         }
     }
+
+    public void UnloadWeaponOnSlot()
+    {
+        leftHandSlot.UnloadWeapon();
+        rightHandSlot.UnloadWeapon();
+    }
 }

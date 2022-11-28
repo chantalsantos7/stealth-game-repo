@@ -17,6 +17,8 @@
 [Gg]UI_Parts/
 [Ii]nfinityPBR/
 _TerrainAutoUpgrade/
+[Ee]ffectExamples/
+
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta

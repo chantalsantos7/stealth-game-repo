@@ -9,6 +9,7 @@ public class WeaponItem : Item
     public bool isUnarmed;
 
     [Header("Attack Animations")]
-    public List<string> attackAnimations;
+    public List<string> leftAttackAnimations;
+    public List<string> rightAttackAnimations;
     //public string[] heavyAttackAnims;
 }

@@ -6,39 +6,53 @@ public class PlayerAbilitiesBaseState : PlayerAbilitiesState
 {
     float cooldown;
 
-    public override void EnterState(PlayerAbilitiesStateManager context)
+    //public override PlayerAbilitiesStateManager context { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
+    public override void EnterState(PlayerAbilitiesStateManager stateManager)
     {
+        context = stateManager;
         context.playerLocomotion.IsSprinting = false;
     }
 
-    public override void ExitState(PlayerAbilitiesStateManager context)
+    public override void ExitState()
     {
         
     }
 
-    public override void OnCollisionEnter(PlayerAbilitiesStateManager context, Collision collision)
+    public override void OnCollisionEnter(Collision collision)
     {
         
     }
 
-    public override void UpdateState(PlayerAbilitiesStateManager context)
+    public override void UpdateState()
     {
         /*cooldown += Time.deltaTime;
-        if (context.player.CurrentStamina < context.player.maxStamina && cooldown >= context.player.staminaRegenCooldown)
+        if (stateManager.player.CurrentStamina < stateManager.player.maxStamina && cooldown >= stateManager.player.staminaRegenCooldown)
         {
-            RechargeStamina(context, 0.5f);
+            RechargeStamina(stateManager, 0.5f);
         }*/
 
 
 
-        /*if (context.playerLocomotion.IsSprinting)
+        /*if (stateManager.playerLocomotion.IsSprinting)
         {
-            context.SwitchState(context.sprintingState);
+            stateManager.SwitchState(stateManager.sprintingState);
         }*/
     }
 
-    private void RechargeStamina(PlayerAbilitiesStateManager context, float amount)
+    private void RechargeStamina(float amount)
     {
         context.player.AddStamina(amount);
+    }
+
+    private IEnumerator RechargeStamina()
+    {
+        //invoke this per second when stamina is 0
+        yield return new WaitForSeconds(3f);
+        while (context.currentStamina < context.maxStamina)
+        {
+            context.currentStamina += context.maxStamina / 100;
+            yield return context.regenTick;
+        }
     }
 }

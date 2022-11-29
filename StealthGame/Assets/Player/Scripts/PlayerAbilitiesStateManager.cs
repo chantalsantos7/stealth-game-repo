@@ -18,6 +18,22 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
     public CameraManager cameraManager;
     public Rigidbody teleportRigidbody;
     public ParticleSystem teleportParticles;
+    
+    [Header("Player Stats")]
+    public int maxStamina = 75;
+    public float maxHealth = 100f;
+
+    public float health;
+    public int currentStamina;
+
+    [Header("Cooldown Times")]
+    public float teleportCooldown;
+    public float staminaCooldown;
+
+    
+
+    bool sprinting;
+    public WaitForSeconds regenTick = new WaitForSeconds(0.5f);
 
     private void Awake()
     {
@@ -39,7 +55,7 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentState.UpdateState(this);
+        currentState.UpdateState();
     }
 
     public void SwitchState(PlayerAbilitiesState state)

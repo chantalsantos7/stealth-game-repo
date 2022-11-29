@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Unarmed
   m_EditorClassIdentifier: 
   itemName: Unarmed
-  modelPrefab: {fileID: 0}
+  modelPrefab: {fileID: 4867372904052830073, guid: 29e81aac3122cb44791c8a51e7ab304a, type: 3}
   isUnarmed: 1
-  attackAnimations: []
+  leftAttackAnimations: []
+  rightAttackAnimations: []

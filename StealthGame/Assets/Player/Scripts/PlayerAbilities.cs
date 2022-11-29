@@ -4,33 +4,28 @@ using UnityEngine;
 public class PlayerAbilities : MonoBehaviour
 {
     [Header("Player Stats")]
-    public float maxStamina = 500f;
+    public int maxStamina = 75;
     public float maxHealth = 100f;
 
     public float health;
-    public float currentStamina;
+    public int currentStamina;
 
     [Header("Cooldown Times")]
     public float teleportCooldown;
     public float staminaCooldown;
 
-    [Header("Object References")]
-    public Transform cameraObject;
-    public CameraManager cameraManager;
-
     PlayerLocomotion playerLocomotion;
-    InputManager inputManager;
 
     bool sprinting;
+    private WaitForSeconds regenTick = new WaitForSeconds(0.5f);
 
     public Vector3 TeleportPos { get; set; }
 
     // Start is called before the first frame update
     private void Awake()
     {
-        cameraObject = Camera.main.transform;
+        
         playerLocomotion = GetComponent<PlayerLocomotion>();
-        inputManager = GetComponent<InputManager>();
         currentStamina = maxStamina;
         health = maxHealth;
     }
@@ -45,8 +40,8 @@ public class PlayerAbilities : MonoBehaviour
     {
         if (playerLocomotion.IsSprinting)
         {
-            StopCoroutine(RechargeStamina(1f));
-            StartCoroutine(UseStamina(1f));
+            StopCoroutine(RechargeStamina());
+            StartCoroutine(UseStamina(1));
             if (currentStamina <= 0)
             {
                 playerLocomotion.IsSprinting = false;
@@ -54,28 +49,29 @@ public class PlayerAbilities : MonoBehaviour
         }
         else if (!playerLocomotion.IsSprinting)
         {
-            StopCoroutine(UseStamina(1f));
+            StopCoroutine(UseStamina(1));
             if (currentStamina < maxStamina)
             {
-                StartCoroutine(RechargeStamina(0.5f));
+                StartCoroutine(RechargeStamina());
             }
         }
     }
 
-    private IEnumerator UseStamina(float amount)
+    private IEnumerator UseStamina(int amount)
     {
         //decrease the amount from current Stamina
         currentStamina -= amount;
         yield return new WaitForSeconds(1f);
     }
 
-    private IEnumerator RechargeStamina(float amount)
+    private IEnumerator RechargeStamina()
     {
         //invoke this per second when stamina is 0
+        yield return new WaitForSeconds(3f);
         while (currentStamina < maxStamina)
         {
-            currentStamina += amount;
-            yield return new WaitForSeconds(1f);
+            currentStamina += maxStamina / 100;
+            yield return regenTick;
         }
     }   
 }

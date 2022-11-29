@@ -8,9 +8,10 @@ public class PlayerTeleportingState : PlayerAbilitiesState
     public float movementSpeed = 5f;
     public float rotationSpeed = 10f;
 
-    public override void EnterState(PlayerAbilitiesStateManager context)
+    public override void EnterState(PlayerAbilitiesStateManager stateManager)
     {
         Debug.Log("Teleport mode entered");
+        context = stateManager;
         context.cameraManager.cameraMode = CameraMode.AimTeleport;
         context.teleportView.transform.position = context.transform.position + Vector3.right;
         context.playerLocomotion.canMove = false;
@@ -19,21 +20,22 @@ public class PlayerTeleportingState : PlayerAbilitiesState
         //movementSpeed = 
     }
 
-    public override void ExitState(PlayerAbilitiesStateManager context)
+    public override void ExitState()
     {
         context.cameraManager.cameraMode = CameraMode.Basic;
         context.teleportView.SetActive(false);
         context.playerLocomotion.canMove = true;
-        //context.teleportParticles.gameObject.SetActive(false);
+        context.teleportParticles.Stop();
+        //stateManager.teleportParticles.gameObject.SetActive(false);
         context.SwitchState(context.baseState);
     }
 
-    public override void OnCollisionEnter(PlayerAbilitiesStateManager context, Collision collision)
+    public override void OnCollisionEnter(Collision collision)
     {
         
     }
 
-    public override void UpdateState(PlayerAbilitiesStateManager context)
+    public override void UpdateState()
     {
         if (Vector3.Distance(context.teleportRigidbody.position, context.playerLocomotion.playerRigidbody.position) > teleportRadiusLimit)
         {
@@ -60,19 +62,19 @@ public class PlayerTeleportingState : PlayerAbilitiesState
 
         if (context.inputManager.teleportKeyPressed)
         {
-            Teleport(context);
+            Teleport();
             context.inputManager.teleportKeyPressed = false;
         }
 
     }
 
-    public void Teleport(PlayerAbilitiesStateManager context)
+    private void Teleport()
     {
-        context.teleportParticles.gameObject.SetActive(true);
+        //stateManager.teleportParticles.gameObject.SetActive(true);
         context.teleportParticles.Emit(1);
         Vector3 TeleportPos = context.teleportView.transform.position;
-        //context.teleportView.SetActive(false);
+        //stateManager.teleportView.SetActive(false);
         context.playerLocomotion.playerRigidbody.position = TeleportPos;
-        ExitState(context);
+        ExitState();
     }
 }

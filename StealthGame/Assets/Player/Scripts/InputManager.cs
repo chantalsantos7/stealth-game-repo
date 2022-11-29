@@ -94,6 +94,15 @@ public class InputManager : MonoBehaviour
             {
                 playerCombat.StealthAttack(playerInventory.rightWeapon);
             };
+
+            playerControls.PlayerActions.SheatheUnsheathe.performed += i =>
+            {
+                playerCombat.isUnarmed = !playerCombat.isUnarmed;
+                if (playerCombat.isUnarmed) playerInventory.SwitchWeapon(playerInventory.unarmedItem);
+                else playerInventory.SwitchWeapon();
+         
+                
+            };
         }
 
         playerControls.Enable();

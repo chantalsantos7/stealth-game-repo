@@ -3,11 +3,13 @@ using UnityEngine;
 
 public abstract class PlayerAbilitiesState
 {
-    public abstract void EnterState(PlayerAbilitiesStateManager context);
+    public PlayerAbilitiesStateManager context { get; set;  }
 
-    public abstract void ExitState(PlayerAbilitiesStateManager context);
+    public abstract void EnterState(PlayerAbilitiesStateManager stateManager);
 
-    public abstract void UpdateState(PlayerAbilitiesStateManager context);
+    public abstract void ExitState();
 
-    public abstract void OnCollisionEnter(PlayerAbilitiesStateManager context, Collision collision);
+    public abstract void UpdateState();
+
+    public abstract void OnCollisionEnter(Collision collision);
 }

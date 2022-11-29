@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerSprintingState : PlayerAbilitiesState
 {
 
-    //get player locomotion from context
+    //get player locomotion from stateManager
     //PlayerAbilitiesStateManager stateManager;
     public override void EnterState(PlayerAbilitiesStateManager context)
     {
@@ -13,24 +13,24 @@ public class PlayerSprintingState : PlayerAbilitiesState
 
     }
 
-    public override void ExitState(PlayerAbilitiesStateManager context)
+    public override void ExitState()
     {
         throw new System.NotImplementedException();
     }
 
-    public override void OnCollisionEnter(PlayerAbilitiesStateManager context, Collision collision)
+    public override void OnCollisionEnter(Collision collision)
     {
         throw new System.NotImplementedException();
     }
 
-    public override void UpdateState(PlayerAbilitiesStateManager context)
+    public override void UpdateState()
     {
         if (!context.playerLocomotion.IsSprinting)
         {
             context.SwitchState(context.baseState);
         }
 
-        UseStamina(context, 1f);
+        //UseStamina(context, 1f);
 
         if (context.player.CurrentStamina <= 0)
         {
@@ -39,10 +39,10 @@ public class PlayerSprintingState : PlayerAbilitiesState
 
     }
 
-    private void UseStamina(PlayerAbilitiesStateManager context, float amount)
+/*    private void UseStamina(PlayerAbilitiesStateManager context, float amount)
     {
         context.player.UseStamina(amount);
-    }
+    }*/
 
     private IEnumerator UseStamina(float amount)
     {

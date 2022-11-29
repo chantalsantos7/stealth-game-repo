@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     public AnimatorManager animatorManager;
+    public bool isUnarmed = false;
 
     private void Awake()
     {
@@ -24,7 +25,6 @@ public class PlayerCombat : MonoBehaviour
             weaponIndex = (int)Random.Range(0f, weapon.rightAttackAnimations.Count);
             animatorManager.PlayTargetAnimation(weapon.rightAttackAnimations[weaponIndex], true);
         }
-
     }
 
     public void StealthAttack(WeaponItem weapon)
@@ -35,6 +35,7 @@ public class PlayerCombat : MonoBehaviour
         {
             //play non-lethal animation
         }
+        animatorManager.PlayTargetAnimation("SneakAttack", true);
         //animatorManager.PlayTargetAnimation("StealthAttack", false);
     }
 }

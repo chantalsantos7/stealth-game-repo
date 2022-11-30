@@ -10,20 +10,20 @@ public class PlayerSprintingState : PlayerAbilitiesState
     public override void EnterState(PlayerAbilitiesStateManager context)
     {
         //throw new System.NotImplementedException();
-
+        //this.context = context;
     }
 
-    public override void ExitState()
+    public override void ExitState(PlayerAbilitiesStateManager context)
     {
         throw new System.NotImplementedException();
     }
 
-    public override void OnCollisionEnter(Collision collision)
+    public override void OnCollisionEnter(PlayerAbilitiesStateManager context, Collision collision)
     {
         throw new System.NotImplementedException();
     }
 
-    public override void UpdateState()
+    public override void UpdateState(PlayerAbilitiesStateManager context)
     {
         if (!context.playerLocomotion.IsSprinting)
         {

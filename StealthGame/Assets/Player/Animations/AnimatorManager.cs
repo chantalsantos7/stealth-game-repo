@@ -46,6 +46,11 @@ public class AnimatorManager : MonoBehaviour
         animator.SetFloat (vertical, snappedVertical, 0.1f, Time.deltaTime);
     }
 
+    public void SetBool(string boolVariable, bool value)
+    {
+        animator.SetBool(boolVariable, value);
+    }
+
     private float SnapMovementValue(float movementValue, float threshold)
     {
         float snappedValue;

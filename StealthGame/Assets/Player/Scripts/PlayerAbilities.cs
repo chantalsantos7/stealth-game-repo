@@ -11,7 +11,7 @@ public class PlayerAbilities : MonoBehaviour
     public int currentStamina;
 
     [Header("Cooldown Times")]
-    public float teleportCooldown;
+    //public float teleportCooldown;
     public float staminaCooldown;
 
     PlayerLocomotion playerLocomotion;

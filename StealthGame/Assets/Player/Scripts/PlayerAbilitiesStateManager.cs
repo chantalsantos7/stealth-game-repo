@@ -26,11 +26,12 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
     public float health;
     public int currentStamina;
 
-    [Header("Cooldown Times")]
-    public float teleportCooldown;
+    [Header("Ability Cooldowns")]
+    public float teleportCooldown = 10;
     public float staminaCooldown;
+    public bool teleportAllowed;
+    [HideInInspector] public float teleportTimeElapsed; //set to 11 at initialisation so player can teleport immediately upon entering game
 
-    
 
     bool sprinting;
     public WaitForSeconds regenTick = new WaitForSeconds(0.5f);
@@ -40,7 +41,8 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
         player = GetComponent<PlayerManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
         inputManager = GetComponent<InputManager>();
-        
+        teleportAllowed = true;
+        teleportTimeElapsed = 11; //set to 11 at initialisation so player can teleport immediately upon entering game
         teleportRigidbody = teleportView.GetComponent<Rigidbody>();
     }
 
@@ -55,7 +57,10 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentState.UpdateState();
+        currentState.UpdateState(this);
+        //if current state was 
+        
+        
     }
 
     public void SwitchState(PlayerAbilitiesState state)

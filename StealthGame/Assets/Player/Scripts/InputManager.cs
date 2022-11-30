@@ -58,10 +58,15 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Jump.performed += i => jumpKeyPressed = true;
             playerControls.PlayerActions.AimTeleport.performed += i =>
             {
-                teleportModifierPressed = !teleportModifierPressed;
-                abilitiesManager.SwitchState(abilitiesManager.teleportingState);
-                //playerAbilities.AimTeleport();
-
+                if (abilitiesManager.teleportAllowed)
+                {
+                    teleportModifierPressed = !teleportModifierPressed;
+                    abilitiesManager.SwitchState(abilitiesManager.teleportingState);
+                } 
+                else
+                {
+                    Debug.Log("Teleport not allowed yet");
+                }
             };
             playerControls.PlayerActions.Teleport.performed += i =>
             {

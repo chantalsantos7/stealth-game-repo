@@ -7,11 +7,11 @@ public class PlayerTeleportingState : PlayerAbilitiesState
     float teleportRadiusLimit;
     public float movementSpeed = 5f;
     public float rotationSpeed = 10f;
+    float teleportCooldown = 10f;
 
-    public override void EnterState(PlayerAbilitiesStateManager stateManager)
+    public override void EnterState(PlayerAbilitiesStateManager context)
     {
         Debug.Log("Teleport mode entered");
-        context = stateManager;
         context.cameraManager.cameraMode = CameraMode.AimTeleport;
         context.teleportView.transform.position = context.transform.position + Vector3.right;
         context.playerLocomotion.canMove = false;
@@ -20,22 +20,26 @@ public class PlayerTeleportingState : PlayerAbilitiesState
         //movementSpeed = 
     }
 
-    public override void ExitState()
+    public override void ExitState(PlayerAbilitiesStateManager context)
     {
+
+        //StartCoroutine(AbilityUtilities.AbilityCooldown(teleportCooldown));
+        //StopCoroutine(AbilityUtilities.AbilityCooldown(teleportCooldown));
+        //context.teleportParticles.Stop();
+        //stateManager.teleportParticles.gameObject.SetActive(false);
         context.cameraManager.cameraMode = CameraMode.Basic;
         context.teleportView.SetActive(false);
         context.playerLocomotion.canMove = true;
-        context.teleportParticles.Stop();
-        //stateManager.teleportParticles.gameObject.SetActive(false);
+        context.teleportAllowed = false;
         context.SwitchState(context.baseState);
     }
 
-    public override void OnCollisionEnter(Collision collision)
+    public override void OnCollisionEnter(PlayerAbilitiesStateManager context, Collision collision)
     {
         
     }
 
-    public override void UpdateState()
+    public override void UpdateState(PlayerAbilitiesStateManager context)
     {
         if (Vector3.Distance(context.teleportRigidbody.position, context.playerLocomotion.playerRigidbody.position) > teleportRadiusLimit)
         {
@@ -43,7 +47,7 @@ public class PlayerTeleportingState : PlayerAbilitiesState
             context.teleportRigidbody.position -= new Vector3(0, 0, 0.5f); //move it back slightly, so it doesn't get stuck
             return;
         }
-        Debug.Log("Teleport state update being called");
+        //Debug.Log("Teleport state update being called");
         Vector3 movementVelocity = new Vector3(context.cameraManager.transform.forward.x, 0f, context.cameraManager.transform.forward.z) * context.inputManager.verticalInput;
         movementVelocity += context.cameraManager.transform.right * context.inputManager.horizontalInput;
         movementVelocity.Normalize();
@@ -62,19 +66,22 @@ public class PlayerTeleportingState : PlayerAbilitiesState
 
         if (context.inputManager.teleportKeyPressed)
         {
-            Teleport();
+            Teleport(context);
             context.inputManager.teleportKeyPressed = false;
         }
 
     }
 
-    private void Teleport()
+    private void Teleport(PlayerAbilitiesStateManager context)
     {
         //stateManager.teleportParticles.gameObject.SetActive(true);
         context.teleportParticles.Emit(1);
         Vector3 TeleportPos = context.teleportView.transform.position;
         //stateManager.teleportView.SetActive(false);
         context.playerLocomotion.playerRigidbody.position = TeleportPos;
-        ExitState();
+        
+        ExitState(context);
     }
+
+    
 }

@@ -8,31 +8,33 @@ public class PlayerAbilitiesBaseState : PlayerAbilitiesState
 
     //public override PlayerAbilitiesStateManager context { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-    public override void EnterState(PlayerAbilitiesStateManager stateManager)
+    public override void EnterState(PlayerAbilitiesStateManager context)
     {
-        context = stateManager;
+        //context = stateManager;
         context.playerLocomotion.IsSprinting = false;
+        context.teleportAllowed = false;
+        context.teleportParticles.Stop();
     }
 
-    public override void ExitState()
+    public override void ExitState(PlayerAbilitiesStateManager context)
     {
         
     }
 
-    public override void OnCollisionEnter(Collision collision)
+    public override void OnCollisionEnter(PlayerAbilitiesStateManager context, Collision collision)
     {
         
     }
 
-    public override void UpdateState()
+    public override void UpdateState(PlayerAbilitiesStateManager context)
     {
-        /*cooldown += Time.deltaTime;
-        if (stateManager.player.CurrentStamina < stateManager.player.maxStamina && cooldown >= stateManager.player.staminaRegenCooldown)
+        context.teleportTimeElapsed += Time.deltaTime;
+        //Debug.Log(teleportTimeElapsed);
+        if (context.teleportTimeElapsed >= context.teleportCooldown)
         {
-            RechargeStamina(stateManager, 0.5f);
-        }*/
-
-
+            context.teleportAllowed = true;
+            context.teleportTimeElapsed = 0;
+        }
 
         /*if (stateManager.playerLocomotion.IsSprinting)
         {
@@ -40,12 +42,12 @@ public class PlayerAbilitiesBaseState : PlayerAbilitiesState
         }*/
     }
 
-    private void RechargeStamina(float amount)
+    private void RechargeStamina(PlayerAbilitiesStateManager context, float amount)
     {
         context.player.AddStamina(amount);
     }
 
-    private IEnumerator RechargeStamina()
+    private IEnumerator RechargeStamina(PlayerAbilitiesStateManager context)
     {
         //invoke this per second when stamina is 0
         yield return new WaitForSeconds(3f);

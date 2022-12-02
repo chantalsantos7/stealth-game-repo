@@ -19,8 +19,6 @@ public class PlayerManager : MonoBehaviour
     public float CurrentStamina { get; private set; }
     public float teleportLimit = 10f;
     
-
-
     private void Awake()
     {
         inputManager = GetComponent<InputManager>();

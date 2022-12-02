@@ -17,5 +17,7 @@ MonoBehaviour:
   isUnarmed: 0
   leftAttackAnimations:
   - Attack01L
+  - Attack02L
   rightAttackAnimations:
   - Attack01R
+  - Attack02R

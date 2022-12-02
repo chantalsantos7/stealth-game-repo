@@ -11,6 +11,7 @@ public class GameTests : MonoBehaviour
     [Header("Tests")]
     public bool resetPosition;
     public bool testCombatCam;
+    public bool enemyCamView;
 
     Vector3 originalPosition;
 
@@ -31,6 +32,11 @@ public class GameTests : MonoBehaviour
         {
             TestCombatCam();
         }
+
+        if (enemyCamView)
+        {
+            EnemyCamView();
+        }
     }
 
     void ResetPosition()
@@ -48,7 +54,18 @@ public class GameTests : MonoBehaviour
         {
             cameraManager.cameraMode = CameraMode.Combat;
         }
-        
-        
+    }
+
+    void EnemyCamView()
+    {
+        if (cameraManager.cameraMode == CameraMode.EnemyView)
+        {
+            cameraManager.cameraMode = CameraMode.Basic;
+            enemyCamView = false;
+        }
+        else
+        {
+            cameraManager.cameraMode = CameraMode.EnemyView;
+        }
     }
 }

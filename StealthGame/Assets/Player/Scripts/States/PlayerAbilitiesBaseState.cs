@@ -13,7 +13,7 @@ public class PlayerAbilitiesBaseState : PlayerAbilitiesState
         //context = stateManager;
         context.playerLocomotion.IsSprinting = false;
         context.teleportAllowed = false;
-        context.teleportParticles.Stop();
+        //context.teleportParticles.Stop();
     }
 
     public override void ExitState(PlayerAbilitiesStateManager context)

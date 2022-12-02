@@ -21,5 +21,6 @@ public class AnimationEvents : MonoBehaviour
         //play clips depending on movement - called from animation events
         //footsteps while moving
         //swing of daggers
+
     }
 }

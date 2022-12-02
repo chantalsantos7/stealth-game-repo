@@ -10,6 +10,7 @@ public class CameraManager : MonoBehaviour
     public CameraMode cameraMode;
     public Transform combatLookAt;
     public CinemachineFreeLook basicCam;
+    public GameObject enemyCam;
     public GameObject aimCam;
 
     // Update is called once per frame
@@ -25,6 +26,10 @@ public class CameraManager : MonoBehaviour
             case CameraMode.Basic:
                 basicCam.gameObject.SetActive(true);
                 aimCam.SetActive(false);
+                break;
+            case CameraMode.EnemyView:
+                basicCam.gameObject.SetActive(false);
+                enemyCam.SetActive(true);
                 break;
         }
     }

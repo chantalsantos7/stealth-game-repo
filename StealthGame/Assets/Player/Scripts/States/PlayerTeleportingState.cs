@@ -44,7 +44,7 @@ public class PlayerTeleportingState : PlayerAbilitiesState
         if (Vector3.Distance(context.teleportRigidbody.position, context.playerLocomotion.playerRigidbody.position) > teleportRadiusLimit)
         {
             Debug.Log("Too far!"); //replace with a UI showing the distance you can travel
-            context.teleportRigidbody.position -= new Vector3(0, 0, 0.5f); //move it back slightly, so it doesn't get stuck
+            context.teleportRigidbody.position -= new Vector3(0, 0, 0.1f); //move it back slightly, so it doesn't get stuck
             return;
         }
         //Debug.Log("Teleport state update being called");
@@ -74,8 +74,9 @@ public class PlayerTeleportingState : PlayerAbilitiesState
 
     private void Teleport(PlayerAbilitiesStateManager context)
     {
-        //stateManager.teleportParticles.gameObject.SetActive(true);
+        context.teleportParticles.gameObject.SetActive(true);
         context.teleportParticles.Emit(1);
+
         Vector3 TeleportPos = context.teleportView.transform.position;
         //stateManager.teleportView.SetActive(false);
         context.playerLocomotion.playerRigidbody.position = TeleportPos;

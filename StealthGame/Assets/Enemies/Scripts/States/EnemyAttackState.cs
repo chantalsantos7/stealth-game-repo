@@ -2,25 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttackState: State
+public class EnemyAttackState : EnemyState
 {
-    public override void EnterState(StateManager context)
-    {
+    bool alreadyAttacked;
 
+    public override void EnterState(EnemyStateManager context)
+    {
+        throw new System.NotImplementedException();
     }
 
-    public override void ExitState(StateManager context)
+    public override void ExitState(EnemyStateManager context)
     {
-
+        throw new System.NotImplementedException();
     }
 
-    public override void OnCollisionEnter(StateManager context, Collision collision)
+    public override void OnCollisionEnter(EnemyStateManager context, Collision other)
     {
-
+        throw new System.NotImplementedException();
     }
 
-    public override void UpdateState(StateManager context)
+    public override void UpdateState(EnemyStateManager context)
     {
-
+        throw new System.NotImplementedException();
     }
 }

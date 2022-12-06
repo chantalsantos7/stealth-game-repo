@@ -6,22 +6,24 @@ public class EnemyIdleState : EnemyState
 {
     public override void EnterState(EnemyStateManager context)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void UpdateState(EnemyStateManager context)
     {
-        throw new System.NotImplementedException();
+        context.SwitchState(context.patrolState);
+        
     }
 
     public override void ExitState(EnemyStateManager context)
     {
-        throw new System.NotImplementedException();
+        //called by SwitchState, so no need for checks on which state to transition to 
+        
     }
 
     public override void OnCollisionEnter(EnemyStateManager context, Collision other)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     

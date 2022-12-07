@@ -5,26 +5,27 @@ using UnityEngine.AI;
 
 public class EnemyStateManager : MonoBehaviour
 {
-
-    public Transform[] waypoints;
+    [Header("Object References")]
+    public EnemyManager enemyManager;
     public Transform player;
     public NavMeshAgent agent { get; private set; }
     public LayerMask playerMask, groundMask;
 
     [Header("Patrol Variables")]
     public bool patrolScheduled;
+    public Transform[] waypoints;
     public float walkPointRange;
     public bool playerInSightRange;
-    
 
     [Header("Attack Variables")]
     public float timeBetweenAttacks;
     public bool playerInAttackRange;
 
-    [Header("Interaction Ranges")]
-    public float sightRange;
-    public float attackRange;
+    //[Header("Interaction Ranges")]
+    float sightRange;
+    float attackRange;
 
+    [HideInInspector]
     public EnemyState currentState;
 
     public EnemyIdleState idleState = new EnemyIdleState();
@@ -38,28 +39,30 @@ public class EnemyStateManager : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.Find("PlayerCharacter").transform;
+        enemyManager = GetComponent<EnemyManager>();
+        sightRange = enemyManager.detectionRadius;
+        attackRange = enemyManager.attackRadius;
     }
 
     // Start is called before the first frame update
     void Start()
-    { 
-        currentState = idleState; //switch to idle when patrol functionality complete
+    {
         
+        currentState = idleState; //switch to idle when patrol functionality complete
         currentState.EnterState(this);
-           
     }
 
     // Update is called once per frame
     void Update()
     {
         currentState.UpdateState(this);
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, playerMask);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerMask);
+        //playerInSightRange = Physics.CheckSphere(transform.position, sightRange, playerMask);
+        //playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerMask);
     }
 
     public void SwitchState(EnemyState state)
     {
-        currentState.ExitState(this);
+        currentState.ExitState(this); 
         currentState = state;
         state.EnterState(this);
     }

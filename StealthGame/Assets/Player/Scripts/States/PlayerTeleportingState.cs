@@ -7,7 +7,7 @@ public class PlayerTeleportingState : PlayerAbilitiesState
     float teleportRadiusLimit;
     public float movementSpeed = 5f;
     public float rotationSpeed = 10f;
-    float teleportCooldown = 10f;
+    //float teleportCooldown = 10f;
 
     public override void EnterState(PlayerAbilitiesStateManager context)
     {

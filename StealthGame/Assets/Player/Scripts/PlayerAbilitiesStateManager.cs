@@ -46,8 +46,6 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
         teleportRigidbody = teleportView.GetComponent<Rigidbody>();
     }
 
-    //recharge sprinting in this state?
-
     void Start()
     {
         currentState = baseState;

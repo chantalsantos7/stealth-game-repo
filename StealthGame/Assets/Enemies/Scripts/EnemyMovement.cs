@@ -30,7 +30,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void OnAnimatorMove()
     {
-       /* Vector3 rootPosition = animator.rootPosition;
+        /*Vector3 rootPosition = animator.rootPosition;
         rootPosition.y = agent.nextPosition.y;
         transform.position = rootPosition;
         agent.nextPosition = rootPosition;*/ //set the agent to move based on position of model
@@ -46,9 +46,32 @@ public class EnemyMovement : MonoBehaviour
 
         var dx = Vector3.Dot(transform.right, worldDeltaPosition);
         var dy = Vector3.Dot(transform.forward, worldDeltaPosition);
-        Vector2 deltaPosition= new Vector2(dx, dy);
+        Vector2 deltaPosition = new Vector2(dx, dy);
 
-        float smooth = Mathf.Min(1, Time.deltaTime / 0.1f);*/
+        float smooth = Mathf.Min(1, Time.deltaTime / 0.1f);
+        smoothDeltaPosition = Vector2.Lerp(smoothDeltaPosition, deltaPosition, smooth);
+        velocity = smoothDeltaPosition / Time.deltaTime;
+        if (agent.remainingDistance <= agent.stoppingDistance)
+        {
+            velocity = Vector2.Lerp(Vector2.zero,
+                velocity,
+                agent.remainingDistance / agent.stoppingDistance);
+        }
+
+        bool shouldMove = velocity.magnitude > 0.5f 
+            && agent.remainingDistance > agent.stoppingDistance;
+
+        //agent.velocity = velocity;
+        animator.SetBool("IsMoving", shouldMove);
+        animator.SetFloat("Velocity", velocity.magnitude);*/
+        /*float deltaMagnitude = worldDeltaPosition.magnitude;
+        if (deltaMagnitude > agent.radius / 2f)
+        {
+            transform.position = Vector3.Lerp(
+                animator.rootPosition,
+                agent.nextPosition,
+                smooth);
+        }*/
 
         //BUG: He just be zooming all over the place
         /*        Vector3 worldDeltaPosition = agent.nextPosition - transform.position;

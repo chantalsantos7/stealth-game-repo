@@ -3,31 +3,20 @@ using UnityEngine;
 
 public class PlayerAbilities : MonoBehaviour
 {
-    [Header("Player Stats")]
-    public int maxStamina = 75;
-    public float maxHealth = 100f;
 
-    public float health;
-    public int currentStamina;
-
-    [Header("Cooldown Times")]
-    //public float teleportCooldown;
-    public float staminaCooldown;
-
+    public float currentStamina;
     PlayerLocomotion playerLocomotion;
+    PlayerManager playerManager;
 
     bool sprinting;
     private WaitForSeconds regenTick = new WaitForSeconds(0.5f);
 
-    public Vector3 TeleportPos { get; set; }
-
     // Start is called before the first frame update
     private void Awake()
     {
-        
         playerLocomotion = GetComponent<PlayerLocomotion>();
-        currentStamina = maxStamina;
-        health = maxHealth;
+        playerManager = GetComponent<PlayerManager>();
+        currentStamina = playerManager.maxStamina;
     }
 
     // Update is called once per frame
@@ -40,17 +29,19 @@ public class PlayerAbilities : MonoBehaviour
     {
         if (playerLocomotion.IsSprinting)
         {
-            StopCoroutine(RechargeStamina());
-            StartCoroutine(UseStamina(1));
+            //StopCoroutine(RechargeStamina());
+            StopAllCoroutines();
+            StartCoroutine(UseStamina(2));
             if (currentStamina <= 0)
             {
                 playerLocomotion.IsSprinting = false;
             }
         }
-        else if (!playerLocomotion.IsSprinting)
+        
+        if (!playerLocomotion.IsSprinting)
         {
-            StopCoroutine(UseStamina(1));
-            if (currentStamina < maxStamina)
+            StopCoroutine(UseStamina(2));
+            if (currentStamina < playerManager.maxStamina)
             {
                 StartCoroutine(RechargeStamina());
             }
@@ -68,9 +59,9 @@ public class PlayerAbilities : MonoBehaviour
     {
         //invoke this per second when stamina is 0
         yield return new WaitForSeconds(3f);
-        while (currentStamina < maxStamina)
+        while (currentStamina < playerManager.maxStamina)
         {
-            currentStamina += maxStamina / 100;
+            currentStamina += 0.5f;
             yield return regenTick;
         }
     }   

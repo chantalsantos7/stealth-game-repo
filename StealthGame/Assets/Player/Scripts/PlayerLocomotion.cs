@@ -50,8 +50,6 @@ public class PlayerLocomotion : MonoBehaviour
     [SerializeField] GameObject stepRayLower;
     [SerializeField] float stepHeight = 0.4f;
     [SerializeField] float stepSmooth = 0.1f;
-    bool climbingStairs;
-
 
     Vector3 movementVelocity;
 

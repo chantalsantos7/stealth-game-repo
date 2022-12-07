@@ -16204,10 +16204,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8718505923377615531}
   - component: {fileID: 8718505923377615528}
-  - component: {fileID: 8718505923377615534}
   - component: {fileID: 8718505923377615529}
+  - component: {fileID: 4063888632370949663}
   - component: {fileID: 8718505923377615535}
   - component: {fileID: 8718505923377615532}
+  - component: {fileID: 8718505923377615534}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -16243,19 +16244,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 907d00e2d0801764f9688af93a26da8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
---- !u!114 &8718505923377615534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8718505923377615530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9de12072f64faee4f891a540ede201c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  stateManager: {fileID: 0}
+  detectionSystem: {fileID: 0}
+  health: 50
+  detectionRadius: 10
+  minDetectionAngle: -50
+  maxDetectionAngle: 50
+  attackRadius: 0
 --- !u!195 &8718505923377615529
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -16278,6 +16273,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4063888632370949663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8718505923377615530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a834717f6894903448c2a395845690ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTarget: {fileID: 0}
+  detectionLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &8718505923377615535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16290,12 +16301,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b697c35dbbfce9549938566775c6e432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyManager: {fileID: 0}
+  player: {fileID: 0}
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  patrolScheduled: 0
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  walkPointRange: 0
+  playerInSightRange: 0
+  timeBetweenAttacks: 0
+  playerInAttackRange: 0
 --- !u!136 &8718505923377615532
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -16310,6 +16334,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &8718505923377615534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8718505923377615530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de12072f64faee4f891a540ede201c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8718505923583248577
 GameObject:
   m_ObjectHideFlags: 0

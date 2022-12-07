@@ -11,16 +11,21 @@ public class EnemyPatrolState : EnemyState
     int waypointIndex = 0;
     Vector3 target = new();
     NavMeshAgent agent;
-    float idleTimeInSeconds = 20;
+    float idleTimeInSeconds;
     float idleTimeElapsed;
+    float minIdleTimeInSeconds;
+    float maxIdleTimeInSeconds;
 
     public override void EnterState(EnemyStateManager context)
     {
         agent = context.agent;
         waypoints = context.waypoints;
         groundMask = context.groundMask;
-        idleTimeElapsed = 0;
+        idleTimeElapsed = -5;
+        minIdleTimeInSeconds = context.minIdleTimeInSeconds;
+        maxIdleTimeInSeconds = context.maxIdleTimeInSeconds;
         UpdateDestination();
+        //want idle time to be different for each patrol point
         //Debug.Log("first target is: " + target);
     }
 
@@ -39,27 +44,34 @@ public class EnemyPatrolState : EnemyState
         Vector3 distanceToWalkPoint = agent.transform.position - target;
         if (distanceToWalkPoint.magnitude < 1f && idleTimeElapsed > idleTimeInSeconds)
         {
-            Debug.Log(idleTimeElapsed);
-            Debug.Log(agent.pathStatus);
-            idleTimeElapsed = 0;
+            Debug.Log("Time elapsed: " + idleTimeElapsed);
+            //Debug.Log(agent.pathStatus);
+            idleTimeElapsed = -10; //gives the agent time to move to the next patrol point, so they will idle longer
             IterateWayPointIndex();
             UpdateDestination();
         }
     }
 
-    void UpdateDestination()
+    private void UpdateDestination()
     {
         target = waypoints[waypointIndex].position;
+        CalculateIdleTime();
         agent.SetDestination(target);
     }
 
-    void IterateWayPointIndex()
+    private void IterateWayPointIndex()
     {
         waypointIndex++;
         if (waypointIndex == waypoints.Length) 
         {
             waypointIndex = 0;
         }
+    }
+
+    private void CalculateIdleTime()
+    {
+        idleTimeInSeconds = Random.Range(minIdleTimeInSeconds, maxIdleTimeInSeconds);
+        Debug.Log("Idle Time: " + idleTimeInSeconds);
     }
 
     public override void ExitState(EnemyStateManager context)

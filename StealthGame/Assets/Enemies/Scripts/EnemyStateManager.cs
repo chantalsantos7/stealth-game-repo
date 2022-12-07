@@ -14,7 +14,8 @@ public class EnemyStateManager : MonoBehaviour
     [Header("Patrol Variables")]
     public bool patrolScheduled;
     public Transform[] waypoints;
-    public float walkPointRange;
+    public float minIdleTimeInSeconds;
+    public float maxIdleTimeInSeconds;
     public bool playerInSightRange;
 
     [Header("Attack Variables")]

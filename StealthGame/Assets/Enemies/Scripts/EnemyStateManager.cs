@@ -41,7 +41,7 @@ public class EnemyStateManager : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.Find("PlayerCharacter").transform;
         enemyManager = GetComponent<EnemyManager>();
-        sightRange = enemyManager.detectionRadius;
+        //sightRange = enemyManager.sightDetectionRadius;
         attackRange = enemyManager.attackRadius;
     }
 

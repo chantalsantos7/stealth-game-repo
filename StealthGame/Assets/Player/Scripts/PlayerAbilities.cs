@@ -40,7 +40,7 @@ public class PlayerAbilities : MonoBehaviour
         
         if (!playerLocomotion.IsSprinting)
         {
-            StopCoroutine(UseStamina(2));
+            StopAllCoroutines();
             if (currentStamina < playerManager.maxStamina)
             {
                 StartCoroutine(RechargeStamina());

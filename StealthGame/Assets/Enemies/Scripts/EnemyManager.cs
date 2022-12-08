@@ -11,12 +11,6 @@ public class EnemyManager : MonoBehaviour
     public float health;
     bool isPerformingAction;
 
-    [Header("Detection Variables")]
-    public float detectionRadius = 20;
-    //min and max angles determines enemy FOV - lower min and raise max to expand it
-    public float minDetectionAngle = -50;
-    public float maxDetectionAngle = 50;
-
     public float attackRadius;
 
     private void Awake()
@@ -28,7 +22,7 @@ public class EnemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleCurrentAction();
+        //HandleCurrentAction();
     }
 
     private void HandleCurrentAction()
@@ -39,14 +33,5 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red; //replace red with whatever color you prefer
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
-        Vector3 fovLine1 = Quaternion.AngleAxis(maxDetectionAngle, transform.up) * transform.forward * detectionRadius;
-        Vector3 fovLine2 = Quaternion.AngleAxis(minDetectionAngle, transform.up) * transform.forward * detectionRadius;
-        Gizmos.color = Color.blue;
-        Gizmos.DrawRay(transform.position, fovLine1);
-        Gizmos.DrawRay(transform.position, fovLine2);
-    }
+    
 }

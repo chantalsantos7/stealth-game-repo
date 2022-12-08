@@ -16204,8 +16204,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8718505923377615531}
   - component: {fileID: 8718505923377615528}
-  - component: {fileID: 8718505923377615529}
   - component: {fileID: 4063888632370949663}
+  - component: {fileID: 8718505923377615529}
   - component: {fileID: 8718505923377615535}
   - component: {fileID: 8718505923377615532}
   - component: {fileID: 8718505923377615534}
@@ -16247,10 +16247,33 @@ MonoBehaviour:
   stateManager: {fileID: 0}
   detectionSystem: {fileID: 0}
   health: 50
-  detectionRadius: 10
+  attackRadius: 0
+--- !u!114 &4063888632370949663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8718505923377615530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a834717f6894903448c2a395845690ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sightDetectionRadius: 10
+  detectionAngle: 50
   minDetectionAngle: -50
   maxDetectionAngle: 50
-  attackRadius: 0
+  hearingDetectionRadius: 0
+  playerRef: {fileID: 0}
+  currentTarget: {fileID: 0}
+  detectionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  obstructionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  canSeePlayer: 0
 --- !u!195 &8718505923377615529
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -16273,22 +16296,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4063888632370949663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8718505923377615530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a834717f6894903448c2a395845690ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentTarget: {fileID: 0}
-  detectionLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &8718505923377615535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16316,7 +16323,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  walkPointRange: 0
+  minIdleTimeInSeconds: 0
+  maxIdleTimeInSeconds: 0
   playerInSightRange: 0
   timeBetweenAttacks: 0
   playerInAttackRange: 0

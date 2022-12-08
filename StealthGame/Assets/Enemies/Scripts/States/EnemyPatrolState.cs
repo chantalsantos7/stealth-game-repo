@@ -44,7 +44,7 @@ public class EnemyPatrolState : EnemyState
         Vector3 distanceToWalkPoint = agent.transform.position - target;
         if (distanceToWalkPoint.magnitude < 1f && idleTimeElapsed > idleTimeInSeconds)
         {
-            Debug.Log("Time elapsed: " + idleTimeElapsed);
+            //Debug.Log("Time elapsed: " + idleTimeElapsed);
             //Debug.Log(agent.pathStatus);
             idleTimeElapsed = -10; //gives the agent time to move to the next patrol point, so they will idle longer
             IterateWayPointIndex();
@@ -71,7 +71,7 @@ public class EnemyPatrolState : EnemyState
     private void CalculateIdleTime()
     {
         idleTimeInSeconds = Random.Range(minIdleTimeInSeconds, maxIdleTimeInSeconds);
-        Debug.Log("Idle Time: " + idleTimeInSeconds);
+        //Debug.Log("Idle Time: " + idleTimeInSeconds);
     }
 
     public override void ExitState(EnemyStateManager context)

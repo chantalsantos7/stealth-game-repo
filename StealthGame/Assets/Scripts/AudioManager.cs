@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    public List<AudioClip> audioClips = new List<AudioClip>();
+    public List<AudioClip> audioLoops = new List<AudioClip>();
+
     // Start is called before the first frame update
     void Start()
     {

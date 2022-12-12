@@ -24,14 +24,4 @@ public class EnemyManager : MonoBehaviour
     {
         //HandleCurrentAction();
     }
-
-    private void HandleCurrentAction()
-    {
-        if (detectionSystem.currentTarget == null)
-        {
-            detectionSystem.HandleDetection();
-        }
-    }
-
-    
 }

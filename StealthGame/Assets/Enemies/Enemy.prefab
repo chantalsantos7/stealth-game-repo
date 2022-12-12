@@ -16205,6 +16205,7 @@ GameObject:
   - component: {fileID: 8718505923377615531}
   - component: {fileID: 8718505923377615528}
   - component: {fileID: 4063888632370949663}
+  - component: {fileID: 8147580646345741609}
   - component: {fileID: 8718505923377615529}
   - component: {fileID: 8718505923377615535}
   - component: {fileID: 8718505923377615532}
@@ -16260,20 +16261,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a834717f6894903448c2a395845690ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightDetectionRadius: 10
-  detectionAngle: 50
-  minDetectionAngle: -50
-  maxDetectionAngle: 50
-  hearingDetectionRadius: 0
   playerRef: {fileID: 0}
-  currentTarget: {fileID: 0}
+  sightDetectionRadius: 10
+  hearingDetectionRadius: 0
+  attackRadius: 1
+  detectionAngle: 50
   detectionLayer:
     serializedVersion: 2
     m_Bits: 0
   obstructionLayer:
     serializedVersion: 2
     m_Bits: 0
+  currentTarget: {fileID: 0}
   canSeePlayer: 0
+  heardSomething: 0
+  inAttackRange: 0
+  lastKnownPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &8147580646345741609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8718505923377615530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0368a0b16ae4c314e8fc1ecc2e62b4d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionSystem: {fileID: 0}
+  suspicionIncrement: 0.1
+  suspicionMeter: 0
+  searchSuspicionThreshold: 100
+  chaseSuspicionThreshold: 400
+  patrolSuspicionThreshold: 50
 --- !u!195 &8718505923377615529
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -16309,6 +16330,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyManager: {fileID: 0}
+  detectionSystem: {fileID: 0}
+  suspicionSystem: {fileID: 0}
   player: {fileID: 0}
   playerMask:
     serializedVersion: 2
@@ -16328,6 +16351,9 @@ MonoBehaviour:
   playerInSightRange: 0
   timeBetweenAttacks: 0
   playerInAttackRange: 0
+  searchSuspicionThreshold: 0
+  chaseSuspicionThreshold: 0
+  patrolSuspicionThreshold: 0
 --- !u!136 &8718505923377615532
 CapsuleCollider:
   m_ObjectHideFlags: 0

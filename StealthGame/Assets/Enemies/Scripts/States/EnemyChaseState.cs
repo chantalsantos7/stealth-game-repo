@@ -12,6 +12,7 @@ public class EnemyChaseState : EnemyState
     {
         agent = context.agent;
         player = context.player;
+        Debug.Log("Entered Chase state");
     }
 
     public override void ExitState(EnemyStateManager context)

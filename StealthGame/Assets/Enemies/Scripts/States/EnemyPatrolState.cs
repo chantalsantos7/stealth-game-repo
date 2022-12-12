@@ -32,13 +32,17 @@ public class EnemyPatrolState : EnemyState
     public override void UpdateState(EnemyStateManager context)
     {
         idleTimeElapsed += Time.deltaTime;
-        if (context.playerInSightRange && !context.playerInAttackRange)
+        if (context.detectionSystem.canSeePlayer && !context.detectionSystem.inAttackRange)
         {
             context.SwitchState(context.chaseState);
         } 
-        else if (context.playerInSightRange && context.playerInAttackRange)
+        else if (context.detectionSystem.canSeePlayer && context.detectionSystem.inAttackRange)
         {
             context.SwitchState(context.attackState);
+        } else if (context.detectionSystem.heardSomething
+            && context.suspicionSystem.suspicionMeter > context.suspicionSystem.searchSuspicionThreshold)
+        {
+            context.SwitchState(context.suspiciousState);
         }
 
         Vector3 distanceToWalkPoint = agent.transform.position - target;

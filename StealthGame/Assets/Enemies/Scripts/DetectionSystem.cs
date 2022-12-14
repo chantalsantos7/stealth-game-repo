@@ -8,6 +8,7 @@ public class DetectionSystem : MonoBehaviour
     //public float angle;
     [Header("Object References")]
     public GameObject playerRef;
+    public GameObject crouchCheckObj;
     EnemyManager enemyManager;
 
     [Header("Detection Variables")]
@@ -72,7 +73,15 @@ public class DetectionSystem : MonoBehaviour
                     }
                     else
                     {
-                        canSeePlayer = false;
+                        //Lower starting position for a raycast,to see if player can be seen but is crouching
+                        if (!Physics.Raycast(crouchCheckObj.transform.position, directionToTarget, distanceToTarget, obstructionLayer))
+                        {
+                            canSeePlayer = true;
+                        } 
+                        else
+                        {
+                            canSeePlayer = false;
+                        }
                     }
                 }
                 else
@@ -98,7 +107,9 @@ public class DetectionSystem : MonoBehaviour
             lastKnownPosition = rangeCheck[i].transform.position;
             if (rangeCheck[i].transform.TryGetComponent<PlayerLocomotion>(out var player))
             {
-                if (!player.IsCrouched) //can only hear the player if they are not crouched
+                //check player velocity? if its above a certain level?
+                
+                if (!player.IsCrouched ) //can only hear the player if they are not crouched
                 {
                     //enter searching state, start going to position of that sound
                     heardSomething = true;

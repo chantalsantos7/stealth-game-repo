@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    [Header("Object References")]
+    [Header("Object References")] 
     public EnemyStateManager stateManager;
     public DetectionSystem detectionSystem;
 

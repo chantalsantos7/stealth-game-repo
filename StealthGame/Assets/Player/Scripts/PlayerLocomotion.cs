@@ -51,7 +51,7 @@ public class PlayerLocomotion : MonoBehaviour
     [SerializeField] float stepHeight = 0.4f;
     [SerializeField] float stepSmooth = 0.1f;
 
-    Vector3 movementVelocity;
+    public Vector3 movementVelocity;
 
     private void Awake()
     {
@@ -104,6 +104,8 @@ public class PlayerLocomotion : MonoBehaviour
         {
             movementVelocity = transform.forward;
         }
+
+        Debug.Log("moving velocity is: " + playerRigidbody.velocity);
 
         Quaternion targetRotation = Quaternion.LookRotation(movementVelocity);
         Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);

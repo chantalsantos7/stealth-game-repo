@@ -161,15 +161,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RightAttack",
-                    "type": "Button",
-                    "id": "891f3730-15e3-40de-b230-7f9a476fad55",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "StealthAttack",
                     "type": "Button",
                     "id": "969c579d-4efa-4583-8400-d3a4e53a5a1b",
@@ -182,6 +173,24 @@
                     "name": "Sheathe/Unsheathe",
                     "type": "Button",
                     "id": "5bfdb558-e8fb-4827-a591-8c0f4860515b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AimDistraction",
+                    "type": "Button",
+                    "id": "9bdcc0e6-464a-4841-9b69-0316c03cc53e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PutDistraction",
+                    "type": "Button",
+                    "id": "a8964835-ac8c-4976-9986-97416111f259",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -225,7 +234,7 @@
                 {
                     "name": "",
                     "id": "a0e5d20b-a736-4680-824a-d4742e73ad32",
-                    "path": "<Keyboard>/t",
+                    "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -247,7 +256,7 @@
                 {
                     "name": "",
                     "id": "e79545cc-9b0e-4cd5-a80e-d8a432efa3fb",
-                    "path": "<Mouse>/middleButton",
+                    "path": "<Keyboard>/g",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -263,17 +272,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "LeftAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "23b5d35d-7a78-4daa-8ddf-e01218622e62",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RightAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -296,6 +294,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Sheathe/Unsheathe",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "70f08fde-cfeb-4e96-96da-2ce6df6c04d5",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AimDistraction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4ca2fff3-e20b-40fd-89e3-21ee8e37924c",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PutDistraction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

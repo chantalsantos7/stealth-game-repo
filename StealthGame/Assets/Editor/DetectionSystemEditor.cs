@@ -16,12 +16,15 @@ public class DetectionSystemEditor : Editor
         Handles.color = Color.green;
         Handles.DrawWireArc(detector.transform.position, Vector3.up, Vector3.forward, 360, detector.hearingDetectionRadius);
 
+        Handles.DrawWireArc(detector.transform.position, Vector3.up, Vector3.forward, 360, detector.attackRadius);
+
         Vector3 viewAngle01 = DirectionFromAngle(detector.transform.eulerAngles.y, -detector.detectionAngle / 2);
         Vector3 viewAngle02 = DirectionFromAngle(detector.transform.eulerAngles.y, detector.detectionAngle / 2);
 
         Handles.color = Color.blue;
         Handles.DrawLine(detector.transform.position, detector.transform.position + viewAngle01 * detector.sightDetectionRadius);
         Handles.DrawLine(detector.transform.position, detector.transform.position + viewAngle02 * detector.sightDetectionRadius);
+
 
         if (detector.canSeePlayer)
         {

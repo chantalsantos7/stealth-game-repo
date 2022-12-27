@@ -9,6 +9,7 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
     public PlayerAbilitiesBaseState baseState = new PlayerAbilitiesBaseState();
     public PlayerTeleportingState teleportingState = new PlayerTeleportingState();
     public PlayerSprintingState sprintingState = new PlayerSprintingState();
+    public PlayerDistractingState distractingState = new PlayerDistractingState();
 
     [Header("Object References")]
     public PlayerLocomotion playerLocomotion;

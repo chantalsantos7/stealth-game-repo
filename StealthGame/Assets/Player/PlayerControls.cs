@@ -183,15 +183,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""RightAttack"",
-                    ""type"": ""Button"",
-                    ""id"": ""891f3730-15e3-40de-b230-7f9a476fad55"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""StealthAttack"",
                     ""type"": ""Button"",
                     ""id"": ""969c579d-4efa-4583-8400-d3a4e53a5a1b"",
@@ -204,6 +195,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": ""Sheathe/Unsheathe"",
                     ""type"": ""Button"",
                     ""id"": ""5bfdb558-e8fb-4827-a591-8c0f4860515b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AimDistraction"",
+                    ""type"": ""Button"",
+                    ""id"": ""9bdcc0e6-464a-4841-9b69-0316c03cc53e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PutDistraction"",
+                    ""type"": ""Button"",
+                    ""id"": ""a8964835-ac8c-4976-9986-97416111f259"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -247,7 +256,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""a0e5d20b-a736-4680-824a-d4742e73ad32"",
-                    ""path"": ""<Keyboard>/t"",
+                    ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -269,7 +278,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e79545cc-9b0e-4cd5-a80e-d8a432efa3fb"",
-                    ""path"": ""<Mouse>/middleButton"",
+                    ""path"": ""<Keyboard>/g"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -285,17 +294,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""LeftAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""23b5d35d-7a78-4daa-8ddf-e01218622e62"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RightAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -320,6 +318,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Sheathe/Unsheathe"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""70f08fde-cfeb-4e96-96da-2ce6df6c04d5"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AimDistraction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4ca2fff3-e20b-40fd-89e3-21ee8e37924c"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PutDistraction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -339,9 +359,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerActions_Teleport = m_PlayerActions.FindAction("Teleport", throwIfNotFound: true);
         m_PlayerActions_Dodge = m_PlayerActions.FindAction("Dodge", throwIfNotFound: true);
         m_PlayerActions_LeftAttack = m_PlayerActions.FindAction("LeftAttack", throwIfNotFound: true);
-        m_PlayerActions_RightAttack = m_PlayerActions.FindAction("RightAttack", throwIfNotFound: true);
         m_PlayerActions_StealthAttack = m_PlayerActions.FindAction("StealthAttack", throwIfNotFound: true);
         m_PlayerActions_SheatheUnsheathe = m_PlayerActions.FindAction("Sheathe/Unsheathe", throwIfNotFound: true);
+        m_PlayerActions_AimDistraction = m_PlayerActions.FindAction("AimDistraction", throwIfNotFound: true);
+        m_PlayerActions_PutDistraction = m_PlayerActions.FindAction("PutDistraction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -449,9 +470,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Teleport;
     private readonly InputAction m_PlayerActions_Dodge;
     private readonly InputAction m_PlayerActions_LeftAttack;
-    private readonly InputAction m_PlayerActions_RightAttack;
     private readonly InputAction m_PlayerActions_StealthAttack;
     private readonly InputAction m_PlayerActions_SheatheUnsheathe;
+    private readonly InputAction m_PlayerActions_AimDistraction;
+    private readonly InputAction m_PlayerActions_PutDistraction;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
@@ -463,9 +485,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Teleport => m_Wrapper.m_PlayerActions_Teleport;
         public InputAction @Dodge => m_Wrapper.m_PlayerActions_Dodge;
         public InputAction @LeftAttack => m_Wrapper.m_PlayerActions_LeftAttack;
-        public InputAction @RightAttack => m_Wrapper.m_PlayerActions_RightAttack;
         public InputAction @StealthAttack => m_Wrapper.m_PlayerActions_StealthAttack;
         public InputAction @SheatheUnsheathe => m_Wrapper.m_PlayerActions_SheatheUnsheathe;
+        public InputAction @AimDistraction => m_Wrapper.m_PlayerActions_AimDistraction;
+        public InputAction @PutDistraction => m_Wrapper.m_PlayerActions_PutDistraction;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -496,15 +519,18 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @LeftAttack.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLeftAttack;
                 @LeftAttack.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLeftAttack;
                 @LeftAttack.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLeftAttack;
-                @RightAttack.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRightAttack;
-                @RightAttack.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRightAttack;
-                @RightAttack.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRightAttack;
                 @StealthAttack.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnStealthAttack;
                 @StealthAttack.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnStealthAttack;
                 @StealthAttack.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnStealthAttack;
                 @SheatheUnsheathe.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSheatheUnsheathe;
                 @SheatheUnsheathe.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSheatheUnsheathe;
                 @SheatheUnsheathe.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSheatheUnsheathe;
+                @AimDistraction.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnAimDistraction;
+                @AimDistraction.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnAimDistraction;
+                @AimDistraction.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnAimDistraction;
+                @PutDistraction.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnPutDistraction;
+                @PutDistraction.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnPutDistraction;
+                @PutDistraction.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnPutDistraction;
             }
             m_Wrapper.m_PlayerActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -530,15 +556,18 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @LeftAttack.started += instance.OnLeftAttack;
                 @LeftAttack.performed += instance.OnLeftAttack;
                 @LeftAttack.canceled += instance.OnLeftAttack;
-                @RightAttack.started += instance.OnRightAttack;
-                @RightAttack.performed += instance.OnRightAttack;
-                @RightAttack.canceled += instance.OnRightAttack;
                 @StealthAttack.started += instance.OnStealthAttack;
                 @StealthAttack.performed += instance.OnStealthAttack;
                 @StealthAttack.canceled += instance.OnStealthAttack;
                 @SheatheUnsheathe.started += instance.OnSheatheUnsheathe;
                 @SheatheUnsheathe.performed += instance.OnSheatheUnsheathe;
                 @SheatheUnsheathe.canceled += instance.OnSheatheUnsheathe;
+                @AimDistraction.started += instance.OnAimDistraction;
+                @AimDistraction.performed += instance.OnAimDistraction;
+                @AimDistraction.canceled += instance.OnAimDistraction;
+                @PutDistraction.started += instance.OnPutDistraction;
+                @PutDistraction.performed += instance.OnPutDistraction;
+                @PutDistraction.canceled += instance.OnPutDistraction;
             }
         }
     }
@@ -557,8 +586,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnTeleport(InputAction.CallbackContext context);
         void OnDodge(InputAction.CallbackContext context);
         void OnLeftAttack(InputAction.CallbackContext context);
-        void OnRightAttack(InputAction.CallbackContext context);
         void OnStealthAttack(InputAction.CallbackContext context);
         void OnSheatheUnsheathe(InputAction.CallbackContext context);
+        void OnAimDistraction(InputAction.CallbackContext context);
+        void OnPutDistraction(InputAction.CallbackContext context);
     }
 }

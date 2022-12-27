@@ -30,6 +30,7 @@ public class PlayerLocomotion : MonoBehaviour
     public bool IsJumping { get; set; }
     public bool IsSprinting { get; set; }
     public bool IsCrouched { get; set; }
+    public bool IsMoving { get; set; }
 
 
     [Header("Jump Speeds")]
@@ -83,6 +84,7 @@ public class PlayerLocomotion : MonoBehaviour
         if (IsJumping || !canMove) return;
 
         //movement in the direction that the camera is facing
+        IsMoving = inputManager.horizontalInput != 0 || inputManager.verticalInput != 0 ? true : false;
         movementVelocity = Vector3.zero;
         movementVelocity = new Vector3(cameraObject.forward.x, 0f, cameraObject.forward.z) * inputManager.verticalInput;
         movementVelocity += cameraObject.right * inputManager.horizontalInput;
@@ -105,7 +107,7 @@ public class PlayerLocomotion : MonoBehaviour
             movementVelocity = transform.forward;
         }
 
-        Debug.Log("moving velocity is: " + playerRigidbody.velocity);
+        //Debug.Log("moving velocity is: " + playerRigidbody.velocity);
 
         Quaternion targetRotation = Quaternion.LookRotation(movementVelocity);
         Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);

@@ -38,10 +38,12 @@ public class EnemySearchState : EnemyState
             context.SwitchState(context.chaseState); 
         }
 
-        if (suspicionSystem.suspicionMeter < patrolThreshold)
+        if (suspicionSystem.suspicionMeter < patrolThreshold && !detectionSystem.canSeePlayer && !detectionSystem.heardSomething)
         {
-
+            context.SwitchState(context.patrolState);
         }
+
+       
 
         //if they cannot currently see or hear player and it has been some time, go back to patrolling
        /* if (!detectionSystem.canSeePlayer && !detectionSystem.heardSomething && suspicionSystem.suspicionMeter < patrolThreshold)
@@ -56,7 +58,8 @@ public class EnemySearchState : EnemyState
 
     public override void ExitState(EnemyStateManager context)
     {
-        suspicionSystem.suspicionMeter = 0;
+        //suspicionSystem.suspicionMeter = 0;
+        Debug.Log("Exiting Search State");
     }
 
     public override void OnCollisionEnter(EnemyStateManager context, Collision other)

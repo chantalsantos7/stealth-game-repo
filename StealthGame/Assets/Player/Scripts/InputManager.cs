@@ -90,10 +90,10 @@ public class InputManager : MonoBehaviour
                 //random choose betwen left or right weapon
             };
 
-            playerControls.PlayerActions.RightAttack.performed += i =>
+            /*playerControls.PlayerActions.RightAttack.performed += i =>
             {
                 playerCombat.Attack(playerInventory.rightWeapon, false);
-            };
+            };*/
 
             playerControls.PlayerActions.StealthAttack.performed += i =>
             {

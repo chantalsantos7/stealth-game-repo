@@ -17,18 +17,13 @@ public class PlayerTeleportingState : PlayerAbilitiesState
         context.playerLocomotion.canMove = false;
         context.teleportView.SetActive(true);
         teleportRadiusLimit = context.player.teleportLimit;
-        //movementSpeed = 
     }
 
     public override void ExitState(PlayerAbilitiesStateManager context)
     {
-
-        //StartCoroutine(AbilityUtilities.AbilityCooldown(teleportCooldown));
-        //StopCoroutine(AbilityUtilities.AbilityCooldown(teleportCooldown));
-        //context.teleportParticles.Stop();
-        //stateManager.teleportParticles.gameObject.SetActive(false);
         context.cameraManager.cameraMode = CameraMode.Basic;
         context.teleportView.SetActive(false);
+        context.teleportParticles.Stop();
         context.playerLocomotion.canMove = true;
         context.teleportAllowed = false;
         context.SwitchState(context.baseState);
@@ -44,7 +39,7 @@ public class PlayerTeleportingState : PlayerAbilitiesState
         if (Vector3.Distance(context.teleportRigidbody.position, context.playerLocomotion.playerRigidbody.position) > teleportRadiusLimit)
         {
             Debug.Log("Too far!"); //replace with a UI showing the distance you can travel
-            context.teleportRigidbody.position -= new Vector3(0, 0, 0.1f); //move it back slightly, so it doesn't get stuck
+            context.teleportRigidbody.position -= new Vector3(0, 0, 0.2f); //move it back slightly, so it doesn't get stuck
             return;
         }
         //Debug.Log("Teleport state update being called");
@@ -78,7 +73,6 @@ public class PlayerTeleportingState : PlayerAbilitiesState
         context.teleportParticles.Emit(1);
 
         Vector3 TeleportPos = context.teleportView.transform.position;
-        //stateManager.teleportView.SetActive(false);
         context.playerLocomotion.playerRigidbody.position = TeleportPos;
         
         ExitState(context);

@@ -40,66 +40,7 @@ public class EnemyMovement : MonoBehaviour
     {
         animator.SetBool("IsMoving", agent.velocity.magnitude > 0.1f);
         animator.SetFloat("Velocity", agent.velocity.magnitude);
-
-        /*Vector3 worldDeltaPosition = agent.nextPosition - transform.position;
-        worldDeltaPosition.y = 0;
-
-        var dx = Vector3.Dot(transform.right, worldDeltaPosition);
-        var dy = Vector3.Dot(transform.forward, worldDeltaPosition);
-        Vector2 deltaPosition = new Vector2(dx, dy);
-
-        float smooth = Mathf.Min(1, Time.deltaTime / 0.1f);
-        smoothDeltaPosition = Vector2.Lerp(smoothDeltaPosition, deltaPosition, smooth);
-        velocity = smoothDeltaPosition / Time.deltaTime;
-        if (agent.remainingDistance <= agent.stoppingDistance)
-        {
-            velocity = Vector2.Lerp(Vector2.zero,
-                velocity,
-                agent.remainingDistance / agent.stoppingDistance);
-        }
-
-        bool shouldMove = velocity.magnitude > 0.5f 
-            && agent.remainingDistance > agent.stoppingDistance;
-
-        //agent.velocity = velocity;
-        animator.SetBool("IsMoving", shouldMove);
-        animator.SetFloat("Velocity", velocity.magnitude);*/
-        /*float deltaMagnitude = worldDeltaPosition.magnitude;
-        if (deltaMagnitude > agent.radius / 2f)
-        {
-            transform.position = Vector3.Lerp(
-                animator.rootPosition,
-                agent.nextPosition,
-                smooth);
-        }*/
-
-        //BUG: He just be zooming all over the place
-        /*        Vector3 worldDeltaPosition = agent.nextPosition - transform.position;
-                worldDeltaPosition.y = 0;
-
-                float dx = Vector3.Dot(transform.right, worldDeltaPosition);
-                float dy = Vector3.Dot(transform.forward, worldDeltaPosition);
-                Vector2 deltaPosition = new Vector2(dx, dy);
-
-                float smooth = Mathf.Min(1, Time.deltaTime / 0.1f);
-                smoothDeltaPosition = Vector2.Lerp(smoothDeltaPosition, deltaPosition, smooth);
-
-                velocity = smoothDeltaPosition / Time.deltaTime;
-                if (agent.remainingDistance <= agent.stoppingDistance)
-                {
-                    velocity = Vector2.Lerp(Vector2.zero, velocity, agent.remainingDistance / agent.stoppingDistance);
-                }*/
-
-        /* //TODO: make this (velocity mag to check) a serializable property to play w/ it
-
-        */
-        /*bool shouldMove = velocity.magnitude > 0.1f;// && agent.remainingDistance > agent.stoppingDistance;
-        animator.SetBool("IsMoving", shouldMove);
-        animator.SetFloat("Velocity", velocity.magnitude);*/
-        /* float deltaMagnitude = worldDeltaPosition.magnitude;
-         if (deltaMagnitude > agent.radius / 2f)
-         {
-             transform.position = Vector3.Lerp(animator.rootPosition, agent.nextPosition, smooth);
-         }*/
+        Debug.Log("Agent Velocity: " + agent.velocity.magnitude);
+        
     }
 }

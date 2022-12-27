@@ -59,9 +59,9 @@ public class DetectionSystem : MonoBehaviour
         
         for (int i = 0; i < rangeChecks.Length; i++)
         {
-            if (rangeChecks[i].transform.TryGetComponent<PlayerManager>(out var player))
+            if (rangeChecks[i].gameObject.CompareTag("Player"))
             {
-                Transform target = player.transform;
+                Transform target = rangeChecks[i].transform;
                  //only the player will be on the detectionLayer, so only need to get the first entry in array
                 Vector3 directionToTarget = (target.position - transform.position).normalized;
                 if (Vector3.Angle(transform.forward, directionToTarget) < detectionAngle / 2)
@@ -73,7 +73,7 @@ public class DetectionSystem : MonoBehaviour
                     }
                     else
                     {
-                        //Lower starting position for a raycast,to see if player can be seen but is crouching
+                        //Lower starting position for a raycast, to see if player can be seen but is crouching
                         if (!Physics.Raycast(crouchCheckObj.transform.position, directionToTarget, distanceToTarget, obstructionLayer))
                         {
                             canSeePlayer = true;
@@ -109,11 +109,11 @@ public class DetectionSystem : MonoBehaviour
             {
                 //check player velocity? if its above a certain level?
                 
-                if (!player.IsCrouched ) //can only hear the player if they are not crouched
+                if (!player.IsCrouched &&
+                    player.IsMoving) //can only hear the player if they are not crouched
                 {
                     //enter searching state, start going to position of that sound
                     heardSomething = true;
-                    
                 }
                 else
                 {
@@ -128,7 +128,6 @@ public class DetectionSystem : MonoBehaviour
             {
                 heardSomething = false;
             }
-             //can hear footsteps if they are not crouched
         }
 
         if (rangeCheck.Length == 0)

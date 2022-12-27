@@ -7,7 +7,9 @@ public class SuspicionSystem : MonoBehaviour
     [Header("Object References")]
     public DetectionSystem detectionSystem;
 
+    [Header("Meter Values")]
     public float suspicionIncrement;
+    public float suspicionDecrement;
     public float suspicionMeter;
 
     [Header("Suspicion Thresholds")]
@@ -22,11 +24,10 @@ public class SuspicionSystem : MonoBehaviour
 
     private void Start()
     {
-        
         StartCoroutine(DecreaseSuspicion());
     }
     // Start is called before the first frame update
-
+     
     // Update is called once per frame
     void Update()
     {
@@ -34,7 +35,7 @@ public class SuspicionSystem : MonoBehaviour
         {
             suspicionMeter += suspicionIncrement;
         }
-
+         
         //if they heard the coin, need to increase suspicion a lot
         //public method to increase suspicion a lot, called from detection system? or
         //additional boolean in detection system indicating they heard a coin, not a footstep
@@ -47,19 +48,20 @@ public class SuspicionSystem : MonoBehaviour
 
     }
 
-
-
     private IEnumerator DecreaseSuspicion()
     {
         //delay the execution so it only decreases every few seconds
-        float delay = 0.2f;
+        float delay = 0.5f;
         WaitForSeconds wait = new WaitForSeconds(delay);
 
         //should always execute?
         while (true)
         {
             yield return wait;
-            suspicionMeter -= 0.5f;
+            if (suspicionMeter > 0)
+            {
+                suspicionMeter -= suspicionDecrement;
+            }
         }
         
     }

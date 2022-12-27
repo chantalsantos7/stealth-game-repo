@@ -13,7 +13,8 @@ public class EnemyAttackState : EnemyState
 
     public override void UpdateState(EnemyStateManager context)
     {
-        //throw new System.NotImplementedException();
+        //follow player - or a position in front of the player
+        //play an attack animation
     }
 
     public override void ExitState(EnemyStateManager context)

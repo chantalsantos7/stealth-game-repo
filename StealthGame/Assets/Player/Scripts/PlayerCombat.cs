@@ -19,11 +19,11 @@ public class PlayerCombat : MonoBehaviour
         if (isLeft)
         {
             weaponIndex = (int)Random.Range(0f, weapon.leftAttackAnimations.Count);
-            animatorManager.PlayTargetAnimation(weapon.leftAttackAnimations[weaponIndex], true);
+            animatorManager.PlayTargetAnimation(weapon.leftAttackAnimations[weaponIndex], false);
         } else
         {
             weaponIndex = (int)Random.Range(0f, weapon.rightAttackAnimations.Count);
-            animatorManager.PlayTargetAnimation(weapon.rightAttackAnimations[weaponIndex], true);
+            animatorManager.PlayTargetAnimation(weapon.rightAttackAnimations[weaponIndex], false);
         }
     }
 

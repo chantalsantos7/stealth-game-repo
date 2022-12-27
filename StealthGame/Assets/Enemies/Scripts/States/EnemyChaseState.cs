@@ -15,11 +15,6 @@ public class EnemyChaseState : EnemyState
         Debug.Log("Entered Chase state");
     }
 
-    public override void ExitState(EnemyStateManager context)
-    {
-        //throw new System.NotImplementedException();
-    }
-
     public override void OnCollisionEnter(EnemyStateManager context, Collision other)
     {
         throw new System.NotImplementedException();
@@ -28,8 +23,11 @@ public class EnemyChaseState : EnemyState
     public override void UpdateState(EnemyStateManager context)
     {
         //Debug.Log("Chasing");
+        agent.speed = 3f;
         agent.SetDestination(player.position);
         //set velocity to 2 (or running speed) 
+
+
         //slow down velocity as enemy approaches player
         //switch to attacking state when in range of player
         if (context.playerInAttackRange)
@@ -38,5 +36,10 @@ public class EnemyChaseState : EnemyState
         }
         
         //throw new System.NotImplementedException();
+    }
+
+    public override void ExitState(EnemyStateManager context)
+    {
+        agent.speed = 1.75f;
     }
 }

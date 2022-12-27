@@ -53,7 +53,7 @@ public class EnemyStateManager : MonoBehaviour
 
         searchSuspicionThreshold = suspicionSystem.searchSuspicionThreshold;
         patrolSuspicionThreshold = suspicionSystem.chaseSuspicionThreshold;
-        chaseSuspicionThreshold = suspicionSystem.chaseSuspicionThreshold;
+        chaseSuspicionThreshold = suspicionSystem.patrolSuspicionThreshold;
         attackRange = enemyManager.attackRadius;
     }
 

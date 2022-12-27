@@ -39,7 +39,8 @@ public class EnemyPatrolState : EnemyState
         else if (context.detectionSystem.canSeePlayer && context.detectionSystem.inAttackRange)
         {
             context.SwitchState(context.attackState);
-        } else if (context.detectionSystem.heardSomething
+        } 
+        else if (context.detectionSystem.heardSomething
             && context.suspicionSystem.suspicionMeter > context.suspicionSystem.searchSuspicionThreshold)
         {
             context.SwitchState(context.suspiciousState);

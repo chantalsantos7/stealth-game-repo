@@ -31,7 +31,7 @@ public class PlayerAbilities : MonoBehaviour
         {
             //StopCoroutine(RechargeStamina());
             StopAllCoroutines();
-            StartCoroutine(UseStamina(2));
+            StartCoroutine(UseStamina(1));
             if (currentStamina <= 0)
             {
                 playerLocomotion.IsSprinting = false;
@@ -58,10 +58,11 @@ public class PlayerAbilities : MonoBehaviour
     private IEnumerator RechargeStamina()
     {
         //invoke this per second when stamina is 0
-        yield return new WaitForSeconds(3f);
+        //yield return new WaitForSeconds(3f);
+        //yield return new WaitForSeconds(3f);
         while (currentStamina < playerManager.maxStamina)
         {
-            currentStamina += 0.5f;
+            currentStamina += 1f;
             yield return regenTick;
         }
     }   

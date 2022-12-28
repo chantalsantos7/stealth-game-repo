@@ -16323,12 +16323,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionSystem: {fileID: 0}
-  suspicionIncrement: 5
-  suspicionDecrement: 0.5
+  suspicionIncrement: 0.5
+  suspicionDecrement: 2
   suspicionMeter: 0
-  searchSuspicionThreshold: 50
-  chaseSuspicionThreshold: 200
-  patrolSuspicionThreshold: 40
+  searchSuspicionThreshold: 15
+  chaseSuspicionThreshold: 45
+  patrolSuspicionThreshold: 10
 --- !u!195 &8718505923377615529
 NavMeshAgent:
   m_ObjectHideFlags: 0

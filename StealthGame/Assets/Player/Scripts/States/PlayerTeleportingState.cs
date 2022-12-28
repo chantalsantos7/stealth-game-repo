@@ -74,8 +74,9 @@ public class PlayerTeleportingState : PlayerAbilitiesState
 
         Vector3 TeleportPos = context.teleportView.transform.position;
         context.playerLocomotion.playerRigidbody.position = TeleportPos;
-        
-        ExitState(context);
+
+        context.SwitchState(context.baseState);
+        //ExitState(context);
     }
 
     

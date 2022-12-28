@@ -24,6 +24,7 @@ public class InputManager : MonoBehaviour
     private bool crouchModifierPressed;
     private bool jumpKeyPressed;
     private bool teleportModifierPressed;
+    private bool distractionModifierPressed;
     public bool teleportKeyPressed;
 
     public float cameraVerticalInput;
@@ -37,6 +38,7 @@ public class InputManager : MonoBehaviour
         playerInventory = GetComponent<PlayerInventory>();
         playerCombat = GetComponent<PlayerCombat>();
         abilitiesManager = GetComponent<PlayerAbilitiesStateManager>();
+        teleportKeyPressed = false;
         //crouchModifierPressed = false;
     }
 
@@ -56,11 +58,19 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Sprint.performed += i => sprintModifierPressed = true;
             playerControls.PlayerActions.Sprint.canceled += i => sprintModifierPressed = false;
             playerControls.PlayerActions.Jump.performed += i => jumpKeyPressed = true;
+            
             playerControls.PlayerActions.AimTeleport.performed += i =>
             {
-                if (abilitiesManager.teleportAllowed)
+                //teleportModifierPressed = !teleportModifierPressed
+                if (teleportModifierPressed)
                 {
-                    teleportModifierPressed = !teleportModifierPressed;
+                    teleportModifierPressed = false;
+                    abilitiesManager.SwitchState(abilitiesManager.baseState);
+                }
+                else if (abilitiesManager.teleportAllowed)
+                {
+                    //teleportModifierPressed = !teleportModifierPressed;
+                    teleportModifierPressed = true;
                     abilitiesManager.SwitchState(abilitiesManager.teleportingState);
                 } 
                 else
@@ -73,6 +83,20 @@ public class InputManager : MonoBehaviour
                 if (abilitiesManager.currentState == abilitiesManager.teleportingState)
                 {
                     teleportKeyPressed = true;
+                }
+            };
+
+            playerControls.PlayerActions.AimDistraction.performed += i =>
+            {
+                if (distractionModifierPressed)
+                {
+                    distractionModifierPressed = false;
+                    abilitiesManager.SwitchState(abilitiesManager.baseState);
+                }
+                else if (abilitiesManager.distractionAllowed)
+                {
+                     distractionModifierPressed = true;
+                    abilitiesManager.SwitchState(abilitiesManager.distractingState);
                 }
             };
 
@@ -158,6 +182,14 @@ public class InputManager : MonoBehaviour
         {
             playerLocomotion.IsCrouched = !playerLocomotion.IsCrouched;
             crouchModifierPressed = !crouchModifierPressed;
+        }
+    }
+
+    private void HandleTeleportInput()
+    {
+        if (playerControls.PlayerActions.AimTeleport.triggered)
+        {
+
         }
     }
 

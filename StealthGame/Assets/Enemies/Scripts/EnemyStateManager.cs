@@ -52,8 +52,8 @@ public class EnemyStateManager : MonoBehaviour
         //sightRange = enemyManager.sightDetectionRadius;
 
         searchSuspicionThreshold = suspicionSystem.searchSuspicionThreshold;
-        patrolSuspicionThreshold = suspicionSystem.chaseSuspicionThreshold;
-        chaseSuspicionThreshold = suspicionSystem.patrolSuspicionThreshold;
+        chaseSuspicionThreshold = suspicionSystem.chaseSuspicionThreshold;
+        patrolSuspicionThreshold = suspicionSystem.patrolSuspicionThreshold;
         attackRange = enemyManager.attackRadius;
     }
 
@@ -75,6 +75,7 @@ public class EnemyStateManager : MonoBehaviour
 
     public void SwitchState(EnemyState state)
     {
+        Debug.Log("Switching to " + state.ToString());
         currentState.ExitState(this); 
         currentState = state;
         state.EnterState(this);

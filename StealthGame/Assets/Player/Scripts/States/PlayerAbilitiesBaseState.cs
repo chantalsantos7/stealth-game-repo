@@ -41,20 +41,4 @@ public class PlayerAbilitiesBaseState : PlayerAbilitiesState
             stateManager.SwitchState(stateManager.sprintingState);
         }*/
     }
-
-    private void RechargeStamina(PlayerAbilitiesStateManager context, float amount)
-    {
-        context.player.AddStamina(amount);
-    }
-
-    private IEnumerator RechargeStamina(PlayerAbilitiesStateManager context)
-    {
-        //invoke this per second when stamina is 0
-        yield return new WaitForSeconds(3f);
-        while (context.currentStamina < context.maxStamina)
-        {
-            context.currentStamina += context.maxStamina / 100;
-            yield return context.regenTick;
-        }
-    }
 }

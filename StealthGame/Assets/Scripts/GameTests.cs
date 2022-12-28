@@ -32,11 +32,6 @@ public class GameTests : MonoBehaviour
         {
             TestCombatCam();
         }
-
-        if (enemyCamView)
-        {
-            EnemyCamView();
-        }
     }
 
     void ResetPosition()
@@ -56,7 +51,7 @@ public class GameTests : MonoBehaviour
         }
     }
 
-    void EnemyCamView()
+    /*void EnemyCamView()
     {
         if (cameraManager.cameraMode == CameraMode.EnemyView)
         {
@@ -67,5 +62,5 @@ public class GameTests : MonoBehaviour
         {
             cameraManager.cameraMode = CameraMode.EnemyView;
         }
-    }
+    }*/
 }

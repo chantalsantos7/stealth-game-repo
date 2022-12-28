@@ -12,10 +12,11 @@ public class SuspicionSystem : MonoBehaviour
     public float suspicionDecrement;
     public float suspicionMeter;
 
-    [Header("Suspicion Thresholds")]
+    [Header("Suspicion Thresholds & Multipliers")]
     public float searchSuspicionThreshold;
     public float chaseSuspicionThreshold;
     public float patrolSuspicionThreshold;
+    public float playerSeenIncreaseMultiplier;
 
     private void Awake()
     {
@@ -42,7 +43,7 @@ public class SuspicionSystem : MonoBehaviour
 
         if (detectionSystem.canSeePlayer)
         {
-            suspicionMeter += suspicionIncrement * 20;
+            suspicionMeter += suspicionIncrement * playerSeenIncreaseMultiplier;
         }
         //call the decrease suspicion every few seconds
 

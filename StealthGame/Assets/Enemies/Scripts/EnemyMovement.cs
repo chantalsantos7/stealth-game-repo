@@ -40,7 +40,7 @@ public class EnemyMovement : MonoBehaviour
     {
         animator.SetBool("IsMoving", agent.velocity.magnitude > 0.1f);
         animator.SetFloat("Velocity", agent.velocity.magnitude);
-        Debug.Log("Agent Velocity: " + agent.velocity.magnitude);
+        //Debug.Log("Agent Velocity: " + agent.velocity.magnitude); 
         
     }
 }

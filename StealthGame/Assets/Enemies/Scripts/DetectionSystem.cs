@@ -103,8 +103,7 @@ public class DetectionSystem : MonoBehaviour
     {
         Collider[] rangeCheck = Physics.OverlapSphere(transform.position, hearingDetectionRadius, detectionLayer);
         for (int i = 0; i < rangeCheck.Length; i++)
-        {
-            lastKnownPosition = rangeCheck[i].transform.position;
+        {            
             if (rangeCheck[i].transform.TryGetComponent<PlayerLocomotion>(out var player))
             {
                 //check player velocity? if its above a certain level?
@@ -113,6 +112,7 @@ public class DetectionSystem : MonoBehaviour
                     player.IsMoving) //can only hear the player if they are not crouched
                 {
                     //enter searching state, start going to position of that sound
+                    lastKnownPosition = rangeCheck[i].transform.position;
                     heardSomething = true;
                 }
                 else

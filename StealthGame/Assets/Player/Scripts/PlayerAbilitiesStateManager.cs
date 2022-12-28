@@ -15,23 +15,31 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
     public PlayerLocomotion playerLocomotion;
     public PlayerManager player;
     public InputManager inputManager;
-    public GameObject teleportView;
     public CameraManager cameraManager;
+    
+    [Header("Scene Object References")]
+    public GameObject teleportView;
     public Rigidbody teleportRigidbody;
     public ParticleSystem teleportParticles;
-    
-    [Header("Player Stats")]
+    public GameObject distractAim;
+    public Rigidbody distractRigidbody;
+
+    /*[Header("Player Stats")]
     public int maxStamina = 75;
-    public float maxHealth = 100f;
+    public float maxHealth = 100f;*/
 
     public float health;
     public int currentStamina;
 
     [Header("Ability Cooldowns")]
+    [Tooltip("How many seconds before the teleport ability is available to the player again")]
     public float teleportCooldown = 10;
-    public float staminaCooldown;
+    [Tooltip("How many seconds before the distract ability is available to the player again")]
+    public float distractionCooldown = 15;
     public bool teleportAllowed;
+    public bool distractionAllowed;
     [HideInInspector] public float teleportTimeElapsed; //set to 11 at initialisation so player can teleport immediately upon entering game
+    [HideInInspector] public float distractTimeElapsed;
 
 
     bool sprinting;
@@ -45,6 +53,9 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
         teleportAllowed = true;
         teleportTimeElapsed = 11; //set to 11 at initialisation so player can teleport immediately upon entering game
         teleportRigidbody = teleportView.GetComponent<Rigidbody>();
+
+        distractionAllowed = true;
+        distractTimeElapsed = 11;
     }
 
     void Start()
@@ -56,14 +67,12 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentState.UpdateState(this);
-        //if current state was 
-        
-        
+        currentState.UpdateState(this);   
     }
 
     public void SwitchState(PlayerAbilitiesState state)
     {
+        currentState.ExitState(this);
         currentState = state;
         state.EnterState(this);
     }

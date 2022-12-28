@@ -10,8 +10,8 @@ public class CameraManager : MonoBehaviour
     public CameraMode cameraMode;
     public Transform combatLookAt;
     public CinemachineFreeLook basicCam;
-    public GameObject enemyCam;
-    public GameObject aimCam;
+    public GameObject aimTeleportCam;
+    public GameObject aimDistractorCam;
 
     // Update is called once per frame
     void Update()
@@ -20,16 +20,17 @@ public class CameraManager : MonoBehaviour
         {
             case CameraMode.AimTeleport:
                 basicCam.gameObject.SetActive(false);
-                aimCam.SetActive(true);
+                aimTeleportCam.SetActive(true);
                 //turn off player movement while in this mode, to prevent weird movement
                 break;
             case CameraMode.Basic:
                 basicCam.gameObject.SetActive(true);
-                aimCam.SetActive(false);
+                aimTeleportCam.SetActive(false);
+                aimDistractorCam.SetActive(false);
                 break;
-            case CameraMode.EnemyView:
+            case CameraMode.AimDistractor:
                 basicCam.gameObject.SetActive(false);
-                enemyCam.SetActive(true);
+                aimDistractorCam.SetActive(true);
                 break;
         }
     }

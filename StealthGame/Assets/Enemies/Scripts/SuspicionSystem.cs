@@ -16,6 +16,7 @@ public class SuspicionSystem : MonoBehaviour
     public float searchSuspicionThreshold;
     public float chaseSuspicionThreshold;
     public float patrolSuspicionThreshold;
+    public float heardDistractionMultiplier;
     public float playerSeenIncreaseMultiplier;
 
     private void Awake()
@@ -37,9 +38,10 @@ public class SuspicionSystem : MonoBehaviour
             suspicionMeter += suspicionIncrement;
         }
          
-        //if they heard the coin, need to increase suspicion a lot
-        //public method to increase suspicion a lot, called from detection system? or
-        //additional boolean in detection system indicating they heard a coin, not a footstep
+/*        if (detectionSystem.heardDistraction)
+        {
+            suspicionMeter += suspicionIncrement * heardDistractionMultiplier;
+        }*/
 
         if (detectionSystem.canSeePlayer)
         {

@@ -25,7 +25,8 @@ public class InputManager : MonoBehaviour
     private bool jumpKeyPressed;
     private bool teleportModifierPressed;
     private bool distractionModifierPressed;
-    public bool teleportKeyPressed;
+    [HideInInspector] public bool teleportKeyPressed;
+    [HideInInspector] public bool distractKeyPressed;
 
     public float cameraVerticalInput;
     public float cameraHorizontalInput;
@@ -78,12 +79,17 @@ public class InputManager : MonoBehaviour
                     Debug.Log("Teleport not allowed yet");
                 }
             };
+            
             playerControls.PlayerActions.Teleport.performed += i =>
             {
                 if (abilitiesManager.currentState == abilitiesManager.teleportingState)
-                {
                     teleportKeyPressed = true;
-                }
+            };
+
+            playerControls.PlayerActions.PutDistraction.performed += i =>
+            {
+                if (abilitiesManager.currentState == abilitiesManager.distractingState) 
+                    distractKeyPressed = true;
             };
 
             playerControls.PlayerActions.AimDistraction.performed += i =>

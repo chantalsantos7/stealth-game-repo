@@ -24,6 +24,7 @@ public class DetectionSystem : MonoBehaviour
 
     public bool canSeePlayer;
     public bool heardSomething;
+    public bool heardDistraction;
     public bool inAttackRange;
     public Vector3 lastKnownPosition;
 
@@ -89,7 +90,6 @@ public class DetectionSystem : MonoBehaviour
                     canSeePlayer = false;
                 }
             }
-            //TODO: coin detection (if they can see the coin)
         }
 
         if (rangeChecks.Length == 0)
@@ -106,8 +106,6 @@ public class DetectionSystem : MonoBehaviour
         {            
             if (rangeCheck[i].transform.TryGetComponent<PlayerLocomotion>(out var player))
             {
-                //check player velocity? if its above a certain level?
-                
                 if (!player.IsCrouched &&
                     player.IsMoving) //can only hear the player if they are not crouched
                 {
@@ -120,13 +118,18 @@ public class DetectionSystem : MonoBehaviour
                     heardSomething = false;
                 }
             }
-            /*else if (find component that will only be on coin)
-            {
-
-            }*/
             else
             {
                 heardSomething = false;
+                
+            }
+            
+            if (rangeCheck[i].gameObject.CompareTag("Distraction"))
+            {
+                heardDistraction = true;
+            } else
+            {
+                heardDistraction = false;
             }
         }
 

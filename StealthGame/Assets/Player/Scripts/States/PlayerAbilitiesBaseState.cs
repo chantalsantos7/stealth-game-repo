@@ -13,6 +13,7 @@ public class PlayerAbilitiesBaseState : PlayerAbilitiesState
         //context = stateManager;
         context.playerLocomotion.IsSprinting = false;
         context.teleportAllowed = false;
+        context.distractionAllowed = false;
         //context.teleportParticles.Stop();
     }
 
@@ -34,6 +35,14 @@ public class PlayerAbilitiesBaseState : PlayerAbilitiesState
         {
             context.teleportAllowed = true;
             context.teleportTimeElapsed = 0;
+        }
+
+        context.distractTimeElapsed += Time.deltaTime;
+
+        if (context.distractTimeElapsed >= context.distractionCooldown)
+        {
+            context.distractionAllowed = true;
+            context.distractTimeElapsed = 0;
         }
 
         /*if (stateManager.playerLocomotion.IsSprinting)

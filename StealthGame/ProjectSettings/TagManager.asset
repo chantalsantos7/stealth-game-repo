@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Collide
   - Enemy
+  - Distraction
   layers:
   - Default
   - TransparentFX
@@ -14,8 +15,8 @@ TagManager:
   - Water
   - UI
   - TeleportView
-  - 
-  - 
+  - Distraction
+  - Enemy
   - 
   - 
   - 

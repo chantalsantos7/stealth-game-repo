@@ -11,25 +11,25 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
     public PlayerSprintingState sprintingState = new PlayerSprintingState();
     public PlayerDistractingState distractingState = new PlayerDistractingState();
 
-    [Header("Object References")]
+    [Header("Player Script References")]
     public PlayerLocomotion playerLocomotion;
     public PlayerManager player;
     public InputManager inputManager;
-    public CameraManager cameraManager;
     
-    [Header("Scene Object References")]
+    [Header("Scene References")]
+    public CameraManager cameraManager;
     public GameObject teleportView;
     public Rigidbody teleportRigidbody;
     public ParticleSystem teleportParticles;
     public GameObject distractAim;
-    public Rigidbody distractRigidbody;
+
+    [Header("Prefabs")]
+    public GameObject distractorObj;
+    //public Rigidbody distractRigidbody;
 
     /*[Header("Player Stats")]
     public int maxStamina = 75;
     public float maxHealth = 100f;*/
-
-    public float health;
-    public int currentStamina;
 
     [Header("Ability Cooldowns")]
     [Tooltip("How many seconds before the teleport ability is available to the player again")]

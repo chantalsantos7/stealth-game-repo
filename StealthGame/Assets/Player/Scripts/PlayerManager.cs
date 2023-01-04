@@ -12,13 +12,14 @@ public class PlayerManager : MonoBehaviour
     public bool isUsingRootMotion;
 
     [Header("Player Stats")]
-    public float maxStamina = 500f;
+    public float maxStamina;
     public float maxHealth = 100f;
     public float currentStamina;
     public float staminaRegenCooldown = 5f;
     public float Health { get; private set; }
     public float CurrentStamina { get; private set; }
-    public float teleportLimit = 10f;
+    [Tooltip("How far away the player can teleport from their initial position.")] public float teleportLimit = 10f;
+    [Tooltip("Limits the distance that the distraction aimer can go from the player.")] public float distractAbilityLimit = 1f;
     
     private void Awake()
     {

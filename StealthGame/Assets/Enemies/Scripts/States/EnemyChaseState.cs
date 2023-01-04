@@ -23,11 +23,9 @@ public class EnemyChaseState : EnemyState
     public override void UpdateState(EnemyStateManager context)
     {
         //Debug.Log("Chasing");
-        agent.speed = 3f;
+        agent.speed = 4f;//set velocity to 2 (or running speed) 
         agent.SetDestination(player.position);
-        //set velocity to 2 (or running speed) 
-
-
+        
         //slow down velocity as enemy approaches player
         //switch to attacking state when in range of player
         if (context.playerInAttackRange)

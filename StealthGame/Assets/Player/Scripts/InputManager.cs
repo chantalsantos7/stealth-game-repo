@@ -133,10 +133,10 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.SheatheUnsheathe.performed += i =>
             {
                 playerCombat.isUnarmed = !playerCombat.isUnarmed;
+
+                //Player takes out their weapon. If the player already has a weapon out, they will put the weapon away.
                 if (playerCombat.isUnarmed) playerInventory.SwitchWeapon(playerInventory.unarmedItem);
                 else playerInventory.SwitchWeapon();
-         
-                
             };
         }
 

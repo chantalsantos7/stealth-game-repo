@@ -28,7 +28,7 @@ public class EnemyChaseState : EnemyState
         
         //slow down velocity as enemy approaches player
         //switch to attacking state when in range of player
-        if (context.playerInAttackRange)
+        if (context.detectionSystem.inAttackRange)
         {
             context.SwitchState(context.attackState);
         }

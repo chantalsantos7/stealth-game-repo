@@ -38,11 +38,6 @@ public class SuspicionSystem : MonoBehaviour
             suspicionMeter += suspicionIncrement;
         }
          
-/*        if (detectionSystem.heardDistraction)
-        {
-            suspicionMeter += suspicionIncrement * heardDistractionMultiplier;
-        }*/
-
         if (detectionSystem.canSeePlayer)
         {
             suspicionMeter += suspicionIncrement * playerSeenIncreaseMultiplier;

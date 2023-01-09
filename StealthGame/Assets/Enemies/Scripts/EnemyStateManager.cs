@@ -16,13 +16,15 @@ public class EnemyStateManager : MonoBehaviour
     [Header("Patrol Variables")]
     public bool patrolScheduled;
     public Transform[] waypoints;
+    [Tooltip("Minimum amount of time the enemy should idle at a patrol point.")]
     public float minIdleTimeInSeconds;
+    [Tooltip("Maximum amount of time the enemy should idle at a patrol point.")]
     public float maxIdleTimeInSeconds;
     public bool playerInSightRange;
 
     [Header("Attack Variables")]
     public float timeBetweenAttacks;
-    public bool playerInAttackRange;
+    //public bool playerInAttackRange;
 
     [HideInInspector] public float searchSuspicionThreshold;
     [HideInInspector] public float chaseSuspicionThreshold;
@@ -54,7 +56,7 @@ public class EnemyStateManager : MonoBehaviour
         searchSuspicionThreshold = suspicionSystem.searchSuspicionThreshold;
         chaseSuspicionThreshold = suspicionSystem.chaseSuspicionThreshold;
         patrolSuspicionThreshold = suspicionSystem.patrolSuspicionThreshold;
-        attackRange = enemyManager.attackRadius;
+        attackRange = detectionSystem.attackRadius;
     }
 
     // Start is called before the first frame update

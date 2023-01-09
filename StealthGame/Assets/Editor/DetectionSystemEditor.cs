@@ -16,6 +16,7 @@ public class DetectionSystemEditor : Editor
         Handles.color = Color.green;
         Handles.DrawWireArc(detector.transform.position, Vector3.up, Vector3.forward, 360, detector.hearingDetectionRadius);
 
+        //attack radius
         Handles.DrawWireArc(detector.transform.position, Vector3.up, Vector3.forward, 360, detector.attackRadius);
 
         Vector3 viewAngle01 = DirectionFromAngle(detector.transform.eulerAngles.y, -detector.detectionAngle / 2);

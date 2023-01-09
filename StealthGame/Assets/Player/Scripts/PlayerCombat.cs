@@ -15,16 +15,9 @@ public class PlayerCombat : MonoBehaviour
     public void Attack(WeaponItem weapon, bool isLeft)
     {
         //randomly select one of the available anims
-        int weaponIndex;
-        if (isLeft)
-        {
-            weaponIndex = (int)Random.Range(0f, weapon.leftAttackAnimations.Count);
-            animatorManager.PlayTargetAnimation(weapon.leftAttackAnimations[weaponIndex], false);
-        } else
-        {
-            weaponIndex = (int)Random.Range(0f, weapon.rightAttackAnimations.Count);
-            animatorManager.PlayTargetAnimation(weapon.rightAttackAnimations[weaponIndex], false);
-        }
+        int animIndex;
+        animIndex = (int)Random.Range(0f, weapon.attackAnimations.Count - 1);
+        animatorManager.PlayTargetAnimation(weapon.attackAnimations[animIndex], false);
     }
 
     public void StealthAttack(WeaponItem weapon)

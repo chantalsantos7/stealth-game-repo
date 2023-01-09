@@ -11,7 +11,7 @@ public class EnemyManager : MonoBehaviour
     public float health;
     bool isPerformingAction;
 
-    public float attackRadius;
+    //public float attackRadius;
 
     private void Awake()
     {

@@ -51,13 +51,21 @@ public class DetectionSystem : MonoBehaviour
             yield return wait;
             FieldOfViewCheck();
             HearingDetection();
+            AttackRangeCheck();
         }
     }
 
     private void FieldOfViewCheck()
     {
+        //BUG: Probable source of the memory leak errors that sometimes come up 
         Collider[] rangeChecks = Physics.OverlapSphere(transform.position, sightDetectionRadius, detectionLayer);
         
+        if (rangeChecks.Length == 0)
+        {
+            canSeePlayer = false;
+            return;
+        }
+
         for (int i = 0; i < rangeChecks.Length; i++)
         {
             if (rangeChecks[i].gameObject.CompareTag("Player"))
@@ -92,16 +100,18 @@ public class DetectionSystem : MonoBehaviour
             }
         }
 
-        if (rangeChecks.Length == 0)
-        {
-            canSeePlayer = false;
-        }
-
     }
 
-    public void HearingDetection()
+    private void HearingDetection()
     {
         Collider[] rangeCheck = Physics.OverlapSphere(transform.position, hearingDetectionRadius, detectionLayer);
+        
+        if (rangeCheck.Length == 0)
+        {
+            heardSomething = false;
+            return;
+        }
+
         for (int i = 0; i < rangeCheck.Length; i++)
         {            
             if (rangeCheck[i].transform.TryGetComponent<PlayerLocomotion>(out var player))
@@ -123,20 +133,28 @@ public class DetectionSystem : MonoBehaviour
                 heardSomething = false;
                 
             }
-            
-            if (rangeCheck[i].gameObject.CompareTag("Distraction"))
-            {
-                heardDistraction = true;
-            } else
-            {
-                heardDistraction = false;
-            }
         }
 
-        if (rangeCheck.Length == 0)
-        {
-            heardSomething = false;
-        }
+        
     }
 
+    private void AttackRangeCheck()
+    {
+        Collider[] rangeCheck = Physics.OverlapSphere(transform.position, attackRadius, detectionLayer);
+        
+        if (rangeCheck.Length == 0) {
+            inAttackRange = false;
+            return;
+        }
+
+        if (rangeCheck[0].gameObject.CompareTag("Player"))
+        {
+            inAttackRange = true;
+        }
+        /*else
+        {
+            inAttackRange = false;
+        }*/
+
+    }
 }

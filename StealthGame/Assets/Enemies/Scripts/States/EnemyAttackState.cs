@@ -15,12 +15,22 @@ public class EnemyAttackState : EnemyState
         agent = context.agent;
         player = context.player;
         agent.speed = 0f;
+        Debug.Log("Entered attack state");
     }
 
     public override void UpdateState(EnemyStateManager context)
     {
         //follow player - or a position in front of the player
         //play an attack animation
+        
+        //if player moves out of attack range, move towards them (at walking speed)
+        if (!context.detectionSystem.inAttackRange)
+        {
+            agent.speed = 2f;
+            agent.SetDestination(player.position);
+        }
+
+
     }
 
     public override void ExitState(EnemyStateManager context)

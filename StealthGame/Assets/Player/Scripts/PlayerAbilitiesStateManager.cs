@@ -21,7 +21,7 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
     public GameObject teleportView;
     public Rigidbody teleportRigidbody;
     public ParticleSystem teleportParticles;
-    public GameObject distractAim;
+    public GameObject distractorPreview;
 
     [Header("Prefabs")]
     public GameObject distractorObj;

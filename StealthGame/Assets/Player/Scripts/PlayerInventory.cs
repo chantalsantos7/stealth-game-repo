@@ -9,12 +9,12 @@ public class PlayerInventory : MonoBehaviour
     public WeaponItem rightWeapon;
     public WeaponItem leftWeapon;
     public WeaponItem unarmedItem;
-    public AnimatorManager animatorManager;
+    public PlayerAnimatorManager playerAnimatorManager;
 
     private void Awake()
     {
         weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
-        animatorManager= GetComponent<AnimatorManager>();
+        playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
     }
 
     void Start()
@@ -26,7 +26,7 @@ public class PlayerInventory : MonoBehaviour
     public void SwitchWeapon(WeaponItem weapon)
     {
         weaponSlotManager.UnloadWeaponOnSlot();
-        animatorManager.SetBool("IsUnarmed", true);
+        playerAnimatorManager.SetBool("IsUnarmed", true);
         weaponSlotManager.LoadWeaponOnSlot(weapon, true);
         weaponSlotManager.LoadWeaponOnSlot(weapon, false);
     }
@@ -34,7 +34,7 @@ public class PlayerInventory : MonoBehaviour
     public void SwitchWeapon()
     {
         weaponSlotManager.UnloadWeaponOnSlot();
-        animatorManager.SetBool("IsUnarmed", false);
+        playerAnimatorManager.SetBool("IsUnarmed", false);
         weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
         weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
     }

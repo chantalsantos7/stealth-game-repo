@@ -11,7 +11,7 @@ public class InputManager : MonoBehaviour
     PlayerCombat playerCombat;
     PlayerInventory playerInventory;
     PlayerAbilitiesStateManager abilitiesManager;
-    AnimatorManager animatorManager;
+    PlayerAnimatorManager playerAnimatorManager;
    
     public Vector2 movementInput;
     public Vector2 cameraInput;
@@ -33,7 +33,7 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        animatorManager = GetComponent<AnimatorManager>();
+        playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
         playerAbilities = GetComponent<PlayerAbilities>();
         playerInventory = GetComponent<PlayerInventory>();
@@ -167,7 +167,7 @@ public class InputManager : MonoBehaviour
         cameraHorizontalInput = cameraInput.x;
 
         moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
-        animatorManager.UpdateAnimatorValues(0, moveAmount, playerLocomotion.IsSprinting, playerLocomotion.IsCrouched);
+        playerAnimatorManager.UpdateAnimatorValues(0, moveAmount, playerLocomotion.IsSprinting, playerLocomotion.IsCrouched);
     }
 
     private void HandleSprintingInput()

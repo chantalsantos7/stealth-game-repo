@@ -2,26 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAnimatorManager : MonoBehaviour
+public class EnemyAnimatorManager : AnimatorManager
 {
-    public Animator animator;
     EnemyManager enemyManager;
 
-
-    private void Awake()
+    protected override void Awake()
     {
-        animator = GetComponentInChildren<Animator>();
+        base.Awake();
         enemyManager = GetComponent<EnemyManager>();
     }
 
-    public void PlayTargetAnimation(string targetAnimation, bool isInteracting)
-    {
-        animator.SetBool("IsInteracting", isInteracting);
-        animator.CrossFade(targetAnimation, 0.2f);
-    }
-
-    public void UpdateAnimatorValues()
-    {
-
-    }
 }

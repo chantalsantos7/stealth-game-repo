@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-    public AnimatorManager animatorManager;
+    public PlayerAnimatorManager playerAnimatorManager;
     public bool isUnarmed = false;
 
     private void Awake()
     {
-        animatorManager = GetComponentInChildren<AnimatorManager>();
+        playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
     }
 
     public void Attack(WeaponItem weapon, bool isLeft)
@@ -17,7 +17,7 @@ public class PlayerCombat : MonoBehaviour
         //randomly select one of the available anims
         int animIndex;
         animIndex = (int)Random.Range(0f, weapon.attackAnimations.Count - 1);
-        animatorManager.PlayTargetAnimation(weapon.attackAnimations[animIndex], false);
+        playerAnimatorManager.PlayTargetAnimation(weapon.attackAnimations[animIndex], false);
     }
 
     public void StealthAttack(WeaponItem weapon)
@@ -28,7 +28,7 @@ public class PlayerCombat : MonoBehaviour
         {
             //play non-lethal animation
         }
-        animatorManager.PlayTargetAnimation("SneakAttack", true);
+        playerAnimatorManager.PlayTargetAnimation("SneakAttack", true);
         //animatorManager.PlayTargetAnimation("StealthAttack", false);
     }
 }

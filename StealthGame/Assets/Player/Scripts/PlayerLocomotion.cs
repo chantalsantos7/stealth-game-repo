@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerLocomotion : MonoBehaviour
 {
     PlayerManager playerManager;
-    AnimatorManager animatorManager;
+    PlayerAnimatorManager playerAnimatorManager;
     InputManager inputManager;
     CameraManager cameraManager;
     
@@ -57,7 +57,7 @@ public class PlayerLocomotion : MonoBehaviour
     private void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
-        animatorManager = GetComponent<AnimatorManager>();
+        playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         inputManager = GetComponent<InputManager>();
         playerRigidbody = GetComponent<Rigidbody>();
         cameraObject = Camera.main.transform;
@@ -143,7 +143,7 @@ public class PlayerLocomotion : MonoBehaviour
         {
             if (!playerManager.isInteracting && !IsJumping) //TODO: Add more checks when climbing stairs so animation isn't triggered - raycast distance, if smaller than jump height don't fall?
             {
-                animatorManager.PlayTargetAnimation("Falling", true);
+                playerAnimatorManager.PlayTargetAnimation("Falling", true);
             }
 
             // animatorManager.PlayTargetAnimation("Falling", true);
@@ -237,8 +237,8 @@ public class PlayerLocomotion : MonoBehaviour
     {
         if (isGrounded && !IsCrouched)
         {
-            animatorManager.animator.SetBool("IsJumping", true); 
-            animatorManager.PlayTargetAnimation("Jumping", true);
+            playerAnimatorManager.animator.SetBool("IsJumping", true); 
+            playerAnimatorManager.PlayTargetAnimation("Jumping", true);
 
             float jumpingVelocity = Mathf.Sqrt(-2 * gravityIntensity * jumpHeight);
             Vector3 playerVelocity = movementVelocity;
@@ -257,7 +257,7 @@ public class PlayerLocomotion : MonoBehaviour
         playerRigidbody.drag = 0;
         //dodge always moves back
         Vector3 dodgeForce = -transform.forward * 2000f * Time.deltaTime;
-        animatorManager.PlayTargetAnimation("Dodge", true);
+        playerAnimatorManager.PlayTargetAnimation("Dodge", true);
         playerRigidbody.AddForce(dodgeForce, ForceMode.Impulse);
         //toggle invulnerability bool so dodge prevents damage
        

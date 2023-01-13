@@ -8,6 +8,7 @@ public class EnemySearchState : EnemyState
     NavMeshAgent agent;
     SuspicionSystem suspicionSystem;
     DetectionSystem detectionSystem;
+    //WeaponsInventory weaponsInventory;
 
     float suspicionThreshold;
 
@@ -22,6 +23,8 @@ public class EnemySearchState : EnemyState
 
         chaseThreshold = context.chaseSuspicionThreshold;
         patrolThreshold = context.patrolSuspicionThreshold;
+        context.enemyInventory.TakeOutWeapon();
+        //context.
         Debug.Log("Entered Search state");
     }
     
@@ -43,6 +46,11 @@ public class EnemySearchState : EnemyState
             context.SwitchState(context.patrolState);
         }
 
+        if (detectionSystem.canSeePlayer && detectionSystem.inAttackRange)
+        {
+            context.SwitchState(context.attackState);
+        }
+
        
 
         //if they cannot currently see or hear player and it has been some time, go back to patrolling
@@ -59,6 +67,8 @@ public class EnemySearchState : EnemyState
     public override void ExitState(EnemyStateManager context)
     {
         //suspicionSystem.suspicionMeter = 0;
+        //only disarm if next state is patrol or idle
+        
         Debug.Log("Exiting Search State");
     }
 

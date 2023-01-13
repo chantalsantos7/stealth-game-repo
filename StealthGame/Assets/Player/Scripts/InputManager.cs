@@ -9,7 +9,7 @@ public class InputManager : MonoBehaviour
     PlayerLocomotion playerLocomotion;
     PlayerAbilities playerAbilities;
     PlayerCombat playerCombat;
-    PlayerInventory playerInventory;
+    WeaponsInventory playerInventory;
     PlayerAbilitiesStateManager abilitiesManager;
     PlayerAnimatorManager playerAnimatorManager;
    
@@ -36,7 +36,7 @@ public class InputManager : MonoBehaviour
         playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
         playerAbilities = GetComponent<PlayerAbilities>();
-        playerInventory = GetComponent<PlayerInventory>();
+        playerInventory = GetComponent<WeaponsInventory>();
         playerCombat = GetComponent<PlayerCombat>();
         abilitiesManager = GetComponent<PlayerAbilitiesStateManager>();
         teleportKeyPressed = false;
@@ -116,7 +116,8 @@ public class InputManager : MonoBehaviour
 
             playerControls.PlayerActions.LeftAttack.performed += i =>
             {
-                playerCombat.Attack(playerInventory.leftWeapon, true);
+                //get the weapon on the left slot, rather than directly referencing the leftWeapon
+                playerCombat.Attack(playerInventory.leftWeapon);
                 //random choose betwen left or right weapon
             };
 
@@ -135,8 +136,8 @@ public class InputManager : MonoBehaviour
                 playerCombat.isUnarmed = !playerCombat.isUnarmed;
 
                 //Player takes out their weapon. If the player already has a weapon out, they will put the weapon away.
-                if (playerCombat.isUnarmed) playerInventory.SwitchWeapon(playerInventory.unarmedItem);
-                else playerInventory.SwitchWeapon();
+                if (playerCombat.isUnarmed) playerInventory.Disarm();
+                else playerInventory.TakeOutWeapon();
             };
         }
 

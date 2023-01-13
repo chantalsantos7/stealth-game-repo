@@ -22,5 +22,8 @@ public class AnimatorManager : MonoBehaviour
         animator.SetBool(boolVariable, value);
     }
 
-    
+    public bool GetBool(string boolVariable)
+    {
+        return animator.GetBool(boolVariable);
+    }
 }

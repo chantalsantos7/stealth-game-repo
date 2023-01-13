@@ -6,7 +6,10 @@ public class EnemyIdleState : EnemyState
 {
     public override void EnterState(EnemyStateManager context)
     {
-        
+        if (!context.enemyManager.isUnarmed)
+        {
+            context.enemyInventory.Disarm();
+        }
     }
 
     public override void UpdateState(EnemyStateManager context)

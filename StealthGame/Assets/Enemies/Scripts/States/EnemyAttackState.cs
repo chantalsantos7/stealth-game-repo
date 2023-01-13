@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class EnemyAttackState : EnemyState
 {
     bool alreadyAttacked;
+    DetectionSystem detectionSystem;
     NavMeshAgent agent;
     Transform player;
 
@@ -14,7 +15,15 @@ public class EnemyAttackState : EnemyState
         //throw new System.NotImplementedException();
         agent = context.agent;
         player = context.player;
+        detectionSystem = context.detectionSystem;
         agent.speed = 0f;
+
+        if (context.enemyManager.isUnarmed)
+        {
+            context.enemyInventory.TakeOutWeapon();
+            
+        }
+
         Debug.Log("Entered attack state");
     }
 
@@ -30,7 +39,17 @@ public class EnemyAttackState : EnemyState
             agent.SetDestination(player.position);
         }
 
+        //play attack animation (call attack function)
 
+        /*int animIndex;
+        animIndex = (int)Random.Range(0f, weapon.attackAnimations.Count - 1);
+        context.enemyAnimatorManager.PlayTargetAnimation()*/
+
+        //if enemy loses sight of the player, they should still try to find the player (probably through hearing)
+        if (!detectionSystem.canSeePlayer && !detectionSystem.inAttackRange)
+        {
+            context.SwitchState(context.suspiciousState);
+        }
     }
 
     public override void ExitState(EnemyStateManager context)

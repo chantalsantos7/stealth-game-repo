@@ -2,24 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyInventory : MonoBehaviour
+public class EnemyInventory : WeaponsInventory
 {
+    public GameObject sheathedSwordModel;
+    public EnemyAnimatorManager enemyAnimatorManager;
 
-    WeaponSlotManager weaponSlotManager;
-
-    public WeaponItem leftHandWeapon;
-    public WeaponItem rightHandWeapon;
-    public WeaponItem unarmedWeapon;
-
-    // Start is called before the first frame update
-    void Start()
+    protected override void Awake()
     {
+        base.Awake();
+        enemyAnimatorManager = GetComponent<EnemyAnimatorManager>();
         
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void Start()
     {
-        
+        //base.Start();
+        enemyAnimatorManager.SetBool("IsUnarmed", true);
+        weaponSlotManager.LoadWeaponOnSlot(unarmedItem, false);
+        weaponSlotManager.LoadWeaponOnSlot(unarmedItem, true);
     }
+
+    public override void Disarm()
+    {
+        base.Disarm();
+        sheathedSwordModel.SetActive(true);
+        enemyAnimatorManager.PlayTargetAnimation("SheathSword", false);
+    }
+
+    public override void TakeOutWeapon()
+    {
+        base.TakeOutWeapon();
+        
+        sheathedSwordModel.SetActive(false);
+        enemyAnimatorManager.PlayTargetAnimation("WithdrawSword", false);
+    }
+
+
 }

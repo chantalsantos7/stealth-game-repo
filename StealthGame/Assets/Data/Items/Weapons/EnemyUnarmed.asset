@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db56d3d3ebaa62e4dbb17b9c6490d746, type: 3}
-  m_Name: Unarmed
+  m_Name: EnemyUnarmed
   m_EditorClassIdentifier: 
-  itemName: Unarmed
+  itemName: EnemyUnarmed
   modelPrefab: {fileID: 4867372904052830073, guid: 29e81aac3122cb44791c8a51e7ab304a, type: 3}
   isUnarmed: 1
-  attackAnimations:
-  - CrossPunch
+  attackAnimations: []

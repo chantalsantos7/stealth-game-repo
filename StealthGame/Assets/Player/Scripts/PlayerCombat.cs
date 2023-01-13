@@ -12,7 +12,7 @@ public class PlayerCombat : MonoBehaviour
         playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
     }
 
-    public void Attack(WeaponItem weapon, bool isLeft)
+    public void Attack(WeaponItem weapon)
     {
         //randomly select one of the available anims
         int animIndex;

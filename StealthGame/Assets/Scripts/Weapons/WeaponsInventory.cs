@@ -2,39 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInventory : MonoBehaviour
+public class WeaponsInventory : MonoBehaviour
 {
-    WeaponSlotManager weaponSlotManager;
+    public WeaponSlotManager weaponSlotManager;
 
     public WeaponItem rightWeapon;
     public WeaponItem leftWeapon;
     public WeaponItem unarmedItem;
-    public PlayerAnimatorManager playerAnimatorManager;
+    public AnimatorManager animatorManager;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
-        playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
+        animatorManager = GetComponent<AnimatorManager>();
     }
 
-    void Start()
+    protected virtual void Start()
     {
         weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
         weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
     }
 
-    public void SwitchWeapon(WeaponItem weapon)
+    public virtual void Disarm()
     {
         weaponSlotManager.UnloadWeaponOnSlot();
-        playerAnimatorManager.SetBool("IsUnarmed", true);
-        weaponSlotManager.LoadWeaponOnSlot(weapon, true);
-        weaponSlotManager.LoadWeaponOnSlot(weapon, false);
+        animatorManager.SetBool("IsUnarmed", true);
+        weaponSlotManager.LoadWeaponOnSlot(unarmedItem, true);
+        weaponSlotManager.LoadWeaponOnSlot(unarmedItem, false);
     }
 
-    public void SwitchWeapon()
-    {
+    public virtual void TakeOutWeapon()
+    { 
         weaponSlotManager.UnloadWeaponOnSlot();
-        playerAnimatorManager.SetBool("IsUnarmed", false);
+        animatorManager.SetBool("IsUnarmed", false);
         weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
         weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
     }

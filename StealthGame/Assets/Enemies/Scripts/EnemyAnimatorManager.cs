@@ -11,5 +11,4 @@ public class EnemyAnimatorManager : AnimatorManager
         base.Awake();
         enemyManager = GetComponent<EnemyManager>();
     }
-
 }

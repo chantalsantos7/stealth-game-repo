@@ -7,8 +7,10 @@ public class EnemyStateManager : MonoBehaviour
 {
     [Header("Object References")]
     public EnemyManager enemyManager;
+    public EnemyAnimatorManager enemyAnimatorManager;
     public DetectionSystem detectionSystem;
     public SuspicionSystem suspicionSystem;
+    public WeaponsInventory enemyInventory;
     public Transform player;
     public NavMeshAgent agent { get; private set; }
     public LayerMask playerMask, groundMask;
@@ -49,8 +51,10 @@ public class EnemyStateManager : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.Find("PlayerCharacter").transform;
         enemyManager = GetComponent<EnemyManager>();
+        enemyAnimatorManager = GetComponent<EnemyAnimatorManager>();
         detectionSystem = GetComponent<DetectionSystem>();
         suspicionSystem = GetComponent<SuspicionSystem>();
+        enemyInventory = GetComponent<EnemyInventory>();
         //sightRange = enemyManager.sightDetectionRadius;
 
         searchSuspicionThreshold = suspicionSystem.searchSuspicionThreshold;

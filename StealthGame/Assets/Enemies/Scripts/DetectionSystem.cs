@@ -58,19 +58,19 @@ public class DetectionSystem : MonoBehaviour
     private void FieldOfViewCheck()
     {
         //BUG: Probable source of the memory leak errors that sometimes come up 
-        Collider[] rangeChecks = Physics.OverlapSphere(transform.position, sightDetectionRadius, detectionLayer);
-        
-        if (rangeChecks.Length == 0)
+        Collider[] rangeCheck = new Collider[2];
+        Physics.OverlapSphereNonAlloc(transform.position, sightDetectionRadius, rangeCheck, detectionLayer);
+        if (rangeCheck[0] == null)
         {
             canSeePlayer = false;
             return;
         }
 
-        for (int i = 0; i < rangeChecks.Length; i++)
+        for (int i = 0; i < rangeCheck.Length; i++)
         {
-            if (rangeChecks[i].gameObject.CompareTag("Player"))
+            if (rangeCheck[i] != null && rangeCheck[i].gameObject.CompareTag("Player"))
             {
-                Transform target = rangeChecks[i].transform;
+                Transform target = rangeCheck[i].transform;
                  //only the player will be on the detectionLayer, so only need to get the first entry in array
                 Vector3 directionToTarget = (target.position - transform.position).normalized;
                 if (Vector3.Angle(transform.forward, directionToTarget) < detectionAngle / 2)
@@ -105,14 +105,16 @@ public class DetectionSystem : MonoBehaviour
     private void HearingDetection()
     {
         Collider[] rangeCheck = Physics.OverlapSphere(transform.position, hearingDetectionRadius, detectionLayer);
-        
+
+        /*Collider[] rangeCheck = new Collider[2];
+        Physics.OverlapSphereNonAlloc(transform.position, hearingDetectionRadius, rangeCheck, detectionLayer);*/
         if (rangeCheck.Length == 0)
         {
             heardSomething = false;
             return;
         }
 
-        for (int i = 0; i < rangeCheck.Length; i++)
+       for (int i = 0; i < rangeCheck.Length; i++)
         {            
             if (rangeCheck[i].transform.TryGetComponent<PlayerLocomotion>(out var player))
             {
@@ -140,14 +142,14 @@ public class DetectionSystem : MonoBehaviour
 
     private void AttackRangeCheck()
     {
-        Collider[] rangeCheck = Physics.OverlapSphere(transform.position, attackRadius, detectionLayer);
-        
-        if (rangeCheck.Length == 0) {
+        Collider[] rangeCheck = new Collider[2];
+        Physics.OverlapSphereNonAlloc(transform.position, attackRadius, rangeCheck, detectionLayer);
+        if (rangeCheck[0] == null) {
             inAttackRange = false;
             return;
         }
 
-        if (rangeCheck[0].gameObject.CompareTag("Player"))
+        if (rangeCheck[0] != null && rangeCheck[0].gameObject.CompareTag("Player"))
         {
             inAttackRange = true;
         }

@@ -24,6 +24,12 @@ public class EnemyPatrolState : EnemyState
         idleTimeElapsed = -5;
         minIdleTimeInSeconds = context.minIdleTimeInSeconds;
         maxIdleTimeInSeconds = context.maxIdleTimeInSeconds;
+        
+        //if enemy is armed from the search or attack states
+        if (!context.enemyManager.isUnarmed)
+        {
+            context.enemyInventory.Disarm();
+        }
         UpdateDestination();
         //want idle time to be different for each patrol point
         //Debug.Log("first target is: " + target);

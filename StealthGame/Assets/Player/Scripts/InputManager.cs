@@ -117,7 +117,9 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.LeftAttack.performed += i =>
             {
                 //get the weapon on the left slot, rather than directly referencing the leftWeapon
-                playerCombat.Attack(playerInventory.leftWeapon);
+                //change to just 'Attack' pick which weapon to attack w/ randomly
+                 
+                playerCombat.Attack();
                 //random choose betwen left or right weapon
             };
 

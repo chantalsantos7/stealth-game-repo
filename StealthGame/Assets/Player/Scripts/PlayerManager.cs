@@ -46,15 +46,5 @@ public class PlayerManager : MonoBehaviour
         playerLocomotion.IsJumping = animator.GetBool("IsJumping");
         animator.SetBool("IsGrounded", playerLocomotion.isGrounded);
         
-    }
-
-    public void AddStamina(float amount)
-    {
-        CurrentStamina += amount;
-    }
-
-    public void UseStamina(float amount)
-    {
-        CurrentStamina -= amount;
-    }
+    }  
 }

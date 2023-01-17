@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts.Enums;
 using UnityEngine;
 
 public class WeaponsInventory : MonoBehaviour
@@ -8,7 +7,8 @@ public class WeaponsInventory : MonoBehaviour
 
     public WeaponItem rightWeapon;
     public WeaponItem leftWeapon;
-    public WeaponItem unarmedItem;
+    public WeaponItem leftUnarmedItem;
+    public WeaponItem rightUnarmedItem;
     public AnimatorManager animatorManager;
 
     protected virtual void Awake()
@@ -19,23 +19,23 @@ public class WeaponsInventory : MonoBehaviour
 
     protected virtual void Start()
     {
-        weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
-        weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
+        weaponSlotManager.LoadWeaponOnSlot(rightWeapon, WeaponHand.Right);
+        weaponSlotManager.LoadWeaponOnSlot(leftWeapon, WeaponHand.Left);
     }
 
     public virtual void Disarm()
     {
         weaponSlotManager.UnloadWeaponOnSlot();
         animatorManager.SetBool("IsUnarmed", true);
-        weaponSlotManager.LoadWeaponOnSlot(unarmedItem, true);
-        weaponSlotManager.LoadWeaponOnSlot(unarmedItem, false);
+        weaponSlotManager.LoadWeaponOnSlot(leftUnarmedItem, WeaponHand.Left);
+        weaponSlotManager.LoadWeaponOnSlot(rightUnarmedItem, WeaponHand.Right);
     }
 
     public virtual void TakeOutWeapon()
     { 
         weaponSlotManager.UnloadWeaponOnSlot();
         animatorManager.SetBool("IsUnarmed", false);
-        weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
-        weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
+        weaponSlotManager.LoadWeaponOnSlot(leftWeapon, WeaponHand.Left);
+        weaponSlotManager.LoadWeaponOnSlot(rightWeapon, WeaponHand.Right);
     }
 }

@@ -9,7 +9,7 @@ public class WeaponItem : Item
     public bool isUnarmed;
 
     [Header("Attack Animations")]
-    [Tooltip("The names of the attack animations that should be used by this weapon (these should be the same names as in the enemy animator).")]
+    [Tooltip("The names of the attack animations that should be used by this weapon (these should be the same names as the states in the animator).")]
     public List<string> attackAnimations;
     //public string[] heavyAttackAnims;
 }

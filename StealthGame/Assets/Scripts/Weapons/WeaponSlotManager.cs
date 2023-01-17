@@ -1,3 +1,4 @@
+using Assets.Scripts.Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,26 +13,27 @@ public class WeaponSlotManager : MonoBehaviour
         WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
         foreach (WeaponHolderSlot weaponSlot in weaponHolderSlots)
         {
-            if (weaponSlot.isLeftHandSlot)
+            if (weaponSlot.weaponHand == WeaponHand.Left)
             {
                 leftHandSlot = weaponSlot;
             } 
-            else if (weaponSlot.isRightHandSlot)
+            else if (weaponSlot.weaponHand == WeaponHand.Right)
             {
                 rightHandSlot = weaponSlot;
             }
         }
     }
 
-    public void LoadWeaponOnSlot(WeaponItem weaponItem, bool isLeft)
+    public void LoadWeaponOnSlot(WeaponItem weaponItem, WeaponHand weaponHand)
     {
-        if (isLeft)
+        switch (weaponHand)
         {
-            leftHandSlot.LoadWeaponModel(weaponItem);
-        } 
-        else
-        {
-            rightHandSlot.LoadWeaponModel(weaponItem);
+            case WeaponHand.Left:
+                leftHandSlot.LoadWeaponModel(weaponItem);
+                break;
+            case WeaponHand.Right:
+                rightHandSlot.LoadWeaponModel(weaponItem);
+                break;
         }
     }
 
@@ -39,5 +41,15 @@ public class WeaponSlotManager : MonoBehaviour
     {
         leftHandSlot.UnloadWeapon();
         rightHandSlot.UnloadWeapon();
+    }
+
+    public WeaponItem GetWeaponOnSlot(WeaponHand weaponHand)
+    {
+        return weaponHand switch
+        {
+            WeaponHand.Left => leftHandSlot.currentWeapon,
+            WeaponHand.Right => rightHandSlot.currentWeapon,
+            _ => null,
+        };
     }
 }

@@ -32,10 +32,4 @@ public class EnemyManager : MonoBehaviour
         //HandleCurrentAction();
         isUnarmed = animatorManager.GetBool("IsUnarmed");
     }
-
-    public void Disarm()
-    {
-        //reactivate the sword object on the model, deactivate the one in enemy's hand
-        
-    }
 }

@@ -31,9 +31,10 @@ public class EnemyAttackState : EnemyState
     {
         //follow player - or a position in front of the player
         //play an attack animation
-        
+
         //if player moves out of attack range, move towards them (at walking speed)
-        if (!context.detectionSystem.inAttackRange)
+        Debug.Log(detectionSystem.inAttackRange);
+        if (!detectionSystem.inAttackRange)
         {
             agent.speed = 2f;
             agent.SetDestination(player.position);

@@ -1,3 +1,4 @@
+using Assets.Scripts.Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,11 @@ using UnityEngine;
 public class WeaponHolderSlot : MonoBehaviour
 {
     public Transform parentOverride;
-    public bool isLeftHandSlot;
-    public bool isRightHandSlot;
+    /*public bool isLeftHandSlot;
+    public bool isRightHandSlot;*/
+    [Tooltip("Which hand the slot is attached to.")] 
+    public WeaponHand weaponHand;
+    public WeaponItem currentWeapon { get; private set; }
     
     public GameObject currentWeaponModel;
 
@@ -35,6 +39,8 @@ public class WeaponHolderSlot : MonoBehaviour
             UnloadWeapon();
             return;
         }
+
+        currentWeapon = weaponItem;
 
         GameObject model = Instantiate(weaponItem.modelPrefab) as GameObject;
         if (model != null)

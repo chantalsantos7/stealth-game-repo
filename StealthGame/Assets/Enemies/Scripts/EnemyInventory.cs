@@ -1,3 +1,4 @@
+using Assets.Scripts.Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,8 +19,8 @@ public class EnemyInventory : WeaponsInventory
     {
         //base.Start();
         enemyAnimatorManager.SetBool("IsUnarmed", true);
-        weaponSlotManager.LoadWeaponOnSlot(unarmedItem, false);
-        weaponSlotManager.LoadWeaponOnSlot(unarmedItem, true);
+        weaponSlotManager.LoadWeaponOnSlot(leftUnarmedItem, WeaponHand.Left);
+        weaponSlotManager.LoadWeaponOnSlot(rightUnarmedItem, WeaponHand.Right);
     }
 
     public override void Disarm()

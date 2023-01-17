@@ -8770,8 +8770,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentOverride: {fileID: 5393752558777065326}
-  isLeftHandSlot: 0
-  isRightHandSlot: 1
+  weaponHand: 1
   currentWeaponModel: {fileID: 0}
 --- !u!1 &5393752558777221968
 GameObject:
@@ -8820,8 +8819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentOverride: {fileID: 938105757879736651}
-  isLeftHandSlot: 1
-  isRightHandSlot: 0
+  weaponHand: 0
   currentWeaponModel: {fileID: 0}
 --- !u!1 &5393752558777221974
 GameObject:
@@ -15527,7 +15525,8 @@ MonoBehaviour:
   weaponSlotManager: {fileID: 0}
   rightWeapon: {fileID: 11400000, guid: 268962af922fcf74ca8f5ea5be637f13, type: 2}
   leftWeapon: {fileID: 11400000, guid: a907ca3865fb76f4c8a253e2e61f0d92, type: 2}
-  unarmedItem: {fileID: 11400000, guid: a907ca3865fb76f4c8a253e2e61f0d92, type: 2}
+  leftUnarmedItem: {fileID: 11400000, guid: 0d3ed558c0be84b4bb38ab52bc5c8344, type: 2}
+  rightUnarmedItem: {fileID: 11400000, guid: a907ca3865fb76f4c8a253e2e61f0d92, type: 2}
   animatorManager: {fileID: 0}
   sheathedSwordModel: {fileID: 682444226232132472}
   enemyAnimatorManager: {fileID: 0}

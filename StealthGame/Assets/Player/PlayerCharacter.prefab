@@ -333,12 +333,12 @@ GameObject:
   - component: {fileID: 1698976723627222965}
   - component: {fileID: 1698976723627222964}
   - component: {fileID: 1698976723627222971}
-  - component: {fileID: 1698976723627222970}
   - component: {fileID: 7994985554337052804}
   - component: {fileID: 1124040490973370385}
   - component: {fileID: 7994985554337052805}
   - component: {fileID: 7994985554337052806}
   - component: {fileID: 7994985554337052807}
+  - component: {fileID: 1700819947109231859}
   m_Layer: 3
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -475,19 +475,6 @@ MonoBehaviour:
   staminaRegenCooldown: 5
   teleportLimit: 10
   distractAbilityLimit: 1
---- !u!114 &1698976723627222970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1698976723627222974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da2cccc98fbcf4d41acb0a6db74ee462, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
 --- !u!114 &7994985554337052804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,9 +500,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef2f0611abff2540bea0a79f6e4a804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSlotManager: {fileID: 0}
   rightWeapon: {fileID: 11400000, guid: 6290fa687d28fd845b79086598a1667a, type: 2}
-  leftWeapon: {fileID: 11400000, guid: 6290fa687d28fd845b79086598a1667a, type: 2}
-  unarmedItem: {fileID: 11400000, guid: a907ca3865fb76f4c8a253e2e61f0d92, type: 2}
+  leftWeapon: {fileID: 11400000, guid: 185855071f427a74f8bc078e856d41e9, type: 2}
+  leftUnarmedItem: {fileID: 11400000, guid: 0d3ed558c0be84b4bb38ab52bc5c8344, type: 2}
+  rightUnarmedItem: {fileID: 11400000, guid: a907ca3865fb76f4c8a253e2e61f0d92, type: 2}
   animatorManager: {fileID: 0}
 --- !u!114 &7994985554337052805
 MonoBehaviour:
@@ -529,8 +518,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cb29120465bada42b1516b660f4c857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatorManager: {fileID: 0}
+  playerAnimatorManager: {fileID: 0}
+  playerInventory: {fileID: 0}
   isUnarmed: 0
+  isAttacking: 0
 --- !u!114 &7994985554337052806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,6 +563,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioClips: []
   audioLoops: []
+--- !u!114 &1700819947109231859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698976723627222974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbaa129eb2b49314fa89fd81e6a803bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!1 &1698976724299154519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,8 +1235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentOverride: {fileID: 1698976724299154512}
-  isLeftHandSlot: 1
-  isRightHandSlot: 0
+  weaponHand: 0
   currentWeaponModel: {fileID: 0}
 --- !u!1 &3042014234505872206
 GameObject:
@@ -1443,8 +1446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentOverride: {fileID: 1019597603951332907}
-  isLeftHandSlot: 0
-  isRightHandSlot: 1
+  weaponHand: 0
   currentWeaponModel: {fileID: 0}
 --- !u!1 &3713751403217741626
 GameObject:
@@ -3270,8 +3272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentOverride: {fileID: 2233301078934204596}
-  isLeftHandSlot: 0
-  isRightHandSlot: 1
+  weaponHand: 1
   currentWeaponModel: {fileID: 0}
 --- !u!4 &2233301078934204592 stripped
 Transform:

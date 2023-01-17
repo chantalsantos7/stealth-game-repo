@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,13 +21,16 @@ public class DetectionSystem : MonoBehaviour
     public LayerMask obstructionLayer;
 
     public PlayerManager currentTarget;
-    
 
     public bool canSeePlayer;
     public bool heardSomething;
     public bool heardDistraction;
-    public bool inAttackRange;
+    public bool inAttackRange = false;
     public Vector3 lastKnownPosition;
+
+    private Collider[] fovRangeCheck = new Collider[1];
+    private Collider[] hearingRangeCheck = new Collider[1];
+    private Collider[] attackRangeCheck = new Collider[1];
 
     private void Awake()
     {
@@ -58,19 +62,19 @@ public class DetectionSystem : MonoBehaviour
     private void FieldOfViewCheck()
     {
         //BUG: Probable source of the memory leak errors that sometimes come up 
-        Collider[] rangeCheck = new Collider[2];
-        Physics.OverlapSphereNonAlloc(transform.position, sightDetectionRadius, rangeCheck, detectionLayer);
-        if (rangeCheck[0] == null)
+        //Collider[] rangeCheck = new Collider[2];
+        Physics.OverlapSphereNonAlloc(transform.position, sightDetectionRadius, fovRangeCheck, detectionLayer);
+        if (fovRangeCheck[0] == null)
         {
             canSeePlayer = false;
             return;
         }
 
-        for (int i = 0; i < rangeCheck.Length; i++)
+        for (int i = 0; i < fovRangeCheck.Length; i++)
         {
-            if (rangeCheck[i] != null && rangeCheck[i].gameObject.CompareTag("Player"))
+            if (fovRangeCheck[i] != null && fovRangeCheck[i].gameObject.CompareTag("Player"))
             {
-                Transform target = rangeCheck[i].transform;
+                Transform target = fovRangeCheck[i].transform;
                  //only the player will be on the detectionLayer, so only need to get the first entry in array
                 Vector3 directionToTarget = (target.position - transform.position).normalized;
                 if (Vector3.Angle(transform.forward, directionToTarget) < detectionAngle / 2)
@@ -98,31 +102,34 @@ public class DetectionSystem : MonoBehaviour
                     canSeePlayer = false;
                 }
             }
+            else
+            {
+                canSeePlayer = false;
+            }
         }
 
     }
 
     private void HearingDetection()
     {
-        Collider[] rangeCheck = Physics.OverlapSphere(transform.position, hearingDetectionRadius, detectionLayer);
-
+        Physics.OverlapSphereNonAlloc(transform.position, hearingDetectionRadius, hearingRangeCheck, detectionLayer);
         /*Collider[] rangeCheck = new Collider[2];
         Physics.OverlapSphereNonAlloc(transform.position, hearingDetectionRadius, rangeCheck, detectionLayer);*/
-        if (rangeCheck.Length == 0)
+        if (hearingRangeCheck[0] == null)
         {
             heardSomething = false;
             return;
         }
 
-       for (int i = 0; i < rangeCheck.Length; i++)
-        {            
-            if (rangeCheck[i].transform.TryGetComponent<PlayerLocomotion>(out var player))
+        for (int i = 0; i < hearingRangeCheck.Length; i++)
+        {
+            if (hearingRangeCheck[i] != null && hearingRangeCheck[i].transform.TryGetComponent<PlayerLocomotion>(out var player))
             {
                 if (!player.IsCrouched &&
-                    player.IsMoving) //can only hear the player if they are not crouched
+                        player.IsMoving) //can only hear the player if they are not crouched
                 {
                     //enter searching state, start going to position of that sound
-                    lastKnownPosition = rangeCheck[i].transform.position;
+                    lastKnownPosition = hearingRangeCheck[i].transform.position;
                     heardSomething = true;
                 }
                 else
@@ -133,30 +140,35 @@ public class DetectionSystem : MonoBehaviour
             else
             {
                 heardSomething = false;
-                
+
             }
         }
-
-        
+                
     }
 
     private void AttackRangeCheck()
     {
-        Collider[] rangeCheck = new Collider[2];
-        Physics.OverlapSphereNonAlloc(transform.position, attackRadius, rangeCheck, detectionLayer);
-        if (rangeCheck[0] == null) {
-            inAttackRange = false;
-            return;
-        }
-
-        if (rangeCheck[0] != null && rangeCheck[0].gameObject.CompareTag("Player"))
+        //Debug.Log("Check something");
+        Physics.OverlapSphereNonAlloc(transform.position, attackRadius, attackRangeCheck, detectionLayer);
+        
+        for (int i = 0; i < attackRangeCheck.Length; i++)
         {
-            inAttackRange = true;
+            if (attackRangeCheck[i] != null && attackRangeCheck[i].gameObject.CompareTag("Player"))
+            {
+                inAttackRange = true;
+            }
+            else
+            {
+                //Array.Clear(attackRangeCheck, 0, attackRangeCheck.Length);
+                inAttackRange = false;
+            }
         }
-        /*else
+        
+
+        if (attackRangeCheck[0] == null)
         {
             inAttackRange = false;
-        }*/
-
+            //return;
+        }
     }
 }

@@ -13,7 +13,7 @@ public class EnemyManager : MonoBehaviour
 
     [HideInInspector] public bool isUnarmed;
 
-    public float health;
+    //public float health;
     bool isPerformingAction;
 
     //public float attackRadius;

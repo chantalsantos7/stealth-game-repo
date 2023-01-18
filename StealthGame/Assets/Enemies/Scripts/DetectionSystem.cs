@@ -75,11 +75,12 @@ public class DetectionSystem : MonoBehaviour
             if (fovRangeCheck[i] != null && fovRangeCheck[i].gameObject.CompareTag("Player"))
             {
                 Transform target = fovRangeCheck[i].transform;
-                 //only the player will be on the detectionLayer, so only need to get the first entry in array
-                Vector3 directionToTarget = (target.position - transform.position).normalized;
+                 //check whether the target is w/in their viewing angle
+                Vector3 directionToTarget = (target.position - transform.position).normalized; 
                 if (Vector3.Angle(transform.forward, directionToTarget) < detectionAngle / 2)
                 {
                     float distanceToTarget = Vector3.Distance(transform.position, target.position);
+                    //check if anything is obstructing the player
                     if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionLayer))
                     {
                         canSeePlayer = true;
@@ -160,6 +161,7 @@ public class DetectionSystem : MonoBehaviour
             else
             {
                 //Array.Clear(attackRangeCheck, 0, attackRangeCheck.Length);
+                attackRangeCheck[i] = null;
                 inAttackRange = false;
             }
         }

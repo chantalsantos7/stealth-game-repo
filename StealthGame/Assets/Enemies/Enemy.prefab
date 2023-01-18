@@ -15317,6 +15317,7 @@ GameObject:
   - component: {fileID: 8718505923377615534}
   - component: {fileID: 479306962152886326}
   - component: {fileID: 2542664594103485709}
+  - component: {fileID: 141180785164825538}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
@@ -15359,7 +15360,6 @@ MonoBehaviour:
   detectionSystem: {fileID: 0}
   swordModel: {fileID: 0}
   isUnarmed: 0
-  health: 50
 --- !u!114 &4063888632370949663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15479,7 +15479,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8718505923377615530}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -15530,6 +15530,20 @@ MonoBehaviour:
   animatorManager: {fileID: 0}
   sheathedSwordModel: {fileID: 682444226232132472}
   enemyAnimatorManager: {fileID: 0}
+--- !u!114 &141180785164825538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8718505923377615530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae4e78114d68fd479e4daf0c28f140c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 50
+  health: 0
 --- !u!1 &8718505923583248577
 GameObject:
   m_ObjectHideFlags: 0

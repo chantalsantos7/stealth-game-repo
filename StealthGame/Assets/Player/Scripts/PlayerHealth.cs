@@ -5,13 +5,24 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public PlayerManager playerManager;
+    private float health;
 
     private void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
     }
 
-    private void DamageHealth()
+    private void Start()
+    {
+        health = playerManager.maxHealth;
+    }
+
+    private void DamageHealth(float amount)
+    {
+        health -= amount;
+    }
+
+    private void Die()
     {
 
     }
@@ -27,6 +38,7 @@ public class PlayerHealth : MonoBehaviour
                 if (weapon != null)
                 {
                     float damage = Random.Range(weapon.damageMin, weapon.damageMax);
+                    DamageHealth(damage);
                 }
             }
         }

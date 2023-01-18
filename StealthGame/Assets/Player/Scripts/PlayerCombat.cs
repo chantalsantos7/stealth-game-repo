@@ -23,7 +23,7 @@ public class PlayerCombat : MonoBehaviour
         //no, to keep it consistent w/ stealth attack, which does need an indication of what weapon to pick
         WeaponItem weapon = SelectWeapon();
         int animIndex = (int)Random.Range(0f, weapon.attackAnimations.Count - 1);
-        playerAnimatorManager.PlayTargetAnimation(weapon.attackAnimations[animIndex], true);
+        playerAnimatorManager.PlayTargetAnimation(weapon.attackAnimations[animIndex], false);
     }
 
     private WeaponItem SelectWeapon()

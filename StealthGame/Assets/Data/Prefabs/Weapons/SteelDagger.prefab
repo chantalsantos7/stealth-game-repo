@@ -41,6 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8953503030198335969}
+  - component: {fileID: -2788582610022963465}
   m_Layer: 0
   m_Name: SteelDagger
   m_TagString: Weapon
@@ -64,6 +65,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-2788582610022963465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4102057493747925261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fce938be147fdea43a0b90b8d19893b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageMin: 10
+  damageMax: 20
 --- !u!1 &8139886520878929503
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,7 +91,6 @@ GameObject:
   - component: {fileID: 8106513952392503295}
   - component: {fileID: 8116775479169774723}
   - component: {fileID: 669523133421021486}
-  - component: {fileID: 6809308648712060381}
   m_Layer: 0
   m_Name: Steel_Dagger_1024
   m_TagString: Untagged
@@ -163,17 +177,3 @@ CapsuleCollider:
   m_Height: 0.0047821207
   m_Direction: 1
   m_Center: {x: 0.0000038376807, y: 0.002956825, z: 0.000031818217}
---- !u!114 &6809308648712060381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8139886520878929503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fce938be147fdea43a0b90b8d19893b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageMin: 10
-  damageMax: 20

@@ -33,7 +33,7 @@ public class EnemyAttackState : EnemyState
         //play an attack animation
 
         //if player moves out of attack range, move towards them (at walking speed)
-        Debug.Log(detectionSystem.inAttackRange);
+        //Debug.Log(detectionSystem.inAttackRange);
         if (!detectionSystem.inAttackRange)
         {
             agent.speed = 2f;

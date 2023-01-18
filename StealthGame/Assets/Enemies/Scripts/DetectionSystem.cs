@@ -30,7 +30,7 @@ public class DetectionSystem : MonoBehaviour
 
     private Collider[] fovRangeCheck = new Collider[1];
     private Collider[] hearingRangeCheck = new Collider[1];
-    private Collider[] attackRangeCheck = new Collider[1];
+    //private Collider[] attackRangeCheck = new Collider[1];
 
     private void Awake()
     {
@@ -150,7 +150,7 @@ public class DetectionSystem : MonoBehaviour
     private void AttackRangeCheck()
     {
         //Debug.Log("Check something");
-        Physics.OverlapSphereNonAlloc(transform.position, attackRadius, attackRangeCheck, detectionLayer);
+        Collider[] attackRangeCheck = Physics.OverlapSphere(transform.position, attackRadius, detectionLayer);
         
         for (int i = 0; i < attackRangeCheck.Length; i++)
         {
@@ -161,13 +161,13 @@ public class DetectionSystem : MonoBehaviour
             else
             {
                 //Array.Clear(attackRangeCheck, 0, attackRangeCheck.Length);
-                attackRangeCheck[i] = null;
+               // attackRangeCheck[i] = null;
                 inAttackRange = false;
             }
         }
         
 
-        if (attackRangeCheck[0] == null)
+        if (attackRangeCheck.Length == 0)
         {
             inAttackRange = false;
             //return;

@@ -8,12 +8,28 @@ public class PlayerCombat : MonoBehaviour
     public PlayerAnimatorManager playerAnimatorManager;
     public WeaponsInventory playerInventory;
     public bool isUnarmed = false;
-    public bool isAttacking;
+    public bool allowedToAttack;
+    [Tooltip("How long between allowed player attacks.")] public float attackCooldown;
+    public float timeBetweenAttacks;
 
     private void Awake()
     {
         playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         playerInventory = GetComponent<WeaponsInventory>();
+    }
+
+    private void Start()
+    {
+        allowedToAttack = true;
+
+    }
+    private void Update()
+    {
+        timeBetweenAttacks += Time.deltaTime;
+        if (timeBetweenAttacks > attackCooldown)
+        {
+            allowedToAttack = true;
+        }
     }
 
     public void Attack()
@@ -24,6 +40,8 @@ public class PlayerCombat : MonoBehaviour
         WeaponItem weapon = SelectWeapon();
         int animIndex = (int)Random.Range(0f, weapon.attackAnimations.Count - 1);
         playerAnimatorManager.PlayTargetAnimation(weapon.attackAnimations[animIndex], false);
+        timeBetweenAttacks = 0;
+        allowedToAttack = false;
     }
 
     private WeaponItem SelectWeapon()

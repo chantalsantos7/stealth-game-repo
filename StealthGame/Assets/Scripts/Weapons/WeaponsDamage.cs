@@ -6,22 +6,16 @@ public class WeaponsDamage : MonoBehaviour
 {
     [Tooltip("Minimum amount of damage the weapon can deal.")] public float damageMin;
     [Tooltip("Maximum amount of damage the weapon can deal.")] public float damageMax;
-    //private Collider weaponCollider;
+    
+    
 
-    protected void Awake()
+    protected virtual void OnTriggerEnter(Collider other) {}
+
+    protected void DealDamage(HealthManager opponent)
     {
-        //weaponCollider = GetComponentInChildren<Collider>();
+        float damage = Random.Range(damageMin, damageMax);
+        opponent.DamageHealth(damage);
     }
-
-    private void Start()
-    {
-        
-    }
-
-    protected virtual void OnTriggerEnter(Collider other)
-    {
-    }
-
     /*protected virtual void OnCollisionEnter(Collision collision)
     {
         

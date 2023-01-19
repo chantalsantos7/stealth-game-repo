@@ -522,7 +522,9 @@ MonoBehaviour:
   playerAnimatorManager: {fileID: 0}
   playerInventory: {fileID: 0}
   isUnarmed: 0
-  isAttacking: 0
+  allowedToAttack: 0
+  attackCooldown: 1.3
+  timeBetweenAttacks: 0
 --- !u!114 &7994985554337052806
 MonoBehaviour:
   m_ObjectHideFlags: 0

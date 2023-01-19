@@ -10,7 +10,10 @@ namespace Assets.Scripts.Weapons
         {
             if (other.gameObject.CompareTag("Enemy"))
             {
-                Debug.Log("Hit opponent!");
+                if (other.gameObject.TryGetComponent<HealthManager>(out var opponent))
+                {
+                    DealDamage(opponent);
+                }
             }
         }
     }

@@ -22,20 +22,4 @@ public class HealthManager : MonoBehaviour
     {
         health -= amount;
     }
-
-    /*private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Weapon"))
-        {
-            Debug.Log("got hit");
-            if (other.gameObject.TryGetComponent<WeaponsDamage>(out var weapon))
-            {
-                if (weapon != null)
-                {
-                    float damage = Random.Range(weapon.damageMin, weapon.damageMax);
-                    DamageHealth(damage);
-                }
-            }
-        }
-    }*/
 }

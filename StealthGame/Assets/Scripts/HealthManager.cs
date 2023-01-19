@@ -18,12 +18,12 @@ public class HealthManager : MonoBehaviour
         health = maxHealth;
     }
 
-    private void DamageHealth(float amount)
+    public void DamageHealth(float amount)
     {
         health -= amount;
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Weapon"))
         {
@@ -37,5 +37,5 @@ public class HealthManager : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 }

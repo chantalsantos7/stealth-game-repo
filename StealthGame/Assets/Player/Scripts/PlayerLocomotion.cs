@@ -20,7 +20,7 @@ public class PlayerLocomotion : MonoBehaviour
     public float inAirTimer;
     public float leapingVelocity;
     public float fallingVelocity;
-    public float maxDistance = 0.5f; //if using floating collider for stairs, change this and rayCastHeightOffset to 0.8f
+    public float maxDistance = 0.5f; //if using floating weaponCollider for stairs, change this and rayCastHeightOffset to 0.8f
     public LayerMask groundLayers;
     public float raycastHeightOffset = 0.5f;
 
@@ -118,9 +118,9 @@ public class PlayerLocomotion : MonoBehaviour
 
         if (IsCrouched)
         {
-            //change height and center of collider
+            //change height and center of weaponCollider
             //OR
-            //swap out for a new collider when crouched
+            //swap out for a new weaponCollider when crouched
             playerCollider.height = 1;
             playerCollider.center = new Vector3(0, 0.5f, 0);
 
@@ -172,7 +172,7 @@ public class PlayerLocomotion : MonoBehaviour
         }
 
 
-        //Floating collider stairs code
+        //Floating weaponCollider stairs code
         /*if (isGrounded && !isJumping)
         {
             if (playerManager.isInteracting || inputManager.moveAmount > 0)
@@ -189,7 +189,7 @@ public class PlayerLocomotion : MonoBehaviour
 
     private void HandleStairs()
     {
-        //Send out raycasts in front of the player to check if there is a collider in front
+        //Send out raycasts in front of the player to check if there is a weaponCollider in front
         //starting from bottom, send at regular intervals until one ray passes a minimum stair depth
         Vector3[] rayDirections = new Vector3[]
         {

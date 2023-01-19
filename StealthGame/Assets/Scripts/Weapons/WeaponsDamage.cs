@@ -6,11 +6,11 @@ public class WeaponsDamage : MonoBehaviour
 {
     [Tooltip("Minimum amount of damage the weapon can deal.")] public float damageMin;
     [Tooltip("Maximum amount of damage the weapon can deal.")] public float damageMax;
-    private Collider collider;
+    //private Collider weaponCollider;
 
     protected void Awake()
     {
-        collider = GetComponent<Collider>();
+        //weaponCollider = GetComponentInChildren<Collider>();
     }
 
     private void Start()
@@ -18,9 +18,8 @@ public class WeaponsDamage : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
-        
     }
 
     /*protected virtual void OnCollisionEnter(Collision collision)

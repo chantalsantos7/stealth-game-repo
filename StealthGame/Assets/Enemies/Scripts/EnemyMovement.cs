@@ -16,31 +16,17 @@ public class EnemyMovement : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
-
-        /*animator.applyRootMotion = true;
-        agent.updatePosition = false;
-        agent.updateRotation = true;*/
     }
 
-    // Update is called once per frame
     void Update()
     {
         SynchroniseAnimatorAndAgent();
     }
 
-    private void OnAnimatorMove()
-    {
-        /*Vector3 rootPosition = animator.rootPosition;
-        rootPosition.y = agent.nextPosition.y;
-        transform.position = rootPosition;
-        agent.nextPosition = rootPosition;*/ //set the agent to move based on position of model
-    }
-
     private void SynchroniseAnimatorAndAgent()
     {
+        //used to decide motion for enemy in blend tree, walking or running - could poss. be added to AnimatorManager to consolidate scripts
         animator.SetBool("IsMoving", agent.velocity.magnitude > 0.1f);
         animator.SetFloat("Velocity", agent.velocity.magnitude);
-        //Debug.Log("Agent Velocity: " + agent.velocity.magnitude); 
-        
     }
 }

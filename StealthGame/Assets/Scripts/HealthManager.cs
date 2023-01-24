@@ -22,4 +22,12 @@ public class HealthManager : MonoBehaviour
     {
         health -= amount;
     }
+
+    public virtual void Die()
+    {
+        health = 0;
+        
+        //play die animation
+        //enter dead state? override in enemy to make it enter dead state
+    }
 }

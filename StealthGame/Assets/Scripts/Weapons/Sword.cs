@@ -10,7 +10,7 @@ namespace Assets.Scripts.Weapons
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                if (other.gameObject.TryGetComponent<HealthManager>(out var opponent))
+                if (other.GetComponent<IHealthManager>() is IHealthManager opponent)
                 {
                     DealDamage(opponent);
                 }

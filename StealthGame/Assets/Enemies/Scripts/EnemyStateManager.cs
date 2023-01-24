@@ -10,7 +10,7 @@ public class EnemyStateManager : MonoBehaviour
     public EnemyAnimatorManager enemyAnimatorManager;
     public DetectionSystem detectionSystem;
     public SuspicionSystem suspicionSystem;
-    public WeaponsInventory enemyInventory;
+    public EnemyInventory enemyInventory;
     public Transform player;
     public NavMeshAgent agent { get; private set; }
     public LayerMask playerMask, groundMask;
@@ -26,19 +26,14 @@ public class EnemyStateManager : MonoBehaviour
 
     [Header("Attack Variables")]
     public float timeBetweenAttacks;
+    public bool inAttackState;
     //public bool playerInAttackRange;
 
     [HideInInspector] public float searchSuspicionThreshold;
     [HideInInspector] public float chaseSuspicionThreshold;
     [HideInInspector] public float patrolSuspicionThreshold;
 
-    //[Header("Interaction Ranges")]
-    float sightRange;
-    float attackRange;
-
-
     public EnemyState currentState;
-
     public EnemyIdleState idleState = new EnemyIdleState();
     public EnemyPatrolState patrolState = new EnemyPatrolState();
     public EnemyAttackState attackState = new EnemyAttackState();
@@ -60,7 +55,6 @@ public class EnemyStateManager : MonoBehaviour
         searchSuspicionThreshold = suspicionSystem.searchSuspicionThreshold;
         chaseSuspicionThreshold = suspicionSystem.chaseSuspicionThreshold;
         patrolSuspicionThreshold = suspicionSystem.patrolSuspicionThreshold;
-        attackRange = detectionSystem.attackRadius;
     }
 
     // Start is called before the first frame update
@@ -74,9 +68,6 @@ public class EnemyStateManager : MonoBehaviour
     void Update()
     {
         currentState.UpdateState(this);
-        
-        //playerInSightRange = Physics.CheckSphere(transform.position, sightRange, playerMask);
-        //playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerMask);
     }
 
     public void SwitchState(EnemyState state)

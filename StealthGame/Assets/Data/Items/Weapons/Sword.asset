@@ -16,5 +16,5 @@ MonoBehaviour:
   modelPrefab: {fileID: 5563571835186640496, guid: 01c0b032d0b9f1c42bb71a5e652c0600, type: 3}
   isUnarmed: 0
   attackAnimations:
-  - Attack01a
-  - Attack01b
+  - Attack01R
+  - Attack02R

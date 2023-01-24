@@ -10,7 +10,7 @@ public class WeaponHolderSlot : MonoBehaviour
     public bool isRightHandSlot;*/
     [Tooltip("Which hand the slot is attached to.")] 
     public WeaponHand weaponHand;
-    public WeaponItem currentWeapon { get; private set; }
+    public WeaponItem CurrentWeapon { get; private set; }
     
     public GameObject currentWeaponModel;
 
@@ -40,7 +40,7 @@ public class WeaponHolderSlot : MonoBehaviour
             return;
         }
 
-        currentWeapon = weaponItem;
+        CurrentWeapon = weaponItem;
 
         GameObject model = Instantiate(weaponItem.modelPrefab) as GameObject;
         if (model != null)

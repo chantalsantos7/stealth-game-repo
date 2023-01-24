@@ -32,10 +32,9 @@ public class EnemyInventory : WeaponsInventory
 
     public override void TakeOutWeapon()
     {
-        base.TakeOutWeapon();
-        
         sheathedSwordModel.SetActive(false);
         enemyAnimatorManager.PlayTargetAnimation("WithdrawSword", false);
+        base.TakeOutWeapon();
     }
 
 

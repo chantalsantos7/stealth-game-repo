@@ -30,6 +30,8 @@ public class EnemyManager : MonoBehaviour
     void Update()
     {
         //HandleCurrentAction();
+        //TODO: Possibly not being set correctly
         isUnarmed = animatorManager.GetBool("IsUnarmed");
+        Debug.Log("isUnarmed: " + isUnarmed);
     }
 }

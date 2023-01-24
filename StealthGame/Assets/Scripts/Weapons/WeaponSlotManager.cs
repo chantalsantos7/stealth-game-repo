@@ -47,8 +47,8 @@ public class WeaponSlotManager : MonoBehaviour
     {
         return weaponHand switch
         {
-            WeaponHand.Left => leftHandSlot.currentWeapon,
-            WeaponHand.Right => rightHandSlot.currentWeapon,
+            WeaponHand.Left => leftHandSlot.CurrentWeapon,
+            WeaponHand.Right => rightHandSlot.CurrentWeapon,
             _ => null,
         };
     }

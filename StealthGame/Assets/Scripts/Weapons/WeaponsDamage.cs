@@ -11,7 +11,7 @@ public class WeaponsDamage : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other) {}
 
-    protected void DealDamage(HealthManager opponent)
+    protected void DealDamage(IHealthManager opponent)
     {
         float damage = Random.Range(damageMin, damageMax);
         opponent.DamageHealth(damage);

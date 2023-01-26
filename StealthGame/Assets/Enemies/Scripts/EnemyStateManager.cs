@@ -39,7 +39,7 @@ public class EnemyStateManager : MonoBehaviour
     public EnemyAttackState attackState = new EnemyAttackState();
     public EnemyChaseState chaseState = new EnemyChaseState();
     public EnemySearchState suspiciousState = new EnemySearchState();
-
+    public EnemyDeathState deathState = new EnemyDeathState();
 
     private void Awake()
     {

@@ -6,7 +6,7 @@ namespace Assets.Scripts.Weapons
 {
     public class Sword : WeaponsDamage
     {
-        protected override void OnTriggerEnter(Collider other)
+        /*protected override void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("Player"))
             {
@@ -15,6 +15,6 @@ namespace Assets.Scripts.Weapons
                     DealDamage(opponent);
                 }
             }
-        }
+        }*/
     }
 }

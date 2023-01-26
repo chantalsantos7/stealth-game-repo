@@ -61,6 +61,11 @@ public class EnemyAttackState : EnemyState
         {
             context.SwitchState(context.suspiciousState);
         }
+
+        if (context.enemyManager.health < 0)
+        {
+            context.SwitchState(context.deathState);
+        }
     }
 
     public override void ExitState(EnemyStateManager context)

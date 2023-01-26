@@ -158,6 +158,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageMin: 20
   damageMax: 30
+  opponentLayer:
+    serializedVersion: 2
+    m_Bits: 1032
+  tagName: Player
 --- !u!1 &3351920386750808835
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ namespace Assets.Scripts.Weapons
 {
     public class Dagger : WeaponsDamage
     {
-        protected override void OnTriggerEnter(Collider other)
+        /*protected override void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("Enemy"))
             {
@@ -15,6 +15,6 @@ namespace Assets.Scripts.Weapons
                     DealDamage(opponent);
                 }
             }
-        }
+        }*/
     }
 }

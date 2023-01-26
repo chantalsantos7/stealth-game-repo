@@ -8897,7 +8897,7 @@ GameObject:
   - component: {fileID: 6434919383520697643}
   m_Layer: 9
   m_Name: Human Male (v4)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10712,7 +10712,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5393752558777065466}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Base HumanPelvis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15360,6 +15360,8 @@ MonoBehaviour:
   enemyInventory: {fileID: 0}
   detectionSystem: {fileID: 0}
   swordModel: {fileID: 0}
+  maxHealth: 0
+  health: 0
   isUnarmed: 0
 --- !u!114 &4063888632370949663
 MonoBehaviour:
@@ -15544,9 +15546,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae4e78114d68fd479e4daf0c28f140c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
-  health: 0
-  coll: {fileID: 0}
 --- !u!54 &3649769918109596932
 Rigidbody:
   m_ObjectHideFlags: 0

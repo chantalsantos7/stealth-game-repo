@@ -194,3 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageMin: 15
   damageMax: 25
+  opponentLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  tagName: Enemy

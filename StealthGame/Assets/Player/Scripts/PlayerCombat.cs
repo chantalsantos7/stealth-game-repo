@@ -7,6 +7,7 @@ public class PlayerCombat : MonoBehaviour
 {
     public PlayerAnimatorManager playerAnimatorManager;
     public WeaponsInventory playerInventory;
+    public PlayerLocomotion playerLocomotion;
     public bool isUnarmed = false;
     public bool allowedToAttack;
     [Tooltip("How long between allowed player attacks.")] public float attackCooldown;
@@ -16,6 +17,7 @@ public class PlayerCombat : MonoBehaviour
     {
         playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         playerInventory = GetComponent<WeaponsInventory>();
+        playerLocomotion = GetComponent<PlayerLocomotion>();    
     }
 
     private void Start()
@@ -43,6 +45,21 @@ public class PlayerCombat : MonoBehaviour
         timeBetweenAttacks = 0;
         allowedToAttack = false;
     }
+
+    public void SneakAttack()
+    {
+        playerLocomotion.IsCrouched = false;
+        Attack();
+        Debug.Log("Sneak attack");
+        Invoke("ResetCrouch", 1f);
+       
+    }
+
+    private void ResetCrouch()
+    {
+        playerLocomotion.IsCrouched = true;
+    }
+
 
     private WeaponItem SelectWeapon()
     {

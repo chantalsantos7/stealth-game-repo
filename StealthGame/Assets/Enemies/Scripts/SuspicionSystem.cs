@@ -18,6 +18,7 @@ public class SuspicionSystem : MonoBehaviour
     public float patrolSuspicionThreshold;
     public float heardDistractionMultiplier;
     public float playerSeenIncreaseMultiplier;
+    public float inAttackRangeMultiplier;
 
     private void Awake()
     {
@@ -41,6 +42,11 @@ public class SuspicionSystem : MonoBehaviour
         if (detectionSystem.canSeePlayer)
         {
             suspicionMeter += suspicionIncrement * playerSeenIncreaseMultiplier;
+        }
+
+        if (detectionSystem.inAttackRange)
+        {
+            suspicionMeter += suspicionIncrement * inAttackRangeMultiplier;
         }
         //call the decrease suspicion every few seconds
 

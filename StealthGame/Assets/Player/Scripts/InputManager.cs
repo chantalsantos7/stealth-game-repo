@@ -120,7 +120,15 @@ public class InputManager : MonoBehaviour
                 //change to just 'Attack' pick which weapon to attack w/ randomly
                 if (playerCombat.allowedToAttack)
                 {
-                    playerCombat.Attack();
+                    if (playerLocomotion.IsCrouched)
+                    {
+                        playerCombat.SneakAttack();
+                    }
+                    else
+                    {
+                        playerCombat.Attack();
+                    }
+                    
                 }
                 //random choose betwen left or right weapon
             };

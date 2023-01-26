@@ -7,12 +7,11 @@ public class WeaponsDamage : MonoBehaviour
 {
     [Tooltip("Minimum amount of damage the weapon can deal.")] public float damageMin;
     [Tooltip("Maximum amount of damage the weapon can deal.")] public float damageMax;
-    [Tooltip("The layer this weapon should interact with.")] public LayerMask opponentLayer;
-    [Tooltip("The tag of objects this weapon should interact with.")] public string tagName;
+    [Tooltip("The tag of objects this weapon should interact with.")] public string opponentTag;
     
-    protected void OnTriggerEnter(Collider other) {
+    protected virtual void OnTriggerEnter(Collider other) {
 
-        if (other.gameObject.CompareTag(tagName))
+        if (other.gameObject.CompareTag(opponentTag))
         {
             //trying to use these logs cause errors, the layermask value seems to be changed? but can still get to the DealDamage code so unimportant
             /*Debug.Log("layer index is: " + opponentLayer.value);

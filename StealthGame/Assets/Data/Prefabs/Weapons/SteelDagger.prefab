@@ -160,10 +160,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.0004
+  m_Radius: 0.000225
   m_Height: 0.0047821207
   m_Direction: 1
-  m_Center: {x: 0.0000038376807, y: 0.002956825, z: 0.000031818217}
+  m_Center: {x: 0.0000038376807, y: 0.0025, z: 0.00005}
 --- !u!54 &1212289430384226156
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -194,7 +194,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageMin: 15
   damageMax: 25
-  opponentLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  tagName: Enemy
+  opponentTag: Enemy
+  stealthDamageMultiplier: 200

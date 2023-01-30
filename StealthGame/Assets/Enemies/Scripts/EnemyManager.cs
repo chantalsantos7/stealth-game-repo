@@ -39,7 +39,6 @@ public class EnemyManager : MonoBehaviour, IHealthManager
     // Update is called once per frame
     void Update()
     {
-        //HandleCurrentAction();
         //TODO: Possibly not being set correctly
         isUnarmed = animatorManager.GetBool("IsUnarmed");
         Debug.Log("isUnarmed: " + isUnarmed);
@@ -71,8 +70,6 @@ public class EnemyManager : MonoBehaviour, IHealthManager
             rb.isKinematic = !state;
             //rb.useGravity = false;
         }
-
-        //GetComponent<Rigidbody>().isKinematic = !state;
     }
 
     void SetColliderState(bool state)

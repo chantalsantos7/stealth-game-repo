@@ -38,6 +38,7 @@ public class EnemyPatrolState : EnemyState
     public override void UpdateState(EnemyStateManager context)
     {
         idleTimeElapsed += Time.deltaTime;
+        
         if (context.detectionSystem.canSeePlayer && !context.detectionSystem.inAttackRange)
         {
             context.SwitchState(context.chaseState);

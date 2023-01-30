@@ -521,6 +521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAnimatorManager: {fileID: 0}
   playerInventory: {fileID: 0}
+  playerLocomotion: {fileID: 0}
   isUnarmed: 0
   allowedToAttack: 0
   attackCooldown: 1.3

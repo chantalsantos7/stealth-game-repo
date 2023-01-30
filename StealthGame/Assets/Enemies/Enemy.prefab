@@ -15317,7 +15317,6 @@ GameObject:
   - component: {fileID: 8718505923377615534}
   - component: {fileID: 479306962152886326}
   - component: {fileID: 2542664594103485709}
-  - component: {fileID: 141180785164825538}
   - component: {fileID: 3649769918109596932}
   m_Layer: 8
   m_Name: Enemy
@@ -15360,7 +15359,7 @@ MonoBehaviour:
   enemyInventory: {fileID: 0}
   detectionSystem: {fileID: 0}
   swordModel: {fileID: 0}
-  maxHealth: 0
+  maxHealth: 300
   health: 0
   isUnarmed: 0
 --- !u!114 &4063888632370949663
@@ -15377,9 +15376,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRef: {fileID: 0}
   crouchCheckObj: {fileID: 5109843626937279890}
-  sightDetectionRadius: 6.94
-  hearingDetectionRadius: 8.7
-  attackRadius: 1
+  sightDetectionRadius: 12.22
+  hearingDetectionRadius: 15.84
+  attackRadius: 1.94
   detectionAngle: 55
   detectionLayer:
     serializedVersion: 2
@@ -15406,14 +15405,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionSystem: {fileID: 0}
-  suspicionIncrement: 0.5
-  suspicionDecrement: 2
+  suspicionIncrement: 0.15
+  suspicionDecrement: 1.5
   suspicionMeter: 0
-  searchSuspicionThreshold: 15
-  chaseSuspicionThreshold: 45
-  patrolSuspicionThreshold: 10
-  heardDistractionMultiplier: 0
-  playerSeenIncreaseMultiplier: 0
+  searchSuspicionThreshold: 45
+  chaseSuspicionThreshold: 150
+  patrolSuspicionThreshold: 20
+  heardDistractionMultiplier: 2.87
+  playerSeenIncreaseMultiplier: 10
+  inAttackRangeMultiplier: 20
 --- !u!195 &8718505923377615529
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -15460,17 +15460,17 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 1
-  patrolScheduled: 0
+  patrolScheduled: 1
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  minIdleTimeInSeconds: 0
-  maxIdleTimeInSeconds: 0
+  minIdleTimeInSeconds: 20
+  maxIdleTimeInSeconds: 30
   playerInSightRange: 0
-  timeBetweenAttacks: 0
+  timeBetweenAttacks: 1.3
   inAttackState: 0
   searchSuspicionThreshold: 0
   chaseSuspicionThreshold: 0
@@ -15483,9 +15483,9 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8718505923377615530}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.25
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
@@ -15534,18 +15534,6 @@ MonoBehaviour:
   animatorManager: {fileID: 0}
   sheathedSwordModel: {fileID: 682444226232132472}
   enemyAnimatorManager: {fileID: 0}
---- !u!114 &141180785164825538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8718505923377615530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ae4e78114d68fd479e4daf0c28f140c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &3649769918109596932
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15554,7 +15542,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8718505923377615530}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.01
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0

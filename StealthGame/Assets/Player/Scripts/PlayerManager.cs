@@ -13,7 +13,6 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Player Stats")]
     public float maxStamina;
-    public float maxHealth = 100f;
     public float currentStamina;
     public float staminaRegenCooldown = 5f;
     public float Health { get; private set; }

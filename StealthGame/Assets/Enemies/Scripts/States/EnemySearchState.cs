@@ -24,8 +24,6 @@ public class EnemySearchState : EnemyState
         chaseThreshold = context.chaseSuspicionThreshold;
         patrolThreshold = context.patrolSuspicionThreshold;
         context.enemyInventory.TakeOutWeapon();
-        //context.
-        Debug.Log("Entered Search state");
     }
     
     public override void UpdateState(EnemyStateManager context)
@@ -68,8 +66,6 @@ public class EnemySearchState : EnemyState
     {
         //suspicionSystem.suspicionMeter = 0;
         //only disarm if next state is patrol or idle
-        
-        Debug.Log("Exiting Search State");
     }
 
     public override void OnCollisionEnter(EnemyStateManager context, Collision other)

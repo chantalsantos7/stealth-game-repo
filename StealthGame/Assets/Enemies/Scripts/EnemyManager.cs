@@ -17,10 +17,6 @@ public class EnemyManager : MonoBehaviour, IHealthManager
 
     [HideInInspector] public bool isUnarmed;
 
-    //public float health;
-    bool isPerformingAction;
-    //public float attackRadius;
-
     private void Awake()
     {
         stateManager = GetComponent<EnemyStateManager>();
@@ -41,7 +37,6 @@ public class EnemyManager : MonoBehaviour, IHealthManager
     {
         //TODO: Possibly not being set correctly
         isUnarmed = animatorManager.GetBool("IsUnarmed");
-        Debug.Log("isUnarmed: " + isUnarmed);
         if (health <= 0)
         {
             Die();

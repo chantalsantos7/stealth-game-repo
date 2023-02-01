@@ -13,13 +13,27 @@ public class PlayerHealth : MonoBehaviour, IHealthManager
         health = maxHealth;
     }
 
+    private void Update()
+    {
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
     public void DamageHealth(float amount)
     {
         health -= amount;
+        if (health <= 0)
+        {
+            Die();
+        }
     }
 
     public void Die()
     {
         health = 0;
+        GameManager.Instance.HandlePlayerDeath();
+        gameObject.SetActive(false);
     }
 }

@@ -50,6 +50,8 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
         player = GetComponent<PlayerManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
         inputManager = GetComponent<InputManager>();
+        cameraManager = FindObjectOfType<CameraManager>();
+
         teleportAllowed = true;
         teleportTimeElapsed = 11; //set to 11 at initialisation so player can teleport immediately upon entering game
         teleportRigidbody = teleportView.GetComponent<Rigidbody>();

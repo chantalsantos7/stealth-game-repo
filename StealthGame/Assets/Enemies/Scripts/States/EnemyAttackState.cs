@@ -33,8 +33,6 @@ public class EnemyAttackState : EnemyState
         {
             context.enemyInventory.TakeOutWeapon();
         }
-
-        Debug.Log("Entered attack state");
     }
 
     public override void UpdateState(EnemyStateManager context)

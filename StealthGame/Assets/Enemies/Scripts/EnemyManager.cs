@@ -57,7 +57,7 @@ public class EnemyManager : MonoBehaviour, IHealthManager
         SetColliderState(true);
     }
 
-    void SetRigidbodyState(bool state)
+    public void SetRigidbodyState(bool state)
     {
         Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();
         foreach (Rigidbody rb in rigidbodies)
@@ -67,7 +67,7 @@ public class EnemyManager : MonoBehaviour, IHealthManager
         }
     }
 
-    void SetColliderState(bool state)
+    public void SetColliderState(bool state)
     {
         Collider[] colliders = GetComponentsInChildren<Collider>();
         foreach (Collider coll in colliders)

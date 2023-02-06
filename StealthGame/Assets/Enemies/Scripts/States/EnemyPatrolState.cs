@@ -83,7 +83,6 @@ public class EnemyPatrolState : EnemyState
     private void CalculateIdleTime()
     {
         idleTimeInSeconds = Random.Range(minIdleTimeInSeconds, maxIdleTimeInSeconds);
-        //Debug.Log("Idle Time: " + idleTimeInSeconds);
     }
 
     public override void ExitState(EnemyStateManager context)

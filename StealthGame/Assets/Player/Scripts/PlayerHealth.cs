@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerHealth : MonoBehaviour, IHealthManager
 {
@@ -10,6 +11,8 @@ public class PlayerHealth : MonoBehaviour, IHealthManager
 
     private void Start()
     {
+        //SetRigidbodyState(false);
+        //SetColliderState(false);
         health = maxHealth;
     }
 
@@ -33,7 +36,37 @@ public class PlayerHealth : MonoBehaviour, IHealthManager
     public void Die()
     {
         health = 0;
-        GameManager.Instance.HandlePlayerDeath();
+        GetComponentInChildren<Animator>().enabled = false;
+       /* SetRigidbodyState(true);
+        SetColliderState(true);*/
+        HandlePlayerDeath();
+        //Invoke("HandlePlayerDeath", 2f);
         gameObject.SetActive(false);
+    }
+
+    private void HandlePlayerDeath()
+    {
+        GameManager.Instance.HandlePlayerDeath();
+    }
+
+    public void SetRigidbodyState(bool state)
+    {
+        Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();
+        foreach (Rigidbody rb in rigidbodies)
+        {
+            rb.isKinematic = !state;
+            //rb.useGravity = false;
+        }
+    }
+
+    public void SetColliderState(bool state)
+    {
+        Collider[] colliders = GetComponentsInChildren<Collider>();
+        foreach (Collider coll in colliders)
+        {
+            coll.enabled = state;
+        }
+
+        GetComponent<Collider>().enabled = !state;
     }
 }

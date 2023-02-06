@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public UIManager uiManager; 
     //use this to keep track of game stats
     private static GameManager instance;
     public static GameManager Instance
@@ -18,9 +19,7 @@ public class GameManager : MonoBehaviour
             return instance;
         }
     }
-
-
-    public UIManager uiManager;
+    
 
     public bool PlayerIsDead { get; set; }
 
@@ -38,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     public void HandlePlayerDeath()
     {
+        //invoke ToggleDeathScreen after a few seconds, to show vignette and character crumpling
         //turn on DeathScreen
         if (uiManager != null)
         {

@@ -55,6 +55,7 @@ public class EnemyManager : MonoBehaviour, IHealthManager
         GetComponent<NavMeshAgent>().enabled = false;
         SetRigidbodyState(true);
         SetColliderState(true);
+        stateManager.SwitchState(stateManager.deathState);
     }
 
     public void SetRigidbodyState(bool state)

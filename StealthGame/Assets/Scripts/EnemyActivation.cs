@@ -10,8 +10,8 @@ public class EnemyActivation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        prevAreaEnemies.SetActive(true);
-        nextAreaEnemies.SetActive(false);
+        //prevAreaEnemies.SetActive(true);
+        //nextAreaEnemies.SetActive(false);
     }
 
     // Update is called once per frame

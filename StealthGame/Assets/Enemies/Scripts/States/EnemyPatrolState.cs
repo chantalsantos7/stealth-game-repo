@@ -30,6 +30,7 @@ public class EnemyPatrolState : EnemyState
         {
             context.enemyInventory.Disarm();
         }
+        
         UpdateDestination();
         //want idle time to be different for each patrol point
         //Debug.Log("first target is: " + target);

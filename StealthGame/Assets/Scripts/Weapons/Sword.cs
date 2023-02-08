@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Weapons
 {
-    public class Sword : WeaponsDamage
+    public class Sword : WeaponDamage
     {
         /*protected override void OnTriggerEnter(Collider other)
         {

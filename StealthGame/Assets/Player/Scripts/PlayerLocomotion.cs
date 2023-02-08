@@ -1,3 +1,4 @@
+using Assets.Scripts.Enumerators;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -123,6 +124,7 @@ public class PlayerLocomotion : MonoBehaviour
             //swap out for a new weaponCollider when crouched
             playerCollider.height = 1;
             playerCollider.center = new Vector3(0, 0.5f, 0);
+            cameraManager.cameraMode = CameraMode.Crouch;
 
             //playerCollider.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
@@ -130,6 +132,7 @@ public class PlayerLocomotion : MonoBehaviour
         {
             playerCollider.height = 1.85f;
             playerCollider.center = new Vector3(0, 0.92f, 0);
+            cameraManager.cameraMode = CameraMode.Basic;
         }
     }
 

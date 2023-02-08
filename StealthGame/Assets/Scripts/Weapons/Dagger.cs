@@ -2,7 +2,7 @@
 
 namespace Assets.Scripts.Weapons
 {
-    public class Dagger : WeaponsDamage
+    public class Dagger : WeaponDamage
     {
         [Tooltip("Multiplier that should be applied to damage when player is in stealth mode.")] 
         public float stealthDamageMultiplier;

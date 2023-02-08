@@ -5,7 +5,8 @@ namespace Assets.Scripts.Enumerators
         Basic,
         Combat,
         AimTeleport,
-        AimDistractor
+        AimDistractor,
+        Crouch
     }
 }
 

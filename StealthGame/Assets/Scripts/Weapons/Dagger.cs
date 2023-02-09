@@ -17,8 +17,9 @@ namespace Assets.Scripts.Weapons
                 {
                     //condition to check whether it was a stealth attack
                     //get the player from a FindObjectsOfType call
-                    var player = FindObjectOfType<PlayerLocomotion>();
-                    if (player.IsCrouched)
+                    //DealDamage(opponent);
+                    var player = FindObjectOfType<PlayerManager>();
+                    if (player.InStealth)
                     {
                         DealStealthDamage(opponent);
                     } else 

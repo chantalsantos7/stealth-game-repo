@@ -51,7 +51,7 @@ public class PlayerCombat : MonoBehaviour
         playerLocomotion.IsCrouched = false;
         Attack();
         //Debug.Log("Sneak attack");
-        Invoke("ResetCrouch", 1f);
+        Invoke(nameof(ResetCrouch), 1f);
        
     }
 

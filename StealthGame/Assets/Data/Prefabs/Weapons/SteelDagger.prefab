@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce938be147fdea43a0b90b8d19893b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageMin: 15
-  damageMax: 30
+  damageMin: 20
+  damageMax: 45
   opponentTag: Enemy
   stealthDamageMultiplier: 200

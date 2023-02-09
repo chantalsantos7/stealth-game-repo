@@ -7,7 +7,7 @@ public class InputManager : MonoBehaviour
 {
     PlayerControls playerControls;
     PlayerLocomotion playerLocomotion;
-    PlayerAbilities playerAbilities;
+    PlayerManager playerManager;
     PlayerCombat playerCombat;
     WeaponsInventory playerInventory;
     PlayerAbilitiesStateManager abilitiesManager;
@@ -35,7 +35,7 @@ public class InputManager : MonoBehaviour
     {
         playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
-        playerAbilities = GetComponent<PlayerAbilities>();
+        playerManager = GetComponent<PlayerManager>();
         playerInventory = GetComponent<WeaponsInventory>();
         playerCombat = GetComponent<PlayerCombat>();
         abilitiesManager = GetComponent<PlayerAbilitiesStateManager>();
@@ -119,7 +119,7 @@ public class InputManager : MonoBehaviour
                 //change to just 'Attack' pick which weapon to attack w/ randomly
                 if (playerCombat.allowedToAttack)
                 {
-                    if (playerLocomotion.IsCrouched)
+                    if (playerManager.InStealth)
                     {
                         playerCombat.SneakAttack();
                     }
@@ -199,6 +199,7 @@ public class InputManager : MonoBehaviour
         if (playerControls.PlayerActions.Crouch.triggered)
         {
             playerLocomotion.IsCrouched = !playerLocomotion.IsCrouched;
+            playerManager.InStealth = !playerManager.InStealth;
             crouchModifierPressed = !crouchModifierPressed;
         }
     }

@@ -118,10 +118,7 @@ public class PlayerLocomotion : MonoBehaviour
         playerRigidbody.drag = isGrounded ? groundDrag : 0;
 
         if (IsCrouched)
-        {
-            //change height and center of weaponCollider
-            //OR
-            //swap out for a new weaponCollider when crouched
+        { 
             playerCollider.height = 1;
             playerCollider.center = new Vector3(0, 0.5f, 0);
             cameraManager.cameraMode = CameraMode.Crouch;
@@ -192,7 +189,9 @@ public class PlayerLocomotion : MonoBehaviour
 
     private void HandleStairs()
     {
-        //Send out raycasts in front of the player to check if there is a weaponCollider in front
+
+
+        /*//Send out raycasts in front of the player to check if there is a weaponCollider in front
         //starting from bottom, send at regular intervals until one ray passes a minimum stair depth
         Vector3[] rayDirections = new Vector3[]
         {
@@ -233,7 +232,7 @@ public class PlayerLocomotion : MonoBehaviour
             }
             //find the difference between the original position and the ray hit
             //if less than stair height don't play falling animation
-        }
+        }*/
     }
 
     public void HandleJumping()

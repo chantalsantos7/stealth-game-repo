@@ -342,6 +342,34 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""b18dc33c-1be0-4a08-b56b-6e2bd82d0015"",
+            ""actions"": [
+                {
+                    ""name"": ""AbilityBarToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""90021904-fe6f-4f46-afb2-25c122d409ca"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4686158c-6a01-4ff5-8301-9cbee5c4fe03"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AbilityBarToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -363,6 +391,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerActions_SheatheUnsheathe = m_PlayerActions.FindAction("Sheathe/Unsheathe", throwIfNotFound: true);
         m_PlayerActions_AimDistraction = m_PlayerActions.FindAction("AimDistraction", throwIfNotFound: true);
         m_PlayerActions_PutDistraction = m_PlayerActions.FindAction("PutDistraction", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_AbilityBarToggle = m_UI.FindAction("AbilityBarToggle", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -572,6 +603,39 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         }
     }
     public PlayerActionsActions @PlayerActions => new PlayerActionsActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private IUIActions m_UIActionsCallbackInterface;
+    private readonly InputAction m_UI_AbilityBarToggle;
+    public struct UIActions
+    {
+        private @PlayerControls m_Wrapper;
+        public UIActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @AbilityBarToggle => m_Wrapper.m_UI_AbilityBarToggle;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void SetCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterface != null)
+            {
+                @AbilityBarToggle.started -= m_Wrapper.m_UIActionsCallbackInterface.OnAbilityBarToggle;
+                @AbilityBarToggle.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnAbilityBarToggle;
+                @AbilityBarToggle.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnAbilityBarToggle;
+            }
+            m_Wrapper.m_UIActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @AbilityBarToggle.started += instance.OnAbilityBarToggle;
+                @AbilityBarToggle.performed += instance.OnAbilityBarToggle;
+                @AbilityBarToggle.canceled += instance.OnAbilityBarToggle;
+            }
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     public interface IPlayerMovementActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -590,5 +654,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnSheatheUnsheathe(InputAction.CallbackContext context);
         void OnAimDistraction(InputAction.CallbackContext context);
         void OnPutDistraction(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnAbilityBarToggle(InputAction.CallbackContext context);
     }
 }

@@ -5,16 +5,25 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject deathScreen;
+    [SerializeField] GameObject suspicionIndicator;
+    [SerializeField] GameObject levelEndScreen;
+    [SerializeField] GameObject abilityBar;
 
     private void Start()
     {
         DisableMouseCursor();
     }
 
+    private void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
     public void ToggleDeathScreen()
     {
         //activate mouse cursor again
         EnableMouseCursor();
+        PauseGame();
         deathScreen.SetActive(!deathScreen.activeSelf);
     }
 
@@ -28,5 +37,21 @@ public class UIManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    public void ToggleSuspicionIndicator(bool value)
+    {
+        suspicionIndicator.SetActive(value);
+    }
+
+    public void EnableEndScreen()
+    {
+        levelEndScreen.SetActive(true);
+        PauseGame();
+    }
+
+    public void ToggleAbilityBar()
+    {
+        abilityBar.SetActive(!abilityBar.activeSelf);
     }
 }

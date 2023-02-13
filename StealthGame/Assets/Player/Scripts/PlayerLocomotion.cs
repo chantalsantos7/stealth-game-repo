@@ -143,7 +143,7 @@ public class PlayerLocomotion : MonoBehaviour
         {
             if (!playerManager.isInteracting && !IsJumping) //TODO: Add more checks when climbing stairs so animation isn't triggered - raycast distance, if smaller than jump height don't fall?
             {
-                playerAnimatorManager.PlayTargetAnimation("Falling", true);
+                //playerAnimatorManager.PlayTargetAnimation("Falling", true);
             }
 
             // animatorManager.PlayTargetAnimation("Falling", true);
@@ -191,7 +191,7 @@ public class PlayerLocomotion : MonoBehaviour
     {
 
 
-        /*//Send out raycasts in front of the player to check if there is a weaponCollider in front
+        //Send out raycasts in front of the player to check if there is a weaponCollider in front
         //starting from bottom, send at regular intervals until one ray passes a minimum stair depth
         Vector3[] rayDirections = new Vector3[]
         {
@@ -227,12 +227,12 @@ public class PlayerLocomotion : MonoBehaviour
             if (heightDiff.y < jumpHeight)
             {
                 //apply gravity/downward force here so player actually will go down
-                
-                
+
+
             }
             //find the difference between the original position and the ray hit
             //if less than stair height don't play falling animation
-        }*/
+        }
     }
 
     public void HandleJumping()

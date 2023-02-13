@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     
 
     public bool PlayerIsDead { get; set; }
+    public bool EnemyIsSuspicious { get; set; }
 
     private void Awake()
     {
@@ -32,6 +33,14 @@ public class GameManager : MonoBehaviour
         else
         {
             instance = this;
+        }
+    }
+
+    private void Update()
+    {
+        if (EnemyIsSuspicious)
+        {
+            uiManager.ToggleSuspicionIndicator(EnemyIsSuspicious);
         }
     }
 

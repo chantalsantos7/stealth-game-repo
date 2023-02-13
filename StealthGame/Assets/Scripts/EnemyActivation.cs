@@ -26,12 +26,13 @@ public class EnemyActivation : MonoBehaviour
         {
             //activate the enemies in the next area, deactivate the ones in the previous area (though will also need to account for user going back the other way)
             //set which one should be activated at start, reverse when this is triggered
+            
+            //do not disable if someone is suspicious of the player
             prevAreaEnemies.SetActive(!prevAreaEnemies.activeSelf);
             if (nextAreaEnemies != null)
             {
                 nextAreaEnemies.SetActive(!nextAreaEnemies.activeSelf);
             }
-            
         }
     }
 }

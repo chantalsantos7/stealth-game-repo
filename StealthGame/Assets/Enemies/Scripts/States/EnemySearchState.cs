@@ -17,6 +17,7 @@ public class EnemySearchState : EnemyState
     //if the enemy heard something, they should start navigating towards the position of where they heard something
     public override void EnterState(EnemyStateManager context)
     {
+        GameManager.Instance.EnemyIsSuspicious = true; //will activate suspicion indicator
         agent = context.agent;
         suspicionSystem = context.suspicionSystem;
         detectionSystem = context.detectionSystem;
@@ -66,6 +67,7 @@ public class EnemySearchState : EnemyState
     {
         //suspicionSystem.suspicionMeter = 0;
         //only disarm if next state is patrol or idle
+        GameManager.Instance.EnemyIsSuspicious = false;
     }
 
     public override void OnCollisionEnter(EnemyStateManager context, Collision other)

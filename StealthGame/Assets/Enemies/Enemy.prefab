@@ -16443,7 +16443,7 @@ MonoBehaviour:
   playerRef: {fileID: 0}
   crouchCheckObj: {fileID: 5109843626937279890}
   sightDetectionRadius: 12.22
-  hearingDetectionRadius: 15.84
+  hearingDetectionRadius: 12
   attackRadius: 1.94
   detectionAngle: 55
   detectionLayer:

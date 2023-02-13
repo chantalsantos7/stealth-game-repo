@@ -37,10 +37,7 @@ public class SuspicionSystem : MonoBehaviour
         if (detectionSystem.heardSomething)
         {
             suspicionMeter += suspicionIncrement;
-            if (suspicionMeter > searchSuspicionThreshold/2)
-            {
-                GameManager.Instance.EnemyIsSuspicious = true;
-            }
+            
         }
          
         if (detectionSystem.canSeePlayer)

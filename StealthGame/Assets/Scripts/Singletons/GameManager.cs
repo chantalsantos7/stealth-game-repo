@@ -38,10 +38,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (EnemyIsSuspicious)
+        uiManager.ToggleSuspicionIndicator(EnemyIsSuspicious);
+        /*if (EnemyIsSuspicious)
         {
             uiManager.ToggleSuspicionIndicator(EnemyIsSuspicious);
-        }
+        }*/
     }
 
     public void HandlePlayerDeath()

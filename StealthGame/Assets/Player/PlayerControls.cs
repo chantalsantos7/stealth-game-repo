@@ -183,15 +183,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""StealthAttack"",
-                    ""type"": ""Button"",
-                    ""id"": ""969c579d-4efa-4583-8400-d3a4e53a5a1b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Sheathe/Unsheathe"",
                     ""type"": ""Button"",
                     ""id"": ""5bfdb558-e8fb-4827-a591-8c0f4860515b"",
@@ -267,7 +258,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""45ee1398-5a03-4572-b8f3-6ad27fa0040f"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -294,17 +285,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""LeftAttack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4b32d8a7-38ee-4118-82fb-f215f7123b62"",
-                    ""path"": ""<Keyboard>/c"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""StealthAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -355,6 +335,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""c3983469-79d4-456f-a80b-ad1154ec92df"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -366,6 +355,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""AbilityBarToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""47562c05-7865-44ba-8b94-6e361c4c69d1"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -387,13 +387,13 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerActions_Teleport = m_PlayerActions.FindAction("Teleport", throwIfNotFound: true);
         m_PlayerActions_Dodge = m_PlayerActions.FindAction("Dodge", throwIfNotFound: true);
         m_PlayerActions_LeftAttack = m_PlayerActions.FindAction("LeftAttack", throwIfNotFound: true);
-        m_PlayerActions_StealthAttack = m_PlayerActions.FindAction("StealthAttack", throwIfNotFound: true);
         m_PlayerActions_SheatheUnsheathe = m_PlayerActions.FindAction("Sheathe/Unsheathe", throwIfNotFound: true);
         m_PlayerActions_AimDistraction = m_PlayerActions.FindAction("AimDistraction", throwIfNotFound: true);
         m_PlayerActions_PutDistraction = m_PlayerActions.FindAction("PutDistraction", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_AbilityBarToggle = m_UI.FindAction("AbilityBarToggle", throwIfNotFound: true);
+        m_UI_Interact = m_UI.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -501,7 +501,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Teleport;
     private readonly InputAction m_PlayerActions_Dodge;
     private readonly InputAction m_PlayerActions_LeftAttack;
-    private readonly InputAction m_PlayerActions_StealthAttack;
     private readonly InputAction m_PlayerActions_SheatheUnsheathe;
     private readonly InputAction m_PlayerActions_AimDistraction;
     private readonly InputAction m_PlayerActions_PutDistraction;
@@ -516,7 +515,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Teleport => m_Wrapper.m_PlayerActions_Teleport;
         public InputAction @Dodge => m_Wrapper.m_PlayerActions_Dodge;
         public InputAction @LeftAttack => m_Wrapper.m_PlayerActions_LeftAttack;
-        public InputAction @StealthAttack => m_Wrapper.m_PlayerActions_StealthAttack;
         public InputAction @SheatheUnsheathe => m_Wrapper.m_PlayerActions_SheatheUnsheathe;
         public InputAction @AimDistraction => m_Wrapper.m_PlayerActions_AimDistraction;
         public InputAction @PutDistraction => m_Wrapper.m_PlayerActions_PutDistraction;
@@ -550,9 +548,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @LeftAttack.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLeftAttack;
                 @LeftAttack.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLeftAttack;
                 @LeftAttack.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLeftAttack;
-                @StealthAttack.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnStealthAttack;
-                @StealthAttack.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnStealthAttack;
-                @StealthAttack.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnStealthAttack;
                 @SheatheUnsheathe.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSheatheUnsheathe;
                 @SheatheUnsheathe.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSheatheUnsheathe;
                 @SheatheUnsheathe.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSheatheUnsheathe;
@@ -587,9 +582,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @LeftAttack.started += instance.OnLeftAttack;
                 @LeftAttack.performed += instance.OnLeftAttack;
                 @LeftAttack.canceled += instance.OnLeftAttack;
-                @StealthAttack.started += instance.OnStealthAttack;
-                @StealthAttack.performed += instance.OnStealthAttack;
-                @StealthAttack.canceled += instance.OnStealthAttack;
                 @SheatheUnsheathe.started += instance.OnSheatheUnsheathe;
                 @SheatheUnsheathe.performed += instance.OnSheatheUnsheathe;
                 @SheatheUnsheathe.canceled += instance.OnSheatheUnsheathe;
@@ -608,11 +600,13 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UI;
     private IUIActions m_UIActionsCallbackInterface;
     private readonly InputAction m_UI_AbilityBarToggle;
+    private readonly InputAction m_UI_Interact;
     public struct UIActions
     {
         private @PlayerControls m_Wrapper;
         public UIActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @AbilityBarToggle => m_Wrapper.m_UI_AbilityBarToggle;
+        public InputAction @Interact => m_Wrapper.m_UI_Interact;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -625,6 +619,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @AbilityBarToggle.started -= m_Wrapper.m_UIActionsCallbackInterface.OnAbilityBarToggle;
                 @AbilityBarToggle.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnAbilityBarToggle;
                 @AbilityBarToggle.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnAbilityBarToggle;
+                @Interact.started -= m_Wrapper.m_UIActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -632,6 +629,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @AbilityBarToggle.started += instance.OnAbilityBarToggle;
                 @AbilityBarToggle.performed += instance.OnAbilityBarToggle;
                 @AbilityBarToggle.canceled += instance.OnAbilityBarToggle;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -650,7 +650,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnTeleport(InputAction.CallbackContext context);
         void OnDodge(InputAction.CallbackContext context);
         void OnLeftAttack(InputAction.CallbackContext context);
-        void OnStealthAttack(InputAction.CallbackContext context);
         void OnSheatheUnsheathe(InputAction.CallbackContext context);
         void OnAimDistraction(InputAction.CallbackContext context);
         void OnPutDistraction(InputAction.CallbackContext context);
@@ -658,5 +657,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     public interface IUIActions
     {
         void OnAbilityBarToggle(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

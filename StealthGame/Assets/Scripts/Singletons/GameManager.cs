@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public UIManager uiManager; 
+    public UIManager uiManager;
+    public AchievementTracker achievementTracker;
     //use this to keep track of game stats
     private static GameManager instance;
     public static GameManager Instance
@@ -19,8 +20,7 @@ public class GameManager : MonoBehaviour
             return instance;
         }
     }
-    
-
+   
     public bool PlayerIsDead { get; set; }
     public bool EnemyIsSuspicious { get; set; }
 
@@ -39,10 +39,10 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         uiManager.ToggleSuspicionIndicator(EnemyIsSuspicious);
-        /*if (EnemyIsSuspicious)
+        if (achievementTracker.TargetIsDead)
         {
-            uiManager.ToggleSuspicionIndicator(EnemyIsSuspicious);
-        }*/
+            uiManager.ChangeObjective("- Escape the level from one of the back towers.");
+        }
     }
 
     public void HandlePlayerDeath()
@@ -55,8 +55,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    /*public void ReloadLevel()
+    public void EndLevel()
     {
-        SceneManager.LoadScene("GameLevel");
-    }*/
+        if (uiManager != null)
+        {
+           uiManager.EnableEndScreen();
+        }
+    }
 }

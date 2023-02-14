@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class AchievementTracker : MonoBehaviour
 {
+    public bool TargetIsDead { get; set; }
+    public int GuardsKilled { get; set; }
+    public float TimeTaken { get; private set; }
+
+
     // Start is called before the first frame update
     void Start()
     {

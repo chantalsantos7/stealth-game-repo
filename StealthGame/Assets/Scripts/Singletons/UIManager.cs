@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -8,7 +9,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject suspicionIndicator;
     [SerializeField] GameObject levelEndScreen;
     [SerializeField] GameObject abilityBar;
-
+    [SerializeField] GameObject objectivesPanel;
+    [SerializeField] TMP_Text objectiveText;
     private void Start()
     {
         DisableMouseCursor();
@@ -50,8 +52,25 @@ public class UIManager : MonoBehaviour
         PauseGame();
     }
 
+    public void ToggleUI()
+    {
+        ToggleAbilityBar();
+        ToggleObjectivesPanel();
+    }
+
     public void ToggleAbilityBar()
     {
         abilityBar.SetActive(!abilityBar.activeSelf);
+    }
+
+    public void ToggleObjectivesPanel()
+    {
+        objectivesPanel.SetActive(!objectivesPanel.activeSelf);
+    }
+
+    public void ChangeObjective(string objective)
+    {
+        //can probably track using PLayer achievements i.e. if target is dead, change objective
+        objectiveText.text = objective;
     }
 }

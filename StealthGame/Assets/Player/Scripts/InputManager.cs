@@ -58,6 +58,8 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Sprint.performed += i => sprintModifierPressed = true;
             playerControls.PlayerActions.Sprint.canceled += i => sprintModifierPressed = false;
             playerControls.PlayerActions.Jump.performed += i => jumpKeyPressed = true;
+
+            playerControls.UI.AbilityBarToggle.performed += i => GameManager.Instance.uiManager.ToggleAbilityBar();
             
             playerControls.PlayerActions.AimTeleport.performed += i =>
             {

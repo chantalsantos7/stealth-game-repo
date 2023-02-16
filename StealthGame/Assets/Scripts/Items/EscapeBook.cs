@@ -9,8 +9,7 @@ public class EscapeBook : MonoBehaviour, IInteractable
 
     public bool Interact(Interactor interactor)
     {
-        Debug.Log("Hi I am actually being reached");
-        Debug.Log(prompt);
+        GameManager.Instance.EndLevel();
         return true;
     }
 

@@ -8,14 +8,26 @@ public class Interactor : MonoBehaviour
     [SerializeField] private Transform interactionPoint;
     [SerializeField] private float interactionPointRadius;
     [SerializeField] private LayerMask interactableMask;
+    [SerializeField] private InteractionPrompt interactionPromptUI;
+    private InputManager inputManager;
 
     private readonly Collider[] colliders = new Collider[3];
     [SerializeField] private int numFound;
 
-    // Start is called before the first frame update
+    [SerializeField] private IInteractable interactable;
+
+    private void Awake()
+    {
+        inputManager = GetComponent<InputManager>();
+    }
+
     private void Update()
     {
         FindInteractable();
+        if (inputManager.InteractKeyPressed && interactable != null)
+        {
+            interactable.Interact(this);
+        }
     }
 
     private void FindInteractable()
@@ -24,11 +36,20 @@ public class Interactor : MonoBehaviour
 
         if (numFound > 0)
         {
-            var interactable = colliders[0].GetComponent<IInteractable>();
-            if (interactable!= null && Keyboard.current.eKey.wasPressedThisFrame) 
+            interactable = colliders[0].GetComponent<IInteractable>();
+            if (interactable != null )
             {
-                interactable.Interact(this);
+                if (!interactionPromptUI.isDisplayed) 
+                {
+                    interactionPromptUI.SetUp(interactable.InteractionPrompt);
+                    
+                }
             }
+        }
+        else
+        {
+            if (interactable != null) interactable = null;
+            if (interactionPromptUI.isDisplayed) interactionPromptUI.Close();
         }
     }
 

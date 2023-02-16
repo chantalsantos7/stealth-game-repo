@@ -25,8 +25,9 @@ public class InputManager : MonoBehaviour
     private bool jumpKeyPressed;
     private bool teleportModifierPressed;
     private bool distractionModifierPressed;
-    [HideInInspector] public bool teleportKeyPressed;
-    [HideInInspector] public bool distractKeyPressed;
+    public bool TeleportKeyPressed { get; set; }
+    public bool DistractKeyPressed { get; set; }
+    public bool InteractKeyPressed { get; set; }
 
     public float cameraVerticalInput;
     public float cameraHorizontalInput;
@@ -39,7 +40,7 @@ public class InputManager : MonoBehaviour
         playerInventory = GetComponent<WeaponsInventory>();
         playerCombat = GetComponent<PlayerCombat>();
         abilitiesManager = GetComponent<PlayerAbilitiesStateManager>();
-        teleportKeyPressed = false;
+        TeleportKeyPressed = false;
         //crouchModifierPressed = false;
     }
 
@@ -58,9 +59,11 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Sprint.performed += i => sprintModifierPressed = true;
             playerControls.PlayerActions.Sprint.canceled += i => sprintModifierPressed = false;
             playerControls.PlayerActions.Jump.performed += i => jumpKeyPressed = true;
+            playerControls.UI.Interact.performed += i => InteractKeyPressed = true;
+            playerControls.UI.Interact.canceled += i => InteractKeyPressed = false;
+            playerControls.UI.ToggleObjectives.performed += i => GameManager.Instance.uiManager.ToggleObjectivesPanel();
+            //playerControls.UI.
 
-            playerControls.UI.AbilityBarToggle.performed += i => GameManager.Instance.uiManager.ToggleAbilityBar();
-            
             playerControls.PlayerActions.AimTeleport.performed += i =>
             {
                 //teleportModifierPressed = !teleportModifierPressed
@@ -84,13 +87,13 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Teleport.performed += i =>
             {
                 if (abilitiesManager.currentState == abilitiesManager.teleportingState)
-                    teleportKeyPressed = true;
+                    TeleportKeyPressed = true;
             };
 
             playerControls.PlayerActions.PutDistraction.performed += i =>
             {
                 if (abilitiesManager.currentState == abilitiesManager.distractingState) 
-                    distractKeyPressed = true;
+                    DistractKeyPressed = true;
             };
 
             playerControls.PlayerActions.AimDistraction.performed += i =>

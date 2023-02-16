@@ -19,7 +19,7 @@ public class ExitTrigger : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             
-            Invoke("EnableEndScreen", 2f);
+            //Invoke("EnableEndScreen", 2f);
             //activate end screen
             //set game time to 0
         }

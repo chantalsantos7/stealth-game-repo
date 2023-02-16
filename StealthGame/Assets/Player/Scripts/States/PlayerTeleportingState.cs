@@ -24,10 +24,9 @@ public class PlayerTeleportingState : PlayerAbilitiesState
     {
         context.cameraManager.cameraMode = CameraMode.Basic;
         context.teleportView.SetActive(false);
-        context.teleportParticles.Stop();
+        //context.teleportParticles.Stop();
         context.playerLocomotion.canMove = true;
         context.teleportAllowed = false;
-        context.SwitchState(context.baseState);
     }
 
     public override void OnCollisionEnter(PlayerAbilitiesStateManager context, Collision collision)
@@ -60,24 +59,19 @@ public class PlayerTeleportingState : PlayerAbilitiesState
         Quaternion playerRotation = Quaternion.Slerp(context.teleportRigidbody.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         context.teleportRigidbody.transform.rotation = playerRotation;
 
-        if (context.inputManager.teleportKeyPressed)
+        if (context.inputManager.TeleportKeyPressed)
         {
             Teleport(context);
-            context.inputManager.teleportKeyPressed = false;
+            context.inputManager.TeleportKeyPressed = false;
         }
 
     }
 
     private void Teleport(PlayerAbilitiesStateManager context)
     {
-        context.teleportParticles.gameObject.SetActive(true);
-        context.teleportParticles.Emit(1);
-
         Vector3 TeleportPos = context.teleportView.transform.position;
         context.playerLocomotion.playerRigidbody.position = TeleportPos;
-
         context.SwitchState(context.baseState);
-        //ExitState(context);
     }
 
     

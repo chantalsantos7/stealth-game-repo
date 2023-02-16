@@ -1,7 +1,9 @@
+using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject levelEndScreen;
     [SerializeField] GameObject abilityBar;
     [SerializeField] GameObject objectivesPanel;
+    [SerializeField] GameObject teleportIcon;
+    [SerializeField] GameObject distractIcon;
     [SerializeField] TMP_Text objectiveText;
     private void Start()
     {
@@ -26,6 +30,7 @@ public class UIManager : MonoBehaviour
         //activate mouse cursor again
         EnableMouseCursor();
         PauseGame();
+        TurnOffUI();
         deathScreen.SetActive(!deathScreen.activeSelf);
     }
 
@@ -48,6 +53,7 @@ public class UIManager : MonoBehaviour
 
     public void EnableEndScreen()
     {
+        TurnOffUI();
         levelEndScreen.SetActive(true);
         PauseGame();
     }
@@ -56,6 +62,12 @@ public class UIManager : MonoBehaviour
     {
         ToggleAbilityBar();
         ToggleObjectivesPanel();
+    }
+
+    public void TurnOffUI()
+    {
+        abilityBar.SetActive(false);
+        objectivesPanel.SetActive(false);
     }
 
     public void ToggleAbilityBar()
@@ -72,5 +84,10 @@ public class UIManager : MonoBehaviour
     {
         //can probably track using PLayer achievements i.e. if target is dead, change objective
         objectiveText.text = objective;
+    }
+
+    public void SetIconTransparency()
+    {
+        
     }
 }

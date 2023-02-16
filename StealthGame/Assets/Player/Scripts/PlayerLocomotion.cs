@@ -40,7 +40,6 @@ public class PlayerLocomotion : MonoBehaviour
 
     [Header("Movement Speeds")]
     public float walkingSpeed = 3f;
-   // public float walkingSpeed = 2f;
     public float sprintingSpeed = 7f;
     public float rotationSpeed = 15;
 
@@ -75,7 +74,6 @@ public class PlayerLocomotion : MonoBehaviour
         HandleFallingAndLanding();
         if (playerManager.isInteracting) return;
         HandleMovementAndRotation();
-        //HandleRotation();
         HandleStairs();
         //HandleJumping();
     }
@@ -85,7 +83,7 @@ public class PlayerLocomotion : MonoBehaviour
         if (IsJumping || !canMove) return;
 
         //movement in the direction that the camera is facing
-        IsMoving = inputManager.horizontalInput != 0 || inputManager.verticalInput != 0 ? true : false;
+        IsMoving = inputManager.horizontalInput != 0 || inputManager.verticalInput != 0;
         movementVelocity = Vector3.zero;
         movementVelocity = new Vector3(cameraObject.forward.x, 0f, cameraObject.forward.z) * inputManager.verticalInput;
         movementVelocity += cameraObject.right * inputManager.horizontalInput;
@@ -108,8 +106,6 @@ public class PlayerLocomotion : MonoBehaviour
             movementVelocity = transform.forward;
         }
 
-        //Debug.Log("moving velocity is: " + playerRigidbody.velocity);
-
         Quaternion targetRotation = Quaternion.LookRotation(movementVelocity);
         Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         transform.rotation = playerRotation;
@@ -122,8 +118,6 @@ public class PlayerLocomotion : MonoBehaviour
             playerCollider.height = 1;
             playerCollider.center = new Vector3(0, 0.5f, 0);
             cameraManager.cameraMode = CameraMode.Crouch;
-
-            //playerCollider.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
         else
         {
@@ -137,43 +131,41 @@ public class PlayerLocomotion : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 raycastOrigin = transform.position;
-        //Vector3 targetPosition = transform.position;
+        Vector3 targetPosition = transform.position;
         raycastOrigin.y += raycastHeightOffset; //offset the height of the raycast so player does not fall through the world
         if (!isGrounded)
         {
-            if (!playerManager.isInteracting && !IsJumping) //TODO: Add more checks when climbing stairs so animation isn't triggered - raycast distance, if smaller than jump height don't fall?
+            if (!playerManager.isInteracting) //HERE I need to not play if climbing down stairs
             {
-                //playerAnimatorManager.PlayTargetAnimation("Falling", true);
+                playerAnimatorManager.PlayTargetAnimation("MidAir", true);
             }
-
-            // animatorManager.PlayTargetAnimation("Falling", true);
-            //BUG: Not actually handling the fall from jump, so gravity not being applied to jump
             inAirTimer += Time.deltaTime;
             playerRigidbody.drag = 0;
-            if (!IsJumping) playerRigidbody.AddForce(transform.forward * leapingVelocity);
+            playerRigidbody.AddForce(transform.forward * leapingVelocity);
             playerRigidbody.AddForce(fallingVelocity * inAirTimer * -Vector3.up);
         }
 
-        //sends a sphereCast directly down to check if player has hit the ground
+        //Ground Checking
         if (Physics.SphereCast(raycastOrigin, 0.2f, -Vector3.up, out hit, maxDistance, groundLayers))
         {
-            if (!isGrounded && playerManager.isInteracting)
+            Vector3 heightDiff = raycastOrigin - hit.point;
+            Debug.Log("Height to ground: " + heightDiff.y);
+            if (!isGrounded && playerManager.isInteracting && heightDiff.y > 0.5f) //how to detect when going down stairs?????
             {
-                //animatorManager.PlayTargetAnimation("Landing", true);
+                playerAnimatorManager.PlayTargetAnimation("JumpLanding", true);
             }
-           /* Vector3 raycastHitPoint = hit.point;
-            targetPosition.y = raycastHitPoint.y;*/
+            var rayCastHitPoint = hit.point;
+            targetPosition.y = rayCastHitPoint.y;
             inAirTimer = 0;
             isGrounded = true;
+            playerManager.isInteracting = false;
         }
         else
         {
             isGrounded = false;
         }
 
-
-        //Floating weaponCollider stairs code
-        /*if (isGrounded && !isJumping)
+        if (isGrounded && !IsJumping)
         {
             if (playerManager.isInteracting || inputManager.moveAmount > 0)
             {
@@ -181,18 +173,13 @@ public class PlayerLocomotion : MonoBehaviour
             }
             else
             {
-                transform.position = targetPosition;
+                transform.position = targetPosition; 
             }
-        }*/
-
+        }
     }
 
     private void HandleStairs()
     {
-
-
-        //Send out raycasts in front of the player to check if there is a weaponCollider in front
-        //starting from bottom, send at regular intervals until one ray passes a minimum stair depth
         Vector3[] rayDirections = new Vector3[]
         {
             new Vector3(0f, 0f, 1f),
@@ -227,7 +214,7 @@ public class PlayerLocomotion : MonoBehaviour
             if (heightDiff.y < jumpHeight)
             {
                 //apply gravity/downward force here so player actually will go down
-
+                playerRigidbody.AddForce(fallingVelocity * inAirTimer * -Vector3.up);
 
             }
             //find the difference between the original position and the ray hit
@@ -240,15 +227,12 @@ public class PlayerLocomotion : MonoBehaviour
         if (isGrounded && !IsCrouched)
         {
             playerAnimatorManager.animator.SetBool("IsJumping", true); 
-            playerAnimatorManager.PlayTargetAnimation("Jumping", true);
+            playerAnimatorManager.PlayTargetAnimation("BasicMotions@Jump01", true);
 
-            float jumpingVelocity = Mathf.Sqrt(-2 * gravityIntensity * jumpHeight);
+            float jumpingVelocity = Mathf.Sqrt(-2 * 9.81f * jumpHeight);
             Vector3 playerVelocity = movementVelocity;
             playerVelocity.y = 0f;
             playerRigidbody.AddForce(jumpingVelocity * Vector3.up, ForceMode.Impulse);
-            /*Vector3 playerVelocity = moveDirection;
-            playerVelocity.y = jumpingVelocity;
-            playerRigidbody.velocity = playerVelocity;*/
         }
     }  
     
@@ -258,7 +242,7 @@ public class PlayerLocomotion : MonoBehaviour
         //animatorManager.PlayTargetAnimation("Dodge", true, true);
         playerRigidbody.drag = 0;
         //dodge always moves back
-        Vector3 dodgeForce = -transform.forward * 2000f * Time.deltaTime;
+        Vector3 dodgeForce = -transform.forward * 200f * Time.deltaTime;
         playerAnimatorManager.PlayTargetAnimation("Dodge", true);
         playerRigidbody.AddForce(dodgeForce, ForceMode.Impulse);
         //toggle invulnerability bool so dodge prevents damage

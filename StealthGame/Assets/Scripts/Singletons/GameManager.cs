@@ -57,9 +57,6 @@ public class GameManager : MonoBehaviour
 
     public void EndLevel()
     {
-        if (uiManager != null)
-        {
-           uiManager.EnableEndScreen();
-        }
+        uiManager.EnableEndScreen();
     }
 }

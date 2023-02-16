@@ -50,10 +50,10 @@ public class PlayerDistractingState : PlayerAbilitiesState
         Quaternion playerRotation = Quaternion.Slerp(distractRigidbody.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         distractRigidbody.transform.rotation = playerRotation;*/
 
-        if (context.inputManager.distractKeyPressed)
+        if (context.inputManager.DistractKeyPressed)
         {
             DeployAbility(context);
-            context.inputManager.distractKeyPressed = false;
+            context.inputManager.DistractKeyPressed = false;
         }
     }
 

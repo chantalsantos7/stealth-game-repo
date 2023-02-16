@@ -306,7 +306,7 @@
             "id": "b18dc33c-1be0-4a08-b56b-6e2bd82d0015",
             "actions": [
                 {
-                    "name": "AbilityBarToggle",
+                    "name": "ToggleObjectives",
                     "type": "Button",
                     "id": "90021904-fe6f-4f46-afb2-25c122d409ca",
                     "expectedControlType": "Button",
@@ -332,7 +332,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AbilityBarToggle",
+                    "action": "ToggleObjectives",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

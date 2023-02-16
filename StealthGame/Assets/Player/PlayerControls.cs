@@ -328,7 +328,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
             ""id"": ""b18dc33c-1be0-4a08-b56b-6e2bd82d0015"",
             ""actions"": [
                 {
-                    ""name"": ""AbilityBarToggle"",
+                    ""name"": ""ToggleObjectives"",
                     ""type"": ""Button"",
                     ""id"": ""90021904-fe6f-4f46-afb2-25c122d409ca"",
                     ""expectedControlType"": ""Button"",
@@ -354,7 +354,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""AbilityBarToggle"",
+                    ""action"": ""ToggleObjectives"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -392,7 +392,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerActions_PutDistraction = m_PlayerActions.FindAction("PutDistraction", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
-        m_UI_AbilityBarToggle = m_UI.FindAction("AbilityBarToggle", throwIfNotFound: true);
+        m_UI_ToggleObjectives = m_UI.FindAction("ToggleObjectives", throwIfNotFound: true);
         m_UI_Interact = m_UI.FindAction("Interact", throwIfNotFound: true);
     }
 
@@ -599,13 +599,13 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     // UI
     private readonly InputActionMap m_UI;
     private IUIActions m_UIActionsCallbackInterface;
-    private readonly InputAction m_UI_AbilityBarToggle;
+    private readonly InputAction m_UI_ToggleObjectives;
     private readonly InputAction m_UI_Interact;
     public struct UIActions
     {
         private @PlayerControls m_Wrapper;
         public UIActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @AbilityBarToggle => m_Wrapper.m_UI_AbilityBarToggle;
+        public InputAction @ToggleObjectives => m_Wrapper.m_UI_ToggleObjectives;
         public InputAction @Interact => m_Wrapper.m_UI_Interact;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
@@ -616,9 +616,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_UIActionsCallbackInterface != null)
             {
-                @AbilityBarToggle.started -= m_Wrapper.m_UIActionsCallbackInterface.OnAbilityBarToggle;
-                @AbilityBarToggle.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnAbilityBarToggle;
-                @AbilityBarToggle.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnAbilityBarToggle;
+                @ToggleObjectives.started -= m_Wrapper.m_UIActionsCallbackInterface.OnToggleObjectives;
+                @ToggleObjectives.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnToggleObjectives;
+                @ToggleObjectives.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnToggleObjectives;
                 @Interact.started -= m_Wrapper.m_UIActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnInteract;
@@ -626,9 +626,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @AbilityBarToggle.started += instance.OnAbilityBarToggle;
-                @AbilityBarToggle.performed += instance.OnAbilityBarToggle;
-                @AbilityBarToggle.canceled += instance.OnAbilityBarToggle;
+                @ToggleObjectives.started += instance.OnToggleObjectives;
+                @ToggleObjectives.performed += instance.OnToggleObjectives;
+                @ToggleObjectives.canceled += instance.OnToggleObjectives;
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
@@ -656,7 +656,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     }
     public interface IUIActions
     {
-        void OnAbilityBarToggle(InputAction.CallbackContext context);
+        void OnToggleObjectives(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
     }
 }

@@ -74,7 +74,7 @@ public class PlayerLocomotion : MonoBehaviour
         HandleFallingAndLanding();
         if (playerManager.isInteracting) return;
         HandleMovementAndRotation();
-        HandleStairs();
+        //HandleStairs();
         //HandleJumping();
     }
 
@@ -116,13 +116,13 @@ public class PlayerLocomotion : MonoBehaviour
         if (IsCrouched)
         { 
             playerCollider.height = 1;
-            playerCollider.center = new Vector3(0, 0.5f, 0);
+            playerCollider.center = new Vector3(0, 0.7f, 0);
             cameraManager.cameraMode = CameraMode.Crouch;
         }
         else
         {
-            playerCollider.height = 1.85f;
-            playerCollider.center = new Vector3(0, 0.92f, 0);
+            playerCollider.height = 1.71f;
+            playerCollider.center = new Vector3(0, 1.03f, 0);
             cameraManager.cameraMode = CameraMode.Basic;
         }
     }
@@ -137,7 +137,7 @@ public class PlayerLocomotion : MonoBehaviour
         {
             if (!playerManager.isInteracting) //HERE I need to not play if climbing down stairs
             {
-                playerAnimatorManager.PlayTargetAnimation("MidAir", true);
+                //playerAnimatorManager.PlayTargetAnimation("MidAir", true);
             }
             inAirTimer += Time.deltaTime;
             playerRigidbody.drag = 0;
@@ -149,8 +149,8 @@ public class PlayerLocomotion : MonoBehaviour
         if (Physics.SphereCast(raycastOrigin, 0.2f, -Vector3.up, out hit, maxDistance, groundLayers))
         {
             Vector3 heightDiff = raycastOrigin - hit.point;
-            Debug.Log("Height to ground: " + heightDiff.y);
-            if (!isGrounded && playerManager.isInteracting && heightDiff.y > 0.5f) //how to detect when going down stairs?????
+            //Debug.Log("Height to ground: " + heightDiff.y);
+            if (!isGrounded && playerManager.isInteracting && heightDiff.y > 0.6f) //how to detect when going down stairs?????
             {
                 playerAnimatorManager.PlayTargetAnimation("JumpLanding", true);
             }
@@ -169,56 +169,12 @@ public class PlayerLocomotion : MonoBehaviour
         {
             if (playerManager.isInteracting || inputManager.moveAmount > 0)
             {
-                transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime / 0.1f);
+                transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime);
             }
             else
             {
                 transform.position = targetPosition; 
             }
-        }
-    }
-
-    private void HandleStairs()
-    {
-        Vector3[] rayDirections = new Vector3[]
-        {
-            new Vector3(0f, 0f, 1f),
-            new Vector3(1f, 0f, 1f),
-            new Vector3(-1f, 0f, 1f)
-        };
-
-        if (inputManager.moveAmount > 0)
-        {
-            foreach (Vector3 direction in rayDirections)
-            {
-                Debug.DrawRay(stepRayLower.transform.position, transform.TransformDirection(direction), Color.green);
-                Debug.DrawRay(stepRayUpper.transform.position, transform.TransformDirection(direction), Color.red);
-                if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(direction), 0.2f))
-                {
-                    if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(direction), 0.3f))
-                    {
-                        playerRigidbody.position -= new Vector3(0f, -stepSmooth * Time.deltaTime, 0f);
-                    }
-                }
-            }
-        }
-
-        Vector3 raycastOrigin = transform.position;
-        raycastOrigin.y += raycastHeightOffset; //offset the height of the raycast so player does not fall through the world
-        RaycastHit stairsHit;
-        //handle going down stairs
-        if (Physics.Raycast(raycastOrigin, Vector3.down, out stairsHit, 0.5f))
-        {
-            Debug.DrawRay(raycastOrigin, Vector3.down, Color.magenta);
-            Vector3 heightDiff = raycastOrigin - stairsHit.point;
-            if (heightDiff.y < jumpHeight)
-            {
-                //apply gravity/downward force here so player actually will go down
-                playerRigidbody.AddForce(fallingVelocity * inAirTimer * -Vector3.up);
-
-            }
-            //find the difference between the original position and the ray hit
-            //if less than stair height don't play falling animation
         }
     }
 

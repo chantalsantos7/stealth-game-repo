@@ -18,6 +18,7 @@ public class PlayerTeleportingState : PlayerAbilitiesState
         context.playerLocomotion.canMove = false;
         context.teleportView.SetActive(true);
         teleportRadiusLimit = context.player.teleportLimit;
+        //GameManager.Instance.uiManager.SetTeleportIconTransparency(100);
     }
 
     public override void ExitState(PlayerAbilitiesStateManager context)
@@ -36,6 +37,18 @@ public class PlayerTeleportingState : PlayerAbilitiesState
 
     public override void UpdateState(PlayerAbilitiesStateManager context)
     {
+        Vector3 centerPosition = context.playerLocomotion.playerRigidbody.position;
+        var distance = Vector3.Distance(context.teleportRigidbody.position, centerPosition);
+
+        /*if (distance > teleportRadiusLimit)
+        {
+            Vector3 fromOrigin = context.teleportRigidbody.position - centerPosition;
+            fromOrigin *= teleportRadiusLimit / distance;
+            var newPosition = centerPosition + fromOrigin;
+            context.teleportRigidbody.position = newPosition;
+            return;
+        }*/
+
         if (Vector3.Distance(context.teleportRigidbody.position, context.playerLocomotion.playerRigidbody.position) > teleportRadiusLimit)
         {
             Debug.Log("Too far!"); //replace with a UI showing the distance you can travel

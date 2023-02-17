@@ -10,11 +10,10 @@ public class PlayerAbilitiesBaseState : PlayerAbilitiesState
 
     public override void EnterState(PlayerAbilitiesStateManager context)
     {
-        //context = stateManager;
         context.playerLocomotion.IsSprinting = false;
         context.teleportAllowed = false;
         context.distractionAllowed = false;
-        //context.teleportParticles.Stop();
+        GameManager.Instance.uiManager.SetTeleportIconTransparency(0);
     }
 
     public override void ExitState(PlayerAbilitiesStateManager context)
@@ -35,6 +34,7 @@ public class PlayerAbilitiesBaseState : PlayerAbilitiesState
         {
             context.teleportAllowed = true;
             context.teleportTimeElapsed = 0;
+            GameManager.Instance.uiManager.SetTeleportIconTransparency(49);
         }
 
         context.distractTimeElapsed += Time.deltaTime;

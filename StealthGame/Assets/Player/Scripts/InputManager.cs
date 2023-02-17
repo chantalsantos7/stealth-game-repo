@@ -165,7 +165,7 @@ public class InputManager : MonoBehaviour
         HandleCrouchInput();
         HandleMovementInput();
         HandleSprintingInput();
-        HandleJumpInput();
+        //HandleJumpInput();
         //HandleTeleportInput();
         //Debug.Log(crouchModifierPressed);
     }

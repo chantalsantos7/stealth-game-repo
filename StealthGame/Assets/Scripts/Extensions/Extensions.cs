@@ -18,7 +18,7 @@ namespace Assets.Scripts
         {
             if (image != null)
             {
-                UnityEngine.Color alpha = image.color;
+                Color alpha = image.color;
                 alpha.a = transparency;
                 image.color = alpha;
             }

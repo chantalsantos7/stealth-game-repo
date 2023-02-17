@@ -64,6 +64,7 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
     {
         currentState = baseState;
         currentState.EnterState(this);
+        
     }
 
     // Update is called once per frame

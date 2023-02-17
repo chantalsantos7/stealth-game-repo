@@ -86,8 +86,21 @@ public class UIManager : MonoBehaviour
         objectiveText.text = objective;
     }
 
-    public void SetIconTransparency()
+    public void SetTeleportIconTransparency(float value)
     {
-        
+        var images = teleportIcon.GetComponentsInChildren<Image>();
+        foreach (var img in images)
+        {
+            img.SetTransparency(value);
+        }
+    }
+
+    public void SetDistractIconTransparency(float value)
+    {
+        var images = distractIcon.GetComponentsInChildren<Image>();
+        foreach (var img in images)
+        {
+            img.SetTransparency(value);
+        }
     }
 }

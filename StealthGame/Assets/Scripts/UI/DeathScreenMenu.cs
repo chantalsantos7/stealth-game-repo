@@ -7,7 +7,7 @@ public class DeathScreenMenu : MonoBehaviour
 {
     public void ReloadLevel()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("GameLevel");
     }
 
     public void QuitToMenu()

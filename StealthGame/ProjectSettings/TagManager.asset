@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Distraction
   - Weapon
+  - Target
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Enemy
   - Obstacle
   - Interactable
-  - 
+  - PostProcessing
   - 
   - 
   - 

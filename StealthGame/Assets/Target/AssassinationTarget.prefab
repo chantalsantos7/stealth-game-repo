@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8631857376772661695}
   - component: {fileID: 8631857376772661694}
-  - component: {fileID: 8631857376772661681}
   m_Layer: 0
   m_Name: AssassinationTarget
   m_TagString: Untagged
@@ -56,22 +55,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8631857376772661681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8631857376772661680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06682377df8510b4dae7fae6d56ff38a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypoints: []
-  idleTimeInSeconds: 0
-  minIdleTimeInSeconds: 0
-  maxIdleTimeInSeconds: 0
 --- !u!1001 &8631857375606662409
 PrefabInstance:
   m_ObjectHideFlags: 0

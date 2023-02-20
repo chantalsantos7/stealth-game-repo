@@ -194,5 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageMin: 20
   damageMax: 45
-  opponentTag: Enemy
+  opponentTags:
+  - Enemy
+  - Target
   stealthDamageMultiplier: 200

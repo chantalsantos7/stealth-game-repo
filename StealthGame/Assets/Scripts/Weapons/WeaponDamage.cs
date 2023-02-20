@@ -7,7 +7,7 @@ public class WeaponDamage : MonoBehaviour
 {
     [Tooltip("Minimum amount of damage the weapon can deal.")] public float damageMin;
     [Tooltip("Maximum amount of damage the weapon can deal.")] public float damageMax;
-    [Tooltip("The tag of objects this weapon should interact with.")] public string opponentTag;
+    [Tooltip("The tag of objects this weapon should interact with.")] public string[] opponentTags;
 
     Collider damageCollider;
 
@@ -17,18 +17,19 @@ public class WeaponDamage : MonoBehaviour
         damageCollider.gameObject.SetActive(true);
         damageCollider.isTrigger = true;
         damageCollider.enabled = false;
+        //opponentTags = new List<string>();
     }
 
     protected virtual void OnTriggerEnter(Collider other) {
 
-        if (other.gameObject.CompareTag(opponentTag))
+        foreach (var tag in opponentTags)
         {
-            //trying to use these logs cause errors, the layermask value seems to be changed? but can still get to the DealDamage code so unimportant
-            /*Debug.Log("layer index is: " + opponentLayer.value);
-            Debug.Log("Correctly colliding with " + LayerMask.LayerToName(opponentLayer));*/
-            if (other.GetComponentInParent<IHealthManager>() is IHealthManager opponent)
+            if (other.gameObject.CompareTag(tag))
             {
-                DealDamage(opponent);
+                if (other.GetComponentInParent<IHealthManager>() is IHealthManager opponent)
+                {
+                    DealDamage(opponent);
+                }
             }
         }
     }

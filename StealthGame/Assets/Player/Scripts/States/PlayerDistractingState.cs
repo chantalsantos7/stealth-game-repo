@@ -20,35 +20,14 @@ public class PlayerDistractingState : PlayerAbilitiesState
 
                 distractRigidbody = previewPos.GetComponent<Rigidbody>();*/
         previewPos = context.distractorPreview;
+        //need to spawn the preview!!!
+        //GameObject.Instantiate(previewPos, emitterPosition, Quaternion.identity);
         previewPos.SetActive(true);
         distractor = context.distractorObj;
     }
 
     public override void UpdateState(PlayerAbilitiesStateManager context)
     {
-        //placing aimer via camera view - aimer sort of attached to the camera view, moves where the camera is pointing
-        /*if (Vector3.Distance(distractRigidbody.position, context.playerLocomotion.transform.position) > distractRadiusLimit)
-        {
-            Debug.Log("Too far!"); //replace with a UI showing the distance you can travel
-            distractRigidbody.position -= new Vector3(0, 0, 0.2f); //move it back slightly, so it doesn't get stuck
-            return;
-        }*/
-/*
-        Vector3 movementVelocity = new Vector3(context.cameraManager.transform.forward.x, 0f, context.cameraManager.transform.forward.z) * context.inputManager.verticalInput;
-        movementVelocity += context.cameraManager.transform.right * context.inputManager.horizontalInput;
-        movementVelocity.Normalize();
-        movementVelocity.y = 0f;
-
-        distractRigidbody.velocity = movementVelocity * movementSpeed;
-
-        if (movementVelocity == Vector3.zero)
-        {
-            movementVelocity = distractRigidbody.transform.forward;
-        }
-
-        Quaternion targetRotation = Quaternion.LookRotation(movementVelocity);
-        Quaternion playerRotation = Quaternion.Slerp(distractRigidbody.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        distractRigidbody.transform.rotation = playerRotation;*/
 
         if (context.inputManager.DistractKeyPressed)
         {
@@ -69,6 +48,7 @@ public class PlayerDistractingState : PlayerAbilitiesState
     public override void ExitState(PlayerAbilitiesStateManager context)
     {
         previewPos.SetActive(false);
+        context.distractionAllowed = false;
         //context.cameraManager.cameraMode = CameraMode.Basic;
         //previewPos.SetActive(false);
         //context.playerLocomotion.canMove = true;

@@ -16,6 +16,7 @@ public class TargetStateManager : MonoBehaviour
     public TargetState currentState;
     public TargetDeathState deathState = new TargetDeathState();
     public TargetMovementState moveState = new TargetMovementState();
+    
     public NavMeshAgent agent;
 
     private void Awake()

@@ -33,12 +33,12 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        inputManager.HandleAllInputs();
+        
     }
 
     private void FixedUpdate()
     {
-        playerLocomotion.HandleAllMovement();
+        //playerLocomotion.HandleAllMovement();
     }
 
     private void LateUpdate()

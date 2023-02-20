@@ -11,8 +11,8 @@ public class PlayerAbilitiesBaseState : PlayerAbilitiesState
     public override void EnterState(PlayerAbilitiesStateManager context)
     {
         context.playerLocomotion.IsSprinting = false;
-        context.teleportAllowed = false;
-        context.distractionAllowed = false;
+        //context.teleportAllowed = false;
+        //context.distractionAllowed = false;
         GameManager.Instance.uiManager.SetTeleportIconTransparency(0);
     }
 

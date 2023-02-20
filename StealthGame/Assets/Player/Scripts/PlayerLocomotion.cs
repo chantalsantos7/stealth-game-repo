@@ -53,6 +53,7 @@ public class PlayerLocomotion : MonoBehaviour
     [SerializeField] float stepSmooth = 0.1f;
 
     public Vector3 movementVelocity;
+    Vector3 movementDirection;
 
     private void Awake()
     {
@@ -69,20 +70,72 @@ public class PlayerLocomotion : MonoBehaviour
         canMove = true;
     }
 
+    private void Update()
+    {
+        inputManager.HandleAllInputs();
+        isGrounded = GroundChecking();
+
+        //handling drag
+        playerRigidbody.drag = isGrounded ? groundDrag : 0;
+    }
+
+    private void FixedUpdate()
+    {
+        HandleAllMovement();
+    }
+
     public void HandleAllMovement()
     {
         HandleFallingAndLanding();
         if (playerManager.isInteracting) return;
         HandleMovementAndRotation();
-        //HandleStairs();
-        //HandleJumping();
+        
+        
+    }
+
+    private bool GroundChecking()
+    {
+        Vector3 raycastOrigin = transform.position;
+        Vector3 targetPosition = transform.position;
+        raycastOrigin.y += raycastHeightOffset; //offset the height of the raycast so player does not fall through the world
+        return Physics.SphereCast(raycastOrigin, 0.2f, Vector3.down, out RaycastHit hit, maxDistance, groundLayers);
     }
 
     private void HandleMovementAndRotation()
     {
         if (IsJumping || !canMove) return;
 
-        //movement in the direction that the camera is facing
+        IsMoving = inputManager.horizontalInput != 0 || inputManager.verticalInput != 0;
+        movementDirection = new Vector3(cameraObject.forward.x, 0f, cameraObject.forward.z) * inputManager.verticalInput;
+        movementDirection += cameraObject.right * inputManager.horizontalInput;
+        //movementDirection.Normalize();
+        movementDirection.y = 0f;
+
+        if (isGrounded)
+        {
+            if (IsSprinting)
+            {
+                movementDirection *= sprintingSpeed;
+            }
+            else
+            {
+                movementDirection *= walkingSpeed;
+            }
+
+            playerRigidbody.velocity = movementDirection;
+            //playerRigidbody.AddForce(movementDirection.normalized * 10f, ForceMode.Force);
+        }
+
+        if (movementDirection == Vector3.zero)
+        {
+            movementDirection = transform.forward;
+        }
+
+        Quaternion targetRotation = Quaternion.LookRotation(movementDirection);
+        Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        transform.rotation = playerRotation;
+
+        /*//movement in the direction that the camera is facing
         IsMoving = inputManager.horizontalInput != 0 || inputManager.verticalInput != 0;
         movementVelocity = Vector3.zero;
         movementVelocity = new Vector3(cameraObject.forward.x, 0f, cameraObject.forward.z) * inputManager.verticalInput;
@@ -111,8 +164,8 @@ public class PlayerLocomotion : MonoBehaviour
         transform.rotation = playerRotation;
 
         //give the player drag while its on the ground, so they're not just sliding around, but remove it when they're in the air
-        playerRigidbody.drag = isGrounded ? groundDrag : 0;
-
+        //playerRigidbody.drag = isGrounded ? groundDrag : 0;
+*/
         if (IsCrouched)
         { 
             playerCollider.height = 1;
@@ -142,7 +195,7 @@ public class PlayerLocomotion : MonoBehaviour
             inAirTimer += Time.deltaTime;
             playerRigidbody.drag = 0;
             playerRigidbody.AddForce(transform.forward * leapingVelocity);
-            playerRigidbody.AddForce(fallingVelocity * inAirTimer * -Vector3.up);
+            playerRigidbody.AddForce(fallingVelocity * Vector3.down);
         }
 
         //Ground Checking
@@ -188,7 +241,7 @@ public class PlayerLocomotion : MonoBehaviour
             float jumpingVelocity = Mathf.Sqrt(-2 * 9.81f * jumpHeight);
             Vector3 playerVelocity = movementVelocity;
             playerVelocity.y = 0f;
-            playerRigidbody.AddForce(jumpingVelocity * Vector3.up, ForceMode.Impulse);
+            playerRigidbody.AddForce(jumpingVelocity * Vector3.up, ForceMode.Force);
         }
     }  
     

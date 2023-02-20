@@ -8,23 +8,25 @@ namespace Assets.Scripts.Weapons
         public float stealthDamageMultiplier;
         protected override void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag(opponentTag))
+            Debug.Log(other.gameObject.tag);
+            foreach (var tag in opponentTags)
             {
-                //trying to use these logs cause errors, the layermask value seems to be changed? but can still get to the DealDamage code so unimportant
-                /*Debug.Log("layer index is: " + opponentLayer.value);
-                Debug.Log("Correctly colliding with " + LayerMask.LayerToName(opponentLayer));*/
-                if (other.GetComponentInParent<IHealthManager>() is IHealthManager opponent)
+                if (other.gameObject.CompareTag(tag))
                 {
-                    //condition to check whether it was a stealth attack
-                    //get the player from a FindObjectsOfType call
-                    //DealDamage(opponent);
-                    var player = FindObjectOfType<PlayerManager>();
-                    if (player.InStealth)
+                    if (other.GetComponentInParent<IHealthManager>() is IHealthManager opponent)
                     {
-                        DealStealthDamage(opponent);
-                    } else 
-                    {
-                        DealDamage(opponent);
+                        //condition to check whether it was a stealth attack
+                        //get the player from a FindObjectsOfType call
+                        //DealDamage(opponent);
+                        var player = FindObjectOfType<PlayerManager>();
+                        if (player.InStealth)
+                        {
+                            DealStealthDamage(opponent);
+                        }
+                        else
+                        {
+                            DealDamage(opponent);
+                        }
                     }
                 }
             }

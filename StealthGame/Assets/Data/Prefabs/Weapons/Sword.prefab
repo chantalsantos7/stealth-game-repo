@@ -127,9 +127,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5187a5d1dad23da4b9e490bb8c15194f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageMin: 50
-  damageMax: 75
-  opponentTag: Player
+  damageMin: 30
+  damageMax: 45
+  opponentTags:
+  - Player
 --- !u!1 &3351920386750808835
 GameObject:
   m_ObjectHideFlags: 0

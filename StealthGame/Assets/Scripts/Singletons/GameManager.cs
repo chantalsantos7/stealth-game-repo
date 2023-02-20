@@ -55,8 +55,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EndLevel()
+    public void EndLevelSequence()
     {
         uiManager.EnableEndScreen();
+    }
+
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene("GameLevel");
+        Time.timeScale = 1.0f;
+    }
+
+    public void QuitToMenu()
+    {
+        SceneManager.LoadScene("StartMenu");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

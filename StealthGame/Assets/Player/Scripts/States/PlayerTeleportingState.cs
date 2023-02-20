@@ -8,6 +8,7 @@ public class PlayerTeleportingState : PlayerAbilitiesState
     float teleportRadiusLimit;
     public float movementSpeed = 5f;
     public float rotationSpeed = 10f;
+    Rigidbody teleportRb;
     //float teleportCooldown = 10f;
 
     public override void EnterState(PlayerAbilitiesStateManager context)
@@ -18,6 +19,7 @@ public class PlayerTeleportingState : PlayerAbilitiesState
         context.playerLocomotion.canMove = false;
         context.teleportView.SetActive(true);
         teleportRadiusLimit = context.player.teleportLimit;
+        teleportRb = context.teleportRigidbody;
         //GameManager.Instance.uiManager.SetTeleportIconTransparency(100);
     }
 
@@ -38,7 +40,7 @@ public class PlayerTeleportingState : PlayerAbilitiesState
     public override void UpdateState(PlayerAbilitiesStateManager context)
     {
         Vector3 centerPosition = context.playerLocomotion.playerRigidbody.position;
-        var distance = Vector3.Distance(context.teleportRigidbody.position, centerPosition);
+        var distance = Vector3.Distance(teleportRb.position, centerPosition);
 
         /*if (distance > teleportRadiusLimit)
         {
@@ -49,35 +51,45 @@ public class PlayerTeleportingState : PlayerAbilitiesState
             return;
         }*/
 
-        if (Vector3.Distance(context.teleportRigidbody.position, context.playerLocomotion.playerRigidbody.position) > teleportRadiusLimit)
+        if (distance > teleportRadiusLimit)
         {
             Debug.Log("Too far!"); //replace with a UI showing the distance you can travel
-            context.teleportRigidbody.position -= new Vector3(0, 0, 0.2f); //move it back slightly, so it doesn't get stuck
+            teleportRb.position -= new Vector3(0, 0, 0.2f); //move it back slightly, so it doesn't get stuck
             return;
         }
-        //Debug.Log("Teleport state update being called");
+        
         Vector3 movementVelocity = new Vector3(context.cameraManager.transform.forward.x, 0f, context.cameraManager.transform.forward.z) * context.inputManager.verticalInput;
         movementVelocity += context.cameraManager.transform.right * context.inputManager.horizontalInput;
         movementVelocity.Normalize();
         movementVelocity.y = 0f;
 
-        context.teleportRigidbody.velocity = movementVelocity * movementSpeed;
+        teleportRb.velocity = movementVelocity * movementSpeed;
 
         if (movementVelocity == Vector3.zero)
         {
-            movementVelocity = context.teleportRigidbody.transform.forward;
+            movementVelocity = teleportRb.transform.forward;
         }
 
         Quaternion targetRotation = Quaternion.LookRotation(movementVelocity);
-        Quaternion playerRotation = Quaternion.Slerp(context.teleportRigidbody.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        context.teleportRigidbody.transform.rotation = playerRotation;
+        Quaternion playerRotation = Quaternion.Slerp(teleportRb.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        teleportRb.transform.rotation = playerRotation;
 
+        Vector3 raycastOrigin = teleportRb.transform.position;
+        //Vector3 targetPosition = transform.position;
+        //raycastOrigin.y += raycastHeightOffset; //offset the height of the raycast so player does not fall through the world
+        
+        if (!Physics.SphereCast(raycastOrigin, 0.2f, Vector3.down, out RaycastHit hit, 
+            context.playerLocomotion.maxDistance, context.playerLocomotion.groundLayers))
+        {
+            teleportRb.AddForce(context.playerLocomotion.fallingVelocity * Vector3.down);
+            
+        }
+        
         if (context.inputManager.TeleportKeyPressed)
         {
             Teleport(context);
             context.inputManager.TeleportKeyPressed = false;
         }
-
     }
 
     private void Teleport(PlayerAbilitiesStateManager context)

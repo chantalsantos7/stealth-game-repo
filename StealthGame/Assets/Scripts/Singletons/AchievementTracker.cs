@@ -8,6 +8,7 @@ public class AchievementTracker : MonoBehaviour
     public int GuardsKilled { get; set; }
     public float TimeTaken { get; private set; }
 
+    //how many times detected?
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,6 @@ public class AchievementTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        TimeTaken += Time.deltaTime;
     }
 }

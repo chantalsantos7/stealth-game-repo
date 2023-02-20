@@ -5,6 +5,7 @@ public class EnemyDeathState : EnemyState
     public override void EnterState(EnemyStateManager context)
     {
         Debug.Log("Entered death state");
+        GameManager.Instance.achievementTracker.GuardsKilled++;
     }
 
     public override void UpdateState(EnemyStateManager context)

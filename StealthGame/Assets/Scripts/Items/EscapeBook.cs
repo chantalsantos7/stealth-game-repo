@@ -9,7 +9,7 @@ public class EscapeBook : MonoBehaviour, IInteractable
 
     public bool Interact(Interactor interactor)
     {
-        GameManager.Instance.EndLevel();
+        GameManager.Instance.EndLevelSequence();
         return true;
     }
 

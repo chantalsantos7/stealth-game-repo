@@ -96,6 +96,8 @@ public class PlayerTeleportingState : PlayerAbilitiesState
     {
         Vector3 TeleportPos = context.teleportView.transform.position;
         context.playerLocomotion.playerRigidbody.position = TeleportPos;
+        GameManager.Instance.achievementTracker.TeleportUsed++;
+        context.audioSource.PlayOneShot(context.teleportSoundEffect);
         context.SwitchState(context.baseState);
     }
 

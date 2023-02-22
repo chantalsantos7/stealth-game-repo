@@ -108,7 +108,7 @@ public class PlayerLocomotion : MonoBehaviour
         IsMoving = inputManager.horizontalInput != 0 || inputManager.verticalInput != 0;
         movementDirection = new Vector3(cameraObject.forward.x, 0f, cameraObject.forward.z) * inputManager.verticalInput;
         movementDirection += cameraObject.right * inputManager.horizontalInput;
-        //movementDirection.Normalize();
+        movementDirection.Normalize();
         movementDirection.y = 0f;
 
         if (isGrounded)
@@ -135,37 +135,6 @@ public class PlayerLocomotion : MonoBehaviour
         Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         transform.rotation = playerRotation;
 
-        /*//movement in the direction that the camera is facing
-        IsMoving = inputManager.horizontalInput != 0 || inputManager.verticalInput != 0;
-        movementVelocity = Vector3.zero;
-        movementVelocity = new Vector3(cameraObject.forward.x, 0f, cameraObject.forward.z) * inputManager.verticalInput;
-        movementVelocity += cameraObject.right * inputManager.horizontalInput;
-        movementVelocity.Normalize();
-        movementVelocity.y = 0f;
-
-        //change movement speed depending on if player is walking or sprinting
-        if (IsSprinting)
-        {
-            movementVelocity *= sprintingSpeed;
-        } else
-        {
-            movementVelocity *= walkingSpeed;
-        }
-
-        playerRigidbody.velocity = movementVelocity;
-
-        if (movementVelocity == Vector3.zero)
-        {
-            movementVelocity = transform.forward;
-        }
-
-        Quaternion targetRotation = Quaternion.LookRotation(movementVelocity);
-        Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        transform.rotation = playerRotation;
-
-        //give the player drag while its on the ground, so they're not just sliding around, but remove it when they're in the air
-        //playerRigidbody.drag = isGrounded ? groundDrag : 0;
-*/
         if (IsCrouched)
         { 
             playerCollider.height = 1;

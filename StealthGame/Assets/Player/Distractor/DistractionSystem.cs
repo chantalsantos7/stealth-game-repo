@@ -8,16 +8,17 @@ public class DistractionSystem : MonoBehaviour
     public float enemyRange;
     public Collider[] enemies;
     public LayerMask enemyLayer;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip soundEffect;
 
     private void Awake()
     {
-        StartCoroutine(EmitSound());
+        audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        //Destroy this object after a while?
+        StartCoroutine(EmitSound());
     }
 
     private IEnumerator EmitSound() 
@@ -29,8 +30,7 @@ public class DistractionSystem : MonoBehaviour
         {
             if (enemies[i].CompareTag("Enemy"))
             {
-                EnemyStateManager esm = enemies[i].GetComponent<EnemyStateManager>();
-                if (esm != null) 
+                if (enemies[i].TryGetComponent<EnemyStateManager>(out var esm)) 
                 {
                     //access the detection system through the ESM
                     //set the lastKnownPosition to the distractor's position
@@ -40,17 +40,17 @@ public class DistractionSystem : MonoBehaviour
                     esm.detectionSystem.lastKnownPosition = transform.position;
                     esm.detectionSystem.heardSomething = true;
                     esm.suspicionSystem.suspicionMeter = esm.searchSuspicionThreshold + 20;
-                    //see if it switches to search state through this
-
-                    
                 }
             }
-                
         }
         //play an audioClip here
-        //get a reference to any enemies within hearing range
-        //another physics raycast?
-        //switch to the 
+        audioSource.Play();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, enemyRange);
     }
 
     //Delete object after a while - also a coroutine? 

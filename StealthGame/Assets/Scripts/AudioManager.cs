@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    [System.Serializable]
+    public class AudioClipsGroup
+    {
+        public string name;
+        public AudioClip[] audioClips;
+    }
+
     //public List<AudioClip> audioClips = new List<AudioClip>();
-    public List<AudioClip> footsteps = new List<AudioClip>();
+    public List<AudioClipsGroup> audioClips = new List<AudioClipsGroup>();
     //public List<AudioClip> audioLoops = new List<AudioClip>();
 
     private AudioSource audioSource;
@@ -18,18 +25,18 @@ public class AudioManager : MonoBehaviour
     public void PlayAudio(string name) //reference SFB_AudioManager PlayAudio function
     {
         //play clips depending on movement - called from animation events
-        //footsteps while moving
+        //audioClips while moving
         //swing of daggers
     }
 
-    public void PlayFootsteps()
+
+    /*private AudioClip GetRandomClip()
     {
-        var clip = GetRandomClip();
-        AudioSource.PlayClipAtPoint(clip, transform.position);
+        return audioClips[Random.Range(0, audioClips.Count)];
     }
 
-    private AudioClip GetRandomClip()
+    private int AudioClipIndex(string name)
     {
-        return footsteps[Random.Range(0, footsteps.Count)];
-    }
+
+    }*/
 }

@@ -18,10 +18,14 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
     
     [Header("Scene References")]
     public CameraManager cameraManager;
+    public AudioSource audioSource;
+    public GameObject distractorPreview;
+
+    [Header("Teleportation")]
     public GameObject teleportView;
     public Rigidbody teleportRigidbody;
     public ParticleSystem teleportParticles;
-    public GameObject distractorPreview;
+    public AudioClip teleportSoundEffect;
 
     [Header("Prefabs")]
     public GameObject distractorObj;
@@ -51,6 +55,7 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
         playerLocomotion = GetComponent<PlayerLocomotion>();
         inputManager = GetComponent<InputManager>();
         cameraManager = FindObjectOfType<CameraManager>();
+        audioSource = GetComponentInChildren<AudioSource>();
 
         teleportAllowed = true;
         teleportTimeElapsed = 11; //set to 11 at initialisation so player can teleport immediately upon entering game

@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         uiManager.ToggleSuspicionIndicator(EnemyIsSuspicious);
         if (achievementTracker.TargetIsDead)
         {
-            uiManager.ChangeObjective("- Escape the level from one of the back towers.");
+            uiManager.ChangeObjective("Escape the level from one of the back towers.");
         }
     }
 
@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     public void EndLevelSequence()
     {
+        achievementTracker.SaveGameSessionStats();
         uiManager.EnableEndScreen();
     }
 

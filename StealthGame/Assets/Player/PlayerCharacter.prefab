@@ -808,6 +808,7 @@ Transform:
   - {fileID: 1694112693922489949}
   - {fileID: 1598959845}
   - {fileID: 429431930}
+  - {fileID: 6586828882018161813}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -822,7 +823,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -838,9 +839,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.35
-  m_Height: 1.85
+  m_Height: 1.71
   m_Direction: 1
-  m_Center: {x: 0, y: 0.94, z: 0}
+  m_Center: {x: 0, y: 1.03, z: 0}
 --- !u!114 &1698976723627222965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -875,12 +876,12 @@ MonoBehaviour:
   playerRigidbody: {fileID: 0}
   inAirTimer: 0
   leapingVelocity: 2
-  fallingVelocity: 60
-  maxDistance: 0.5
+  fallingVelocity: 70
+  maxDistance: 0.56
   groundLayers:
     serializedVersion: 2
     m_Bits: 513
-  raycastHeightOffset: 0.5
+  raycastHeightOffset: 0.51
   isGrounded: 0
   canMove: 0
   jumpHeight: 2
@@ -979,10 +980,12 @@ MonoBehaviour:
   player: {fileID: 0}
   inputManager: {fileID: 0}
   cameraManager: {fileID: 0}
+  audioSource: {fileID: 0}
+  distractorPreview: {fileID: 6586828882018161809}
   teleportView: {fileID: 1698976724378158101}
   teleportRigidbody: {fileID: 0}
   teleportParticles: {fileID: 1536150674523069939}
-  distractorPreview: {fileID: 6586828881895530508, guid: 88a1e3550bcb1834a94845912fbb3358, type: 3}
+  teleportSoundEffect: {fileID: 8300000, guid: 8ff2a2d7e79f81c40ac447512f879374, type: 3}
   distractorObj: {fileID: 5176421219579962379, guid: f25fc6e9f71afbb489fed7ab66f8a754, type: 3}
   teleportCooldown: 10
   distractionCooldown: 15
@@ -1002,7 +1005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bc9ed811fd0ebd4abd93ad0be48c91b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  footsteps: []
+  audioClips: []
 --- !u!114 &1700819947109231859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1213,7 +1216,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1698976725179332643}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.094, y: 1.419, z: -0.32}
+  m_LocalPosition: {x: -0.094, y: 1.419, z: -0.242}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3504,6 +3507,73 @@ Transform:
   m_Father: {fileID: 5629331775448482125}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &156464285
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1698976723627222968}
+    m_Modifications:
+    - target: {fileID: 6586828881895530504, guid: 88a1e3550bcb1834a94845912fbb3358, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586828881895530504, guid: 88a1e3550bcb1834a94845912fbb3358, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586828881895530504, guid: 88a1e3550bcb1834a94845912fbb3358, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586828881895530504, guid: 88a1e3550bcb1834a94845912fbb3358, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.953
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586828881895530504, guid: 88a1e3550bcb1834a94845912fbb3358, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586828881895530504, guid: 88a1e3550bcb1834a94845912fbb3358, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586828881895530504, guid: 88a1e3550bcb1834a94845912fbb3358, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586828881895530504, guid: 88a1e3550bcb1834a94845912fbb3358, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586828881895530504, guid: 88a1e3550bcb1834a94845912fbb3358, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586828881895530504, guid: 88a1e3550bcb1834a94845912fbb3358, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586828881895530504, guid: 88a1e3550bcb1834a94845912fbb3358, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586828881895530508, guid: 88a1e3550bcb1834a94845912fbb3358, type: 3}
+      propertyPath: m_Name
+      value: SoundEmitterPreview
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 88a1e3550bcb1834a94845912fbb3358, type: 3}
+--- !u!1 &6586828882018161809 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6586828881895530508, guid: 88a1e3550bcb1834a94845912fbb3358, type: 3}
+  m_PrefabInstance: {fileID: 156464285}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6586828882018161813 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6586828881895530504, guid: 88a1e3550bcb1834a94845912fbb3358, type: 3}
+  m_PrefabInstance: {fileID: 156464285}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1698976724110895417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3730,19 +3800,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8561baf82c0c55d4b918bfd8f81b87bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1698976725234793078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2233301078933843152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bc9ed811fd0ebd4abd93ad0be48c91b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  footsteps: []
 --- !u!1 &2233301078933843156 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 679407113668150765, guid: 49be39be66a00a84d8db334d15ec191e, type: 3}

@@ -12,6 +12,7 @@ public class EnemyStateManager : MonoBehaviour
     public SuspicionSystem suspicionSystem;
     public EnemyInventory enemyInventory;
     public Transform player;
+    public SFB_AudioManager audioManager;
     public NavMeshAgent agent { get; private set; }
     public LayerMask playerMask, groundMask;
 
@@ -38,7 +39,7 @@ public class EnemyStateManager : MonoBehaviour
     public EnemyPatrolState patrolState = new EnemyPatrolState();
     public EnemyAttackState attackState = new EnemyAttackState();
     public EnemyChaseState chaseState = new EnemyChaseState();
-    public EnemySearchState suspiciousState = new EnemySearchState();
+    public EnemySearchState suspiciousState = new();
     public EnemyDeathState deathState = new();
 
     private void Awake()
@@ -50,6 +51,7 @@ public class EnemyStateManager : MonoBehaviour
         detectionSystem = GetComponent<DetectionSystem>();
         suspicionSystem = GetComponent<SuspicionSystem>();
         enemyInventory = GetComponent<EnemyInventory>();
+        audioManager = GetComponentInChildren<SFB_AudioManager>();
         //sightRange = enemyManager.sightDetectionRadius;
 
         searchSuspicionThreshold = suspicionSystem.searchSuspicionThreshold;

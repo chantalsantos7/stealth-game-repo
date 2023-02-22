@@ -41,7 +41,7 @@ public class PlayerDistractingState : PlayerAbilitiesState
         //spawn a gameObject that functions as a distraction
         Vector3 emitterPosition = new Vector3(previewPos.transform.position.x, 0, previewPos.transform.position.z);
         GameObject.Instantiate(distractor, emitterPosition, Quaternion.identity);
-
+        GameManager.Instance.achievementTracker.DistractUsed++;
         context.SwitchState(context.baseState);
     }
 

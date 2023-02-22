@@ -9300,8 +9300,8 @@ GameObject:
   - component: {fileID: 5393752558777065226}
   - component: {fileID: 5393752558786589150}
   - component: {fileID: 1939572597081832599}
-  - component: {fileID: 6434919383520697643}
   - component: {fileID: 4961962757740863192}
+  - component: {fileID: 4198931936791166682}
   m_Layer: 8
   m_Name: Human Male (v4)
   m_TagString: Enemy
@@ -9361,24 +9361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8561baf82c0c55d4b918bfd8f81b87bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6434919383520697643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5393752558777221994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bc9ed811fd0ebd4abd93ad0be48c91b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  footsteps:
-  - {fileID: 8300000, guid: 551d550ab98e3cc4bb7793e752fe8628, type: 3}
-  - {fileID: 8300000, guid: 18e761ff5ef14fd4588d9283fcc9b829, type: 3}
-  - {fileID: 8300000, guid: 9c0c1f9411026f749bcb3746cd557bec, type: 3}
-  - {fileID: 8300000, guid: 38cb68a2a49e89c46bea091d75b27976, type: 3}
-  - {fileID: 8300000, guid: a62172e6f7275ff4f94c17edc8dfdd0d, type: 3}
 --- !u!82 &4961962757740863192
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9475,6 +9457,80 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4198931936791166682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5393752558777221994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 609f49429392c476bb71685431efda79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - name: RockWalkFootsteps
+    audioClips:
+    - {fileID: 8300000, guid: 1f0199a4c6005ec4abbb302f71bc036d, type: 3}
+    - {fileID: 8300000, guid: 53e2adf2ac488ef46bb2b4074de9e363, type: 3}
+    - {fileID: 8300000, guid: a03a96c5d1e99b4409ddd79098abd9ab, type: 3}
+    - {fileID: 8300000, guid: 7187dc81f98b8be4eb97bfc4dd9a5abf, type: 3}
+    - {fileID: 8300000, guid: e3cfcb32689b274419ac73380ea96888, type: 3}
+    - {fileID: 8300000, guid: 314d37dfb74502a4094b835d0e0d6c23, type: 3}
+    chanceOfPlaying: 100
+    volume: 1.02
+    volumeBySpeed: 0
+    minVolume: 0
+    pitchBySpeed: 0
+    minPitch: 0
+    maxPitch: 0
+  - name: GrassWalkFootsteps
+    audioClips:
+    - {fileID: 8300000, guid: 9ea11a2d13d536e4e8441a0f5895995c, type: 3}
+    - {fileID: 8300000, guid: 203ac8b6f07070e4f93f1c1a6fff06c3, type: 3}
+    - {fileID: 8300000, guid: ac6649006dbee9e4685752e124111da7, type: 3}
+    - {fileID: 8300000, guid: f42914d98b070f741b2feee96a2988ee, type: 3}
+    - {fileID: 8300000, guid: feb62160ad1f8334ab037017b843d162, type: 3}
+    - {fileID: 8300000, guid: 001f691d110d55648871a03f446ffa08, type: 3}
+    chanceOfPlaying: 100
+    volume: 1.46
+    volumeBySpeed: 0
+    minVolume: 0
+    pitchBySpeed: 0
+    minPitch: 0
+    maxPitch: 0
+  - name: RunningRockFootsteps
+    audioClips:
+    - {fileID: 8300000, guid: ecd647025e0a3c04fbd5829fff509e09, type: 3}
+    - {fileID: 8300000, guid: 3bd1b93317b7a3a49b13011cdaa64d0b, type: 3}
+    - {fileID: 8300000, guid: 7b4b6eb734482064c8c1e5fd45d4d76c, type: 3}
+    - {fileID: 8300000, guid: fba95cafa5bba8649a7d269656e7317b, type: 3}
+    - {fileID: 8300000, guid: e924ff5d774024542830602ee674d9a9, type: 3}
+    - {fileID: 8300000, guid: 281c105661e5ee14b8e76523200338bd, type: 3}
+    chanceOfPlaying: 100
+    volume: 1.07
+    volumeBySpeed: 0
+    minVolume: 0
+    pitchBySpeed: 0
+    minPitch: 0
+    maxPitch: 0
+  - name: Suspicion
+    audioClips:
+    - {fileID: 8300000, guid: f9144b9a3e0e56c42bf371ed3354b33f, type: 3}
+    - {fileID: 8300000, guid: 60be94d985e977c49a87cf23ecddebc6, type: 3}
+    - {fileID: 8300000, guid: 0a8649f9f460b2540969ef6f8bf51e68, type: 3}
+    - {fileID: 8300000, guid: f7c7d16a93d34a84cab48246236dbd73, type: 3}
+    - {fileID: 8300000, guid: 67e86c150cf366a41b07eb0f39c42f08, type: 3}
+    chanceOfPlaying: 75
+    volume: 0.89
+    volumeBySpeed: 0
+    minVolume: 0
+    pitchBySpeed: 0
+    minPitch: -0.3
+    maxPitch: 0
+  audioLoops: []
+  pitchByTimescale: 1
 --- !u!1 &5393752558777221996
 GameObject:
   m_ObjectHideFlags: 0
@@ -16621,6 +16677,7 @@ MonoBehaviour:
   suspicionSystem: {fileID: 0}
   enemyInventory: {fileID: 0}
   player: {fileID: 0}
+  audioManager: {fileID: 0}
   playerMask:
     serializedVersion: 2
     m_Bits: 8

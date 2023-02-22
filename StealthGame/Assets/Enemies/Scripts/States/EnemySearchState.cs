@@ -24,6 +24,7 @@ public class EnemySearchState : EnemyState
 
         chaseThreshold = context.chaseSuspicionThreshold;
         patrolThreshold = context.patrolSuspicionThreshold;
+        context.audioManager.PlayAudio("Suspicion");
         context.enemyInventory.TakeOutWeapon();
     }
     

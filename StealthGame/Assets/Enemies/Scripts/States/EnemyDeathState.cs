@@ -4,8 +4,16 @@ public class EnemyDeathState : EnemyState
 {
     public override void EnterState(EnemyStateManager context)
     {
-        Debug.Log("Entered death state");
-        GameManager.Instance.achievementTracker.GuardsKilled++;
+        //Debug.Log("Entered death state");
+        
+        if (context.gameObject.CompareTag("Target"))
+        {
+            GameManager.Instance.achievementTracker.TargetIsDead = true;
+        } 
+        else
+        {
+            GameManager.Instance.achievementTracker.GuardsKilled++;
+        }
     }
 
     public override void UpdateState(EnemyStateManager context)

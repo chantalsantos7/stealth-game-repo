@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyActivation : MonoBehaviour
 {
-    public GameObject prevAreaEnemies;
-    public GameObject nextAreaEnemies;
+    public GameObject[] prevAreaEnemies;
+    public GameObject[] nextAreaEnemies;
 
     // Start is called before the first frame update
     void Start()
@@ -28,10 +28,20 @@ public class EnemyActivation : MonoBehaviour
             //set which one should be activated at start, reverse when this is triggered
             
             //do not disable if someone is suspicious of the player
-            prevAreaEnemies.SetActive(!prevAreaEnemies.activeSelf);
-            if (nextAreaEnemies != null)
+            foreach (var enemyGroup in prevAreaEnemies)
             {
-                nextAreaEnemies.SetActive(!nextAreaEnemies.activeSelf);
+                if (enemyGroup != null)
+                {
+                    enemyGroup.SetActive(!enemyGroup.activeSelf);
+                }
+            }
+
+            foreach (var enemyGroup in nextAreaEnemies)
+            {
+                if (enemyGroup != null)
+                {
+                    enemyGroup.SetActive(!enemyGroup.activeSelf);
+                }       
             }
         }
     }

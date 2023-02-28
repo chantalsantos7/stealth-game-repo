@@ -8,14 +8,21 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("UI Screens")]
     [SerializeField] GameObject deathScreen;
-    [SerializeField] GameObject suspicionIndicator;
     [SerializeField] GameObject levelEndScreen;
+    [SerializeField] GameObject prevStatsScreen;
+
+    [Header("In-Game UI")]
     [SerializeField] GameObject abilityBar;
+    [SerializeField] GameObject suspicionIndicator;
     [SerializeField] GameObject objectivesPanel;
     [SerializeField] GameObject teleportIcon;
     [SerializeField] GameObject distractIcon;
     [SerializeField] TMP_Text objectiveText;
+    [SerializeField] TextMeshProUGUI teleportDeployTxt;
+    [SerializeField] TextMeshProUGUI distractDeployTxt;
+
     private void Start()
     {
         DisableMouseCursor();
@@ -60,21 +67,22 @@ public class UIManager : MonoBehaviour
         PauseGame();
     }
 
-    public void ToggleUI()
+    public void EnablePrevStatsScreen()
     {
-        ToggleAbilityBar();
-        ToggleObjectivesPanel();
+        prevStatsScreen.SetActive(true);
+        levelEndScreen.SetActive(false);
+    }
+
+    public void BackButton()
+    {
+        prevStatsScreen.SetActive(false);
+        EnableEndScreen();
     }
 
     public void TurnOffUI()
     {
         abilityBar.SetActive(false);
         objectivesPanel.SetActive(false);
-    }
-
-    public void ToggleAbilityBar()
-    {
-        abilityBar.SetActive(!abilityBar.activeSelf);
     }
 
     public void ToggleObjectivesPanel()
@@ -88,12 +96,25 @@ public class UIManager : MonoBehaviour
         objectiveText.text = objective;
     }
 
+    #region Ability Bar
+
+    public void ToggleDistractDeploy()
+    {
+        distractDeployTxt.gameObject.SetActive(!distractDeployTxt.gameObject.activeSelf);
+    }
+
+    public void ToggleTeleportDeploy()
+    {
+        teleportDeployTxt.gameObject.SetActive(!teleportDeployTxt.gameObject.activeSelf);
+    }
+
     public void SetTeleportIconTransparency(float value)
     {
         var images = teleportIcon.GetComponentsInChildren<Image>();
         foreach (var img in images)
         {
             img.SetTransparency(value);
+            //Debug.Log(img.color.a.ToString());
         }
     }
 
@@ -105,4 +126,15 @@ public class UIManager : MonoBehaviour
             img.SetTransparency(value);
         }
     }
+
+    public void ToggleAbilityBar()
+    {
+        abilityBar.SetActive(!abilityBar.activeSelf);
+    }
+
+    #endregion
+
+
+
+
 }

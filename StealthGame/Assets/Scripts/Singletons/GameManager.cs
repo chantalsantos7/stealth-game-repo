@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public UIManager uiManager;
     public AchievementTracker achievementTracker;
+    public VignettePulse vignette;
+    public FileManager fileManager;
     //use this to keep track of game stats
     private static GameManager instance;
     public static GameManager Instance

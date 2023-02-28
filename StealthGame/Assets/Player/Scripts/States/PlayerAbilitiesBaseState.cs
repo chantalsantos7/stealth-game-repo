@@ -11,9 +11,6 @@ public class PlayerAbilitiesBaseState : PlayerAbilitiesState
     public override void EnterState(PlayerAbilitiesStateManager context)
     {
         context.playerLocomotion.IsSprinting = false;
-        //context.teleportAllowed = false;
-        //context.distractionAllowed = false;
-        GameManager.Instance.uiManager.SetTeleportIconTransparency(0);
     }
 
     public override void ExitState(PlayerAbilitiesStateManager context)
@@ -34,7 +31,7 @@ public class PlayerAbilitiesBaseState : PlayerAbilitiesState
         {
             context.teleportAllowed = true;
             context.teleportTimeElapsed = 0;
-            GameManager.Instance.uiManager.SetTeleportIconTransparency(49);
+            GameManager.Instance.uiManager.SetTeleportIconTransparency(0.15f);
         }
 
         context.distractTimeElapsed += Time.deltaTime;
@@ -43,6 +40,7 @@ public class PlayerAbilitiesBaseState : PlayerAbilitiesState
         {
             context.distractionAllowed = true;
             context.distractTimeElapsed = 0;
+            GameManager.Instance.uiManager.SetDistractIconTransparency(0.15f);
         }
 
         /*if (stateManager.playerLocomotion.IsSprinting)

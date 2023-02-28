@@ -26,7 +26,16 @@ public class PlayerHealth : MonoBehaviour, IHealthManager
 
     public void DamageHealth(float amount)
     {
+        GameManager.Instance.vignette.IncreaseVignetteIntensity(0.4f);
+        /*if (health == maxHealth)
+        {
+            GameManager.Instance.vignette.IncreaseVignetteIntensity(0.4f);
+        } else
+        {
+            GameManager.Instance.vignette.IncreaseVignetteIntensity(0.6f);
+        }*/
         health -= amount;
+        //
         if (health <= 0)
         {
             Die();

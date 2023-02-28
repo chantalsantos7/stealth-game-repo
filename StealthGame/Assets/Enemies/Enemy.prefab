@@ -16608,7 +16608,7 @@ MonoBehaviour:
     m_Bits: 136
   obstructionLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 513
   currentTarget: {fileID: 0}
   canSeePlayer: 0
   heardSomething: 0

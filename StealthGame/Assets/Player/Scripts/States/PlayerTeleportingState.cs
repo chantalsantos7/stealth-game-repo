@@ -20,6 +20,7 @@ public class PlayerTeleportingState : PlayerAbilitiesState
         context.teleportView.SetActive(true);
         teleportRadiusLimit = context.player.teleportLimit;
         teleportRb = context.teleportRigidbody;
+        GameManager.Instance.uiManager.ToggleTeleportDeploy();
         //GameManager.Instance.uiManager.SetTeleportIconTransparency(100);
     }
 
@@ -27,7 +28,8 @@ public class PlayerTeleportingState : PlayerAbilitiesState
     {
         context.cameraManager.cameraMode = CameraMode.Basic;
         context.teleportView.SetActive(false);
-        //context.teleportParticles.Stop();
+        GameManager.Instance.uiManager.ToggleTeleportDeploy();
+        GameManager.Instance.uiManager.SetTeleportIconTransparency(0);
         context.playerLocomotion.canMove = true;
         context.teleportAllowed = false;
     }
@@ -51,12 +53,12 @@ public class PlayerTeleportingState : PlayerAbilitiesState
             return;
         }*/
 
-        if (distance > teleportRadiusLimit)
+        /*if (distance > teleportRadiusLimit)
         {
             Debug.Log("Too far!"); //replace with a UI showing the distance you can travel
             teleportRb.position -= new Vector3(0, 0, 0.2f); //move it back slightly, so it doesn't get stuck
             return;
-        }
+        }*/
         
         Vector3 movementVelocity = new Vector3(context.cameraManager.transform.forward.x, 0f, context.cameraManager.transform.forward.z) * context.inputManager.verticalInput;
         movementVelocity += context.cameraManager.transform.right * context.inputManager.horizontalInput;

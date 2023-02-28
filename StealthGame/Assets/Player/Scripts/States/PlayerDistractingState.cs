@@ -13,17 +13,10 @@ public class PlayerDistractingState : PlayerAbilitiesState
 
     public override void EnterState(PlayerAbilitiesStateManager context)
     {
-        //allow player to still move while in the placing view
-        //enable the distractor aimer
-        /*        context.cameraManager.cameraMode = CameraMode.AimDistractor;
-                context.playerLocomotion.canMove = false;
-
-                distractRigidbody = previewPos.GetComponent<Rigidbody>();*/
         previewPos = context.distractorPreview;
-        //need to spawn the preview!!!
-        //GameObject.Instantiate(previewPos, emitterPosition, Quaternion.identity);
         previewPos.SetActive(true);
         distractor = context.distractorObj;
+        GameManager.Instance.uiManager.ToggleDistractDeploy();
     }
 
     public override void UpdateState(PlayerAbilitiesStateManager context)
@@ -49,6 +42,8 @@ public class PlayerDistractingState : PlayerAbilitiesState
     {
         previewPos.SetActive(false);
         context.distractionAllowed = false;
+        GameManager.Instance.uiManager.ToggleDistractDeploy();
+        GameManager.Instance.uiManager.SetDistractIconTransparency(0);
         //context.cameraManager.cameraMode = CameraMode.Basic;
         //previewPos.SetActive(false);
         //context.playerLocomotion.canMove = true;

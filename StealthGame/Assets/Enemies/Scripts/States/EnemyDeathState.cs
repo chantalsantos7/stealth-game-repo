@@ -5,7 +5,7 @@ public class EnemyDeathState : EnemyState
     public override void EnterState(EnemyStateManager context)
     {
         //Debug.Log("Entered death state");
-        
+        context.enemyInventory.sheathedSwordModel.SetActive(false);
         if (context.gameObject.CompareTag("Target"))
         {
             GameManager.Instance.achievementTracker.TargetIsDead = true;

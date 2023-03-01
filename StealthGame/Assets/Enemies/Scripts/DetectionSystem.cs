@@ -5,12 +5,9 @@ using UnityEngine;
 
 public class DetectionSystem : MonoBehaviour
 {
-    //public float radius;
-    //public float angle;
     [Header("Object References")]
     public GameObject playerRef;
     public GameObject crouchCheckObj;
-    EnemyManager enemyManager;
 
     [Header("Detection Variables")]
     public float sightDetectionRadius = 10;
@@ -22,15 +19,15 @@ public class DetectionSystem : MonoBehaviour
 
     public PlayerManager currentTarget;
 
-    public bool canSeePlayer;
-    public bool heardSomething;
-    public bool heardDistraction;
-    public bool inAttackRange = false;
-    public Vector3 lastKnownPosition;
+    [HideInInspector] public bool canSeePlayer;
+    [HideInInspector] public bool heardSomething;
+    [HideInInspector] public bool heardDistraction;
+    [HideInInspector] public bool lookingAtObstruction;
+    [HideInInspector] public bool inAttackRange = false;
+    [HideInInspector] public Vector3 lastKnownPosition;
 
     private Collider[] fovRangeCheck = new Collider[1];
     private Collider[] hearingRangeCheck = new Collider[1];
-    //private Collider[] attackRangeCheck = new Collider[1];
 
     private void Awake()
     {
@@ -43,7 +40,7 @@ public class DetectionSystem : MonoBehaviour
         StartCoroutine(DetectionRoutine());
     }
 
-    //This coroutine only executes 5 times per second, so enemy is not constantly searching for the player, lessening the performance load
+    //This coroutine only executes 5 times per second, so enemy is not searching for the player in every frame, lessening the performance load
     private IEnumerator DetectionRoutine()
     {
         float delay = 0.2f;
@@ -61,8 +58,6 @@ public class DetectionSystem : MonoBehaviour
 
     private void FieldOfViewCheck()
     {
-        //BUG: Probable source of the memory leak errors that sometimes come up 
-        //Collider[] rangeCheck = new Collider[2];
         Physics.OverlapSphereNonAlloc(transform.position, sightDetectionRadius, fovRangeCheck, detectionLayer);
         if (fovRangeCheck[0] == null)
         {
@@ -106,6 +101,15 @@ public class DetectionSystem : MonoBehaviour
             else
             {
                 canSeePlayer = false;
+                //checking if enemy is looking at wall, so they can be rotated
+                if (Physics.Raycast(transform.position, Vector3.forward, sightDetectionRadius, obstructionLayer))
+                {
+                    lookingAtObstruction = true;
+                }
+                else
+                {
+                    lookingAtObstruction = false;
+                }
             }
         }
 
@@ -114,8 +118,7 @@ public class DetectionSystem : MonoBehaviour
     private void HearingDetection()
     {
         Physics.OverlapSphereNonAlloc(transform.position, hearingDetectionRadius, hearingRangeCheck, detectionLayer);
-        /*Collider[] rangeCheck = new Collider[2];
-        Physics.OverlapSphereNonAlloc(transform.position, hearingDetectionRadius, rangeCheck, detectionLayer);*/
+       
         if (hearingRangeCheck[0] == null)
         {
             heardSomething = false;
@@ -134,43 +137,29 @@ public class DetectionSystem : MonoBehaviour
                     heardSomething = true;
                 }
                 else
-                {
                     heardSomething = false;
-                }
+                
             }
             else
-            {
                 heardSomething = false;
-
-            }
+            
         }
-                
     }
 
     private void AttackRangeCheck()
     {
-        //Debug.Log("Check something");
         Collider[] attackRangeCheck = Physics.OverlapSphere(transform.position, attackRadius, detectionLayer);
         
         for (int i = 0; i < attackRangeCheck.Length; i++)
         {
             if (attackRangeCheck[i] != null && attackRangeCheck[i].gameObject.CompareTag("Player"))
-            {
                 inAttackRange = true;
-            }
             else
-            {
-                //Array.Clear(attackRangeCheck, 0, attackRangeCheck.Length);
-               // attackRangeCheck[i] = null;
                 inAttackRange = false;
-            }
         }
         
 
         if (attackRangeCheck.Length == 0)
-        {
             inAttackRange = false;
-            //return;
-        }
     }
 }

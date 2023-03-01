@@ -138,7 +138,7 @@ public class PlayerLocomotion : MonoBehaviour
         if (IsCrouched)
         { 
             playerCollider.height = 1;
-            playerCollider.center = new Vector3(0, 0.7f, 0);
+            playerCollider.center = new Vector3(0, 0.75f, 0);
             cameraManager.cameraMode = CameraMode.Crouch;
         }
         else

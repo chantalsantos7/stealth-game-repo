@@ -26,14 +26,12 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
     public Rigidbody teleportRigidbody;
     public ParticleSystem teleportParticles;
     public AudioClip teleportSoundEffect;
+    
+    [Tooltip("How much time the player has in teleport mode before they are automatically teleported.")]
+    public float teleportTimeLimit = 15f;
 
     [Header("Prefabs")]
     public GameObject distractorObj;
-    //public Rigidbody distractRigidbody;
-
-    /*[Header("Player Stats")]
-    public int maxStamina = 75;
-    public float maxHealth = 100f;*/
 
     [Header("Ability Cooldowns")]
     [Tooltip("How many seconds before the teleport ability is available to the player again")]
@@ -45,8 +43,6 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
     [HideInInspector] public float teleportTimeElapsed; //set to 11 at initialisation so player can teleport immediately upon entering game
     [HideInInspector] public float distractTimeElapsed;
 
-
-    bool sprinting;
     public WaitForSeconds regenTick = new WaitForSeconds(0.5f);
 
     private void Awake()
@@ -72,7 +68,6 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         currentState.UpdateState(this);   

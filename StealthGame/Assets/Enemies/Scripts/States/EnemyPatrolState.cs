@@ -55,6 +55,17 @@ public class EnemyPatrolState : EnemyState
         }
 
         Vector3 distanceToWalkPoint = agent.transform.position - target;
+
+        if (distanceToWalkPoint.magnitude < 1f)
+        {
+            //rotate until detectionSystem isn't being blocked
+            if (context.detectionSystem.lookingAtObstruction)
+            {
+                //just rotate 180 degrees
+                context.enemyAnimatorManager.transform.Rotate(180f, 0, 0);
+            }
+        }
+
         if (distanceToWalkPoint.magnitude < 1f && idleTimeElapsed > idleTimeInSeconds)
         {
             //Debug.Log("Time elapsed: " + idleTimeElapsed);

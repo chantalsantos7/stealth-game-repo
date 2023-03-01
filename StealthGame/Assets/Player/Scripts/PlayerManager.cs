@@ -16,8 +16,6 @@ public class PlayerManager : MonoBehaviour
     public float currentStamina;
     public float staminaRegenCooldown = 5f;
     public float CurrentStamina { get; private set; }
-    [Tooltip("How far away the player can teleport from their initial position.")] public float teleportLimit = 10f;
-    [Tooltip("Limits the distance that the distraction aimer can go from the player.")] public float distractAbilityLimit = 1f;
 
     public bool InStealth { get; set; }
 

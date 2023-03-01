@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class PlayerTeleportingState : PlayerAbilitiesState
 {
-    float teleportRadiusLimit;
     public float movementSpeed = 5f;
     public float rotationSpeed = 10f;
+    float teleportTime;
+    float timeCounter;
     Rigidbody teleportRb;
-    //float teleportCooldown = 10f;
 
     public override void EnterState(PlayerAbilitiesStateManager context)
     {
@@ -18,10 +18,10 @@ public class PlayerTeleportingState : PlayerAbilitiesState
         context.teleportView.transform.position = context.transform.position + Vector3.right;
         context.playerLocomotion.canMove = false;
         context.teleportView.SetActive(true);
-        teleportRadiusLimit = context.player.teleportLimit;
+        teleportTime = context.teleportTimeLimit;
         teleportRb = context.teleportRigidbody;
+        timeCounter = 0f;
         GameManager.Instance.uiManager.ToggleTeleportDeploy();
-        //GameManager.Instance.uiManager.SetTeleportIconTransparency(100);
     }
 
     public override void ExitState(PlayerAbilitiesStateManager context)
@@ -41,25 +41,30 @@ public class PlayerTeleportingState : PlayerAbilitiesState
 
     public override void UpdateState(PlayerAbilitiesStateManager context)
     {
-        Vector3 centerPosition = context.playerLocomotion.playerRigidbody.position;
+        /*Vector3 centerPosition = context.playerLocomotion.playerRigidbody.position;
         var distance = Vector3.Distance(teleportRb.position, centerPosition);
 
-        /*if (distance > teleportRadiusLimit)
+        *//*if (distance > teleportRadiusLimit)
         {
             Vector3 fromOrigin = context.teleportRigidbody.position - centerPosition;
             fromOrigin *= teleportRadiusLimit / distance;
             var newPosition = centerPosition + fromOrigin;
             context.teleportRigidbody.position = newPosition;
             return;
-        }*/
+        }*//*
 
-        /*if (distance > teleportRadiusLimit)
+        if (distance > teleportRadiusLimit)
         {
             Debug.Log("Too far!"); //replace with a UI showing the distance you can travel
-            teleportRb.position -= new Vector3(0, 0, 0.2f); //move it back slightly, so it doesn't get stuck
+            //+teleportRb.position -= new Vector3(0, 0, 0.2f); //move it back slightly, so it doesn't get stuck
             return;
         }*/
-        
+        timeCounter += Time.deltaTime;
+        if (timeCounter >= teleportTime)
+        {
+            Teleport(context);
+        }
+
         Vector3 movementVelocity = new Vector3(context.cameraManager.transform.forward.x, 0f, context.cameraManager.transform.forward.z) * context.inputManager.verticalInput;
         movementVelocity += context.cameraManager.transform.right * context.inputManager.horizontalInput;
         movementVelocity.Normalize();

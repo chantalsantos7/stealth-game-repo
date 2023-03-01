@@ -11,13 +11,6 @@ public class AchievementTracker : MonoBehaviour
     public int TeleportUsed { get { return playerStats.teleportsUsed; } set { playerStats.teleportsUsed = value; } }
     public int DistractUsed { get { return playerStats.distractsUsed; } set { playerStats.distractsUsed = value; } }
 
-    /*[SerializeField, HideInInspector] private int guardsKilled;
-    [SerializeField, HideInInspector] private float timeTaken;
-    [SerializeField, HideInInspector] private int teleportsUsed;
-    [SerializeField, HideInInspector] private int distractsUsed;*/
-
-
-    //how many times detected?
     private void Awake()
     {
         SaveGameSessionStats();
@@ -31,7 +24,7 @@ public class AchievementTracker : MonoBehaviour
 
     public void SaveGameSessionStats()
     {
-        string json = JsonUtility.ToJson(this);
+        string json = JsonUtility.ToJson(playerStats);
         DateTime currentTime = DateTime.Now;
         string fileName = "stealthGame-" + currentTime.Day + "-" + currentTime.Month+ "-" + currentTime.Year + currentTime.Hour + currentTime.Minute + ".json";
         FileManager.WriteToFile(fileName, json);

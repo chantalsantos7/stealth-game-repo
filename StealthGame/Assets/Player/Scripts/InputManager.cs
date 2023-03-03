@@ -110,18 +110,8 @@ public class InputManager : MonoBehaviour
                 }
             };
 
-            playerControls.PlayerActions.Dodge.performed += context =>
-            {
-                if (context.interaction is MultiTapInteraction)
-                {
-                    playerLocomotion.HandleDodging();
-                }
-            };
-
             playerControls.PlayerActions.LeftAttack.performed += i =>
             {
-                //get the weapon on the left slot, rather than directly referencing the leftWeapon
-                //change to just 'Attack' pick which weapon to attack w/ randomly
                 if (playerCombat.allowedToAttack)
                 {
                     if (playerManager.InStealth)
@@ -134,13 +124,7 @@ public class InputManager : MonoBehaviour
                     }
                     
                 }
-                //random choose betwen left or right weapon
             };
-
-            /*playerControls.PlayerActions.RightAttack.performed += i =>
-            {
-                playerCombat.Attack(playerInventory.rightWeapon, false);
-            };*/
 
             playerControls.PlayerActions.SheatheUnsheathe.performed += i =>
             {
@@ -198,14 +182,6 @@ public class InputManager : MonoBehaviour
             playerLocomotion.IsCrouched = !playerLocomotion.IsCrouched;
             playerManager.InStealth = !playerManager.InStealth;
             crouchModifierPressed = !crouchModifierPressed;
-        }
-    }
-
-    private void HandleTeleportInput()
-    {
-        if (playerControls.PlayerActions.AimTeleport.triggered)
-        {
-
         }
     }
 

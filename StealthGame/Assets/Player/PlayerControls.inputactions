@@ -143,15 +143,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Dodge",
-                    "type": "Button",
-                    "id": "2d147a71-e78b-4959-85a3-ef2c0e65ee10",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "MultiTap",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "LeftAttack",
                     "type": "Button",
                     "id": "7ee9a5a4-0f57-4d9f-9995-c39ebe22b1b1",
@@ -230,17 +221,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "AimTeleport",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "45ee1398-5a03-4572-b8f3-6ad27fa0040f",
-                    "path": "<Keyboard>/c",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Dodge",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

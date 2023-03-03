@@ -123,7 +123,6 @@ public class PlayerLocomotion : MonoBehaviour
             }
 
             playerRigidbody.velocity = movementDirection;
-            //playerRigidbody.AddForce(movementDirection.normalized * 10f, ForceMode.Force);
         }
 
         if (movementDirection == Vector3.zero)
@@ -213,17 +212,4 @@ public class PlayerLocomotion : MonoBehaviour
             playerRigidbody.AddForce(jumpingVelocity * Vector3.up, ForceMode.Force);
         }
     }  
-    
-    public void HandleDodging()
-    {
-        if (playerManager.isInteracting) return;
-        //animatorManager.PlayTargetAnimation("Dodge", true, true);
-        playerRigidbody.drag = 0;
-        //dodge always moves back
-        Vector3 dodgeForce = -transform.forward * 200f * Time.deltaTime;
-        playerAnimatorManager.PlayTargetAnimation("Dodge", true);
-        playerRigidbody.AddForce(dodgeForce, ForceMode.Impulse);
-        //toggle invulnerability bool so dodge prevents damage
-       
-    }
 }

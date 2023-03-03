@@ -165,15 +165,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Dodge"",
-                    ""type"": ""Button"",
-                    ""id"": ""2d147a71-e78b-4959-85a3-ef2c0e65ee10"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""MultiTap"",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""LeftAttack"",
                     ""type"": ""Button"",
                     ""id"": ""7ee9a5a4-0f57-4d9f-9995-c39ebe22b1b1"",
@@ -252,17 +243,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""AimTeleport"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""45ee1398-5a03-4572-b8f3-6ad27fa0040f"",
-                    ""path"": ""<Keyboard>/c"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Dodge"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -385,7 +365,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerActions_Jump = m_PlayerActions.FindAction("Jump", throwIfNotFound: true);
         m_PlayerActions_AimTeleport = m_PlayerActions.FindAction("AimTeleport", throwIfNotFound: true);
         m_PlayerActions_Teleport = m_PlayerActions.FindAction("Teleport", throwIfNotFound: true);
-        m_PlayerActions_Dodge = m_PlayerActions.FindAction("Dodge", throwIfNotFound: true);
         m_PlayerActions_LeftAttack = m_PlayerActions.FindAction("LeftAttack", throwIfNotFound: true);
         m_PlayerActions_SheatheUnsheathe = m_PlayerActions.FindAction("Sheathe/Unsheathe", throwIfNotFound: true);
         m_PlayerActions_AimDistraction = m_PlayerActions.FindAction("AimDistraction", throwIfNotFound: true);
@@ -499,7 +478,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Jump;
     private readonly InputAction m_PlayerActions_AimTeleport;
     private readonly InputAction m_PlayerActions_Teleport;
-    private readonly InputAction m_PlayerActions_Dodge;
     private readonly InputAction m_PlayerActions_LeftAttack;
     private readonly InputAction m_PlayerActions_SheatheUnsheathe;
     private readonly InputAction m_PlayerActions_AimDistraction;
@@ -513,7 +491,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_PlayerActions_Jump;
         public InputAction @AimTeleport => m_Wrapper.m_PlayerActions_AimTeleport;
         public InputAction @Teleport => m_Wrapper.m_PlayerActions_Teleport;
-        public InputAction @Dodge => m_Wrapper.m_PlayerActions_Dodge;
         public InputAction @LeftAttack => m_Wrapper.m_PlayerActions_LeftAttack;
         public InputAction @SheatheUnsheathe => m_Wrapper.m_PlayerActions_SheatheUnsheathe;
         public InputAction @AimDistraction => m_Wrapper.m_PlayerActions_AimDistraction;
@@ -542,9 +519,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Teleport.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnTeleport;
                 @Teleport.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnTeleport;
                 @Teleport.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnTeleport;
-                @Dodge.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnDodge;
-                @Dodge.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnDodge;
-                @Dodge.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnDodge;
                 @LeftAttack.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLeftAttack;
                 @LeftAttack.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLeftAttack;
                 @LeftAttack.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLeftAttack;
@@ -576,9 +550,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Teleport.started += instance.OnTeleport;
                 @Teleport.performed += instance.OnTeleport;
                 @Teleport.canceled += instance.OnTeleport;
-                @Dodge.started += instance.OnDodge;
-                @Dodge.performed += instance.OnDodge;
-                @Dodge.canceled += instance.OnDodge;
                 @LeftAttack.started += instance.OnLeftAttack;
                 @LeftAttack.performed += instance.OnLeftAttack;
                 @LeftAttack.canceled += instance.OnLeftAttack;
@@ -648,7 +619,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnAimTeleport(InputAction.CallbackContext context);
         void OnTeleport(InputAction.CallbackContext context);
-        void OnDodge(InputAction.CallbackContext context);
         void OnLeftAttack(InputAction.CallbackContext context);
         void OnSheatheUnsheathe(InputAction.CallbackContext context);
         void OnAimDistraction(InputAction.CallbackContext context);

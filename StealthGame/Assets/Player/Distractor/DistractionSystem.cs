@@ -39,11 +39,11 @@ public class DistractionSystem : MonoBehaviour
 
                     esm.detectionSystem.lastKnownPosition = transform.position;
                     esm.detectionSystem.heardSomething = true;
-                    esm.suspicionSystem.suspicionMeter = esm.searchSuspicionThreshold + 20;
+                    esm.suspicionSystem.suspicionMeter = esm.searchSuspicionThreshold + 75;
                 }
             }
         }
-        //play an audioClip here
+        
         audioSource.Play();
     }
 

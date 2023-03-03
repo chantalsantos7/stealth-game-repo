@@ -32,12 +32,17 @@ public class PrevGamesScreen : MonoBehaviour
 
         foreach (var prevGame in playerStatistics)
         {
-            var newObj = Instantiate(statsPrefab, scrollContentParent);
-            var textBoxes = newObj.GetComponentsInChildren<TextMeshProUGUI>();
-            textBoxes[2].text = TimeSpan.FromSeconds(prevGame.timeTaken).ToString();
-            textBoxes[1].text = "Guards killed: " + prevGame.guardsKilled.ToString() + "\n"
-                                + "Teleports used: " + prevGame.teleportsUsed.ToString() + "\n"
-                                + "Distracts used: " + prevGame.distractsUsed.ToString();
+            if (prevGame.timeTaken != 0)
+            {
+                var newObj = Instantiate(statsPrefab, scrollContentParent);
+                var textBoxes = newObj.GetComponentsInChildren<TextMeshProUGUI>();
+                DateTime sessionDate = DateTime.Parse(prevGame.dateTime);
+                textBoxes[0].text = sessionDate.ToString("dd-MM-yyyy");
+                textBoxes[2].text = TimeSpan.FromSeconds(prevGame.timeTaken).ToString("hh\\:mm\\:ss");
+                textBoxes[1].text = "Guards killed: " + prevGame.guardsKilled.ToString() + "\n"
+                                    + "Teleports used: " + prevGame.teleportsUsed.ToString() + "\n"
+                                    + "Distracts used: " + prevGame.distractsUsed.ToString();
+            }
         }
 
     }

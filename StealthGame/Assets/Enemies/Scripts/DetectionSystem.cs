@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class DetectionSystem : MonoBehaviour
 {
+    public EnemyManager enemyManager;
+
     [Header("Object References")]
     public GameObject playerRef;
     public GameObject crouchCheckObj;
@@ -17,7 +19,7 @@ public class DetectionSystem : MonoBehaviour
     public LayerMask detectionLayer;
     public LayerMask obstructionLayer;
 
-    public PlayerManager currentTarget;
+    [HideInInspector] public PlayerManager currentTarget;
 
     [HideInInspector] public bool canSeePlayer;
     [HideInInspector] public bool heardSomething;
@@ -47,7 +49,7 @@ public class DetectionSystem : MonoBehaviour
         WaitForSeconds wait = new WaitForSeconds(delay);
         
         //permanently searching for the player
-        while (true)
+        while (true && !enemyManager.isDead)
         {
             yield return wait;
             FieldOfViewCheck();

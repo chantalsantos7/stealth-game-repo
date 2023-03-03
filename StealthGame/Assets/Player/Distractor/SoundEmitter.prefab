@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEmitDelay: 5
-  enemyRange: 18.8
+  enemyRange: 27
   enemies: []
   enemyLayer:
     serializedVersion: 2

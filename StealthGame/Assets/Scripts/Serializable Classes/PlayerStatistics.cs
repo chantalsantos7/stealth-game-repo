@@ -10,6 +10,7 @@ namespace SerializableClass
         public int guardsKilled;
         public int teleportsUsed;
         public int distractsUsed;
+        public string dateTime;
     }
 }
 

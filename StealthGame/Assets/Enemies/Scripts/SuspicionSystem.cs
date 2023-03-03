@@ -6,6 +6,7 @@ public class SuspicionSystem : MonoBehaviour
 {
     [Header("Object References")]
     public DetectionSystem detectionSystem;
+    public EnemyManager enemyManager;
 
     [Header("Meter Values")]
     public float suspicionIncrement;
@@ -23,34 +24,34 @@ public class SuspicionSystem : MonoBehaviour
     private void Awake()
     {
         detectionSystem = GetComponent<DetectionSystem>();
+        enemyManager = GetComponent<EnemyManager>();
     }
 
     private void Start()
     {
         StartCoroutine(DecreaseSuspicion());
     }
-    // Start is called before the first frame update
-     
-    // Update is called once per frame
+  
     void Update()
     {
-        if (detectionSystem.heardSomething)
+        if (!enemyManager.isDead)
         {
-            suspicionMeter += suspicionIncrement;
-            
-        }
-         
-        if (detectionSystem.canSeePlayer)
-        {
-            suspicionMeter += suspicionIncrement * playerSeenIncreaseMultiplier;
-        }
+            if (detectionSystem.heardSomething)
+            {
+                suspicionMeter += suspicionIncrement;
 
-        if (detectionSystem.inAttackRange)
-        {
-            suspicionMeter += suspicionIncrement * inAttackRangeMultiplier;
-        }
-        //call the decrease suspicion every few seconds
+            }
 
+            if (detectionSystem.canSeePlayer)
+            {
+                suspicionMeter += suspicionIncrement * playerSeenIncreaseMultiplier;
+            }
+
+            if (detectionSystem.inAttackRange)
+            {
+                suspicionMeter += suspicionIncrement * inAttackRangeMultiplier;
+            }
+        }
     }
 
     private IEnumerator DecreaseSuspicion()

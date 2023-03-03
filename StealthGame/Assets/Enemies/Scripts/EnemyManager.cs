@@ -15,6 +15,7 @@ public class EnemyManager : MonoBehaviour, IHealthManager
     public float maxHealth;
     public float health;
 
+    [HideInInspector] public bool isDead;
     [HideInInspector] public bool isUnarmed;
 
     private void Awake()
@@ -30,22 +31,22 @@ public class EnemyManager : MonoBehaviour, IHealthManager
         SetRigidbodyState(false);
         SetColliderState(false);
         health = maxHealth;
+        isDead = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //TODO: Possibly not being set correctly
         isUnarmed = animatorManager.GetBool("IsUnarmed");
-        if (health <= 0)
-        {
-            Die();
-        }
     }
 
     public void DamageHealth(float amount)
     {
         health -= amount;
+        if (health <= 0)
+        {
+            Die();
+        }
     }
 
     public void Die()
@@ -55,6 +56,7 @@ public class EnemyManager : MonoBehaviour, IHealthManager
         GetComponent<NavMeshAgent>().enabled = false;
         SetRigidbodyState(true);
         SetColliderState(true);
+        isDead = true;
         stateManager.SwitchState(stateManager.deathState);
     }
 

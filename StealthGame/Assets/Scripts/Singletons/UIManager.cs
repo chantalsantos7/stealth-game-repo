@@ -23,24 +23,19 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI teleportDeployTxt;
     [SerializeField] TextMeshProUGUI distractDeployTxt;
 
+    public GameObject target;
+    public GameObject exitRelic;
+
     private void Start()
     {
         DisableMouseCursor();
+        ToggleOutline(target, true);
     }
 
     private void PauseGame()
     {
         Time.timeScale = 0;
-    }
-
-    public void ToggleDeathScreen()
-    {
-        //activate mouse cursor again
-        EnableMouseCursor();
-        PauseGame();
-        TurnOffUI();
-        deathScreen.SetActive(!deathScreen.activeSelf);
-    }
+    } 
 
     public void DisableMouseCursor()
     {
@@ -59,6 +54,20 @@ public class UIManager : MonoBehaviour
         suspicionIndicator.SetActive(value);
     }
 
+    public void ToggleOutline(GameObject outlinedObject, bool value)
+    {
+        outlinedObject.GetComponent<Outline>().enabled = value;
+    }
+
+
+    #region End & Death Screens
+    
+    public void TurnOffUI()
+    {
+        abilityBar.SetActive(false);
+        objectivesPanel.SetActive(false);
+    }
+    
     public void EnableEndScreen()
     {
         TurnOffUI();
@@ -66,7 +75,16 @@ public class UIManager : MonoBehaviour
         levelEndScreen.SetActive(true);
         PauseGame();
     }
-
+    
+    public void ToggleDeathScreen()
+    {
+        //activate mouse cursor again
+        EnableMouseCursor();
+        PauseGame();
+        TurnOffUI();
+        deathScreen.SetActive(!deathScreen.activeSelf);
+    }
+    
     public void EnablePrevStatsScreen()
     {
         prevStatsScreen.SetActive(true);
@@ -79,22 +97,29 @@ public class UIManager : MonoBehaviour
         EnableEndScreen();
     }
 
-    public void TurnOffUI()
-    {
-        abilityBar.SetActive(false);
-        objectivesPanel.SetActive(false);
-    }
+    #endregion
+
+    #region Objectives
 
     public void ToggleObjectivesPanel()
     {
         objectivesPanel.SetActive(!objectivesPanel.activeSelf);
+        if (target.GetComponent<Outline>().enabled)
+            target.GetComponent<Outline>().enabled = false;
+        else
+            target.GetComponent<Outline>().enabled = true;
+
+        if (exitRelic.GetComponent<Outline>().enabled)
+            exitRelic.GetComponent<Outline>().enabled = false;
+        else
+            exitRelic.GetComponent<Outline>().enabled = true;
     }
 
     public void ChangeObjective(string objective)
     {
-        //can probably track using PLayer achievements i.e. if target is dead, change objective
         objectiveText.text = objective;
     }
+    #endregion
 
     #region Ability Bar
 

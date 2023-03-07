@@ -38,7 +38,7 @@ public class DetectionSystem : MonoBehaviour
 
     private void Start()
     {
-        playerRef = GameObject.FindGameObjectWithTag("Player");
+        playerRef = GameManager.Instance.player;
         StartCoroutine(DetectionRoutine());
     }
 

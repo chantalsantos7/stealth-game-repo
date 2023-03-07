@@ -19,6 +19,7 @@ public class DistractionSystem : MonoBehaviour
     private void Start()
     {
         StartCoroutine(EmitSound());
+        StartCoroutine(DestroyItem());
     }
 
     private IEnumerator EmitSound() 
@@ -43,10 +44,15 @@ public class DistractionSystem : MonoBehaviour
                 }
             }
         }
-        
         audioSource.Play();
     }
 
+    private IEnumerator DestroyItem()
+    {
+        yield return new WaitForSeconds(120f);
+        Destroy(gameObject);
+    }
+ 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;

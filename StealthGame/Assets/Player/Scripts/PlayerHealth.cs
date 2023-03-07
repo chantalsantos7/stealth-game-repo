@@ -11,8 +11,6 @@ public class PlayerHealth : MonoBehaviour, IHealthManager
 
     private void Start()
     {
-        //SetRigidbodyState(false);
-        //SetColliderState(false);
         health = maxHealth;
     }
 
@@ -30,10 +28,7 @@ public class PlayerHealth : MonoBehaviour, IHealthManager
     {
         health = 0;
         GetComponentInChildren<Animator>().enabled = false;
-       /* SetRigidbodyState(true);
-        SetColliderState(true);*/
         HandlePlayerDeath();
-        //Invoke("HandlePlayerDeath", 2f);
         gameObject.SetActive(false);
     }
 

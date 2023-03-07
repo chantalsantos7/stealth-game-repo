@@ -16584,6 +16584,7 @@ MonoBehaviour:
   swordModel: {fileID: 0}
   maxHealth: 150
   health: 0
+  isDead: 0
   isUnarmed: 0
 --- !u!114 &4063888632370949663
 MonoBehaviour:
@@ -16597,6 +16598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a834717f6894903448c2a395845690ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyManager: {fileID: 0}
   playerRef: {fileID: 0}
   crouchCheckObj: {fileID: 5109843626937279890}
   sightDetectionRadius: 12.22
@@ -16613,6 +16615,7 @@ MonoBehaviour:
   canSeePlayer: 0
   heardSomething: 0
   heardDistraction: 0
+  lookingAtObstruction: 0
   inAttackRange: 0
   lastKnownPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &8147580646345741609
@@ -16628,6 +16631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionSystem: {fileID: 0}
+  enemyManager: {fileID: 0}
   suspicionIncrement: 0.15
   suspicionDecrement: 1.5
   suspicionMeter: 0
@@ -16694,7 +16698,7 @@ MonoBehaviour:
   minIdleTimeInSeconds: 20
   maxIdleTimeInSeconds: 30
   playerInSightRange: 0
-  timeBetweenAttacks: 1.3
+  timeBetweenAttacks: 1
   inAttackState: 0
   searchSuspicionThreshold: 0
   chaseSuspicionThreshold: 0

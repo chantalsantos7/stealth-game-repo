@@ -5,11 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public UIManager uiManager;
-    public AchievementTracker achievementTracker;
-    public DamageVignette vignette;
-    public FileManager fileManager;
-    //use this to keep track of game stats
     private static GameManager instance;
     public static GameManager Instance
     {
@@ -22,6 +17,14 @@ public class GameManager : MonoBehaviour
             return instance;
         }
     }
+
+    public UIManager uiManager;
+    public AchievementTracker achievementTracker;
+    public DamageVignette vignette;
+    public FileManager fileManager;
+
+    public GameObject player;
+   
    
     public bool PlayerIsDead { get; set; }
     public bool EnemyIsSuspicious { get; set; }
@@ -30,7 +33,7 @@ public class GameManager : MonoBehaviour
     {
         if (instance != null && instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
         else
         {
@@ -43,14 +46,14 @@ public class GameManager : MonoBehaviour
         uiManager.ToggleSuspicionIndicator(EnemyIsSuspicious);
         if (achievementTracker.TargetIsDead)
         {
-            uiManager.ChangeObjective("Escape the level from one of the back towers.");
+            uiManager.ChangeObjective("Find the teleportation spell book to escape the castle.");
+            uiManager.ToggleOutline(uiManager.target, false);
+            uiManager.ToggleOutline(uiManager.exitRelic, true);
         }
     }
 
     public void HandlePlayerDeath()
     {
-        //invoke ToggleDeathScreen after a few seconds, to show vignette and character crumpling
-        //turn on DeathScreen
         if (uiManager != null)
         {
             uiManager.ToggleDeathScreen();

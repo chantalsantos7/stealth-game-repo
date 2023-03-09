@@ -5,15 +5,18 @@ using UnityEngine.AI;
 
 public class EnemyStateManager : MonoBehaviour
 {
-    [Header("Object References")]
-    public EnemyManager enemyManager;
-    public EnemyAnimatorManager enemyAnimatorManager;
-    public DetectionSystem detectionSystem;
-    public SuspicionSystem suspicionSystem;
-    public EnemyInventory enemyInventory;
-    public Transform player;
-    public SFB_AudioManager audioManager;
+    [HideInInspector] public EnemyManager enemyManager;
+    [HideInInspector] public EnemyAnimatorManager enemyAnimatorManager;
+    [HideInInspector] public DetectionSystem detectionSystem;
+    [HideInInspector] public SuspicionSystem suspicionSystem;
+    [HideInInspector] public EnemyInventory enemyInventory;
+    [HideInInspector] public GameObject player;
+    [HideInInspector] public SFB_AudioManager audioManager;
     public NavMeshAgent agent { get; private set; }
+
+    [Header("Object References")]
+    public GameObject swordSheathe;
+
     public LayerMask playerMask, groundMask;
 
     [Header("Patrol Variables")]
@@ -28,7 +31,6 @@ public class EnemyStateManager : MonoBehaviour
     [Header("Attack Variables")]
     public float timeBetweenAttacks;
     public bool inAttackState;
-    //public bool playerInAttackRange;
 
     [HideInInspector] public float searchSuspicionThreshold;
     [HideInInspector] public float chaseSuspicionThreshold;
@@ -45,7 +47,7 @@ public class EnemyStateManager : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        player = GameObject.Find("PlayerCharacter").transform;
+        //player = GameManager.Instance.player;
         enemyManager = GetComponent<EnemyManager>();
         enemyAnimatorManager = GetComponent<EnemyAnimatorManager>();
         detectionSystem = GetComponent<DetectionSystem>();

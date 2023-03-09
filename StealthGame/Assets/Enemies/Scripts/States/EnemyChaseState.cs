@@ -11,7 +11,7 @@ public class EnemyChaseState : EnemyState
     public override void EnterState(EnemyStateManager context)
     {
         agent = context.agent;
-        player = context.player;
+        player = GameManager.Instance.player.transform;
         Debug.Log("Entered Chase state");
     }
 
@@ -31,8 +31,6 @@ public class EnemyChaseState : EnemyState
         {
             context.SwitchState(context.attackState);
         }
-        
-        //throw new System.NotImplementedException();
     }
 
     public override void ExitState(EnemyStateManager context)

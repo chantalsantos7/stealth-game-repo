@@ -101,12 +101,7 @@ public class InputManager : MonoBehaviour
                 else if (abilitiesManager.distractionAllowed)
                 {
                      distractionModifierPressed = true;
-                    Debug.Log("Can actually be reached");
                     abilitiesManager.SwitchState(abilitiesManager.distractingState);
-                }
-                else
-                {
-                    Debug.Log("Not yet allowed;");
                 }
             };
 

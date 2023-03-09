@@ -66,6 +66,7 @@ public class UIManager : MonoBehaviour
     {
         abilityBar.SetActive(false);
         objectivesPanel.SetActive(false);
+        suspicionIndicator.SetActive(false);
     }
     
     public void EnableEndScreen()

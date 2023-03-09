@@ -20,7 +20,7 @@ public class EnemyAttackState : EnemyState
     {
         //throw new System.NotImplementedException();
         agent = context.agent;
-        player = context.player;
+        player = GameManager.Instance.player.transform;
         detectionSystem = context.detectionSystem;
         animatorManager = context.enemyAnimatorManager;
         inventory = context.enemyInventory;

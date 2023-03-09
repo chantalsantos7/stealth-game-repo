@@ -25,10 +25,11 @@ public class DetectionSystem : MonoBehaviour
     [HideInInspector] public bool heardSomething;
     [HideInInspector] public bool heardDistraction;
     [HideInInspector] public bool lookingAtObstruction;
+    [HideInInspector] public bool foundBody;
     [HideInInspector] public bool inAttackRange = false;
     [HideInInspector] public Vector3 lastKnownPosition;
 
-    private Collider[] fovRangeCheck = new Collider[1];
+    private Collider[] fovRangeCheck = new Collider[3];
     private Collider[] hearingRangeCheck = new Collider[1];
 
     private void Awake()
@@ -69,7 +70,8 @@ public class DetectionSystem : MonoBehaviour
 
         for (int i = 0; i < fovRangeCheck.Length; i++)
         {
-            if (fovRangeCheck[i] != null && fovRangeCheck[i].gameObject.CompareTag("Player"))
+            if (fovRangeCheck[i] != null &&
+                (fovRangeCheck[i].gameObject.CompareTag("Player") || fovRangeCheck[i].gameObject.CompareTag("Enemy")))
             {
                 Transform target = fovRangeCheck[i].transform;
                  //check whether the target is w/in their viewing angle
@@ -77,15 +79,22 @@ public class DetectionSystem : MonoBehaviour
                 if (Vector3.Angle(transform.forward, directionToTarget) < detectionAngle / 2)
                 {
                     float distanceToTarget = Vector3.Distance(transform.position, target.position);
-                    //check if anything is obstructing the player
-                    if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionLayer))
+                    if (fovRangeCheck[i].gameObject.TryGetComponent(out EnemyManager fellowGuard))
+                    {
+                        if (fellowGuard.isDead)
+                        {
+                            foundBody = true;
+                            Debug.Log(fellowGuard.gameObject.name + " foundBody: " + foundBody);
+                        }
+                    }
+                    if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionLayer) && fovRangeCheck[i].gameObject.CompareTag("Player"))
                     {
                         canSeePlayer = true;
                     }
                     else
                     {
                         //Lower starting position for a raycast, to see if player can be seen but is crouching
-                        if (!Physics.Raycast(crouchCheckObj.transform.position, directionToTarget, distanceToTarget, obstructionLayer))
+                        if (!Physics.Raycast(crouchCheckObj.transform.position, directionToTarget, distanceToTarget, obstructionLayer) && fovRangeCheck[i].gameObject.CompareTag("Player"))
                         {
                             canSeePlayer = true;
                         } 
@@ -103,6 +112,7 @@ public class DetectionSystem : MonoBehaviour
             else
             {
                 canSeePlayer = false;
+                foundBody = false;
                 //checking if enemy is looking at wall, so they can be rotated
                 if (Physics.Raycast(transform.position, Vector3.forward, sightDetectionRadius, obstructionLayer))
                 {

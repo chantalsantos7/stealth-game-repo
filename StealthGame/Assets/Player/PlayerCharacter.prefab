@@ -912,8 +912,6 @@ MonoBehaviour:
   maxStamina: 2000
   currentStamina: 0
   staminaRegenCooldown: 5
-  teleportLimit: 10
-  distractAbilityLimit: 1
 --- !u!114 &7994985554337052804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -986,6 +984,8 @@ MonoBehaviour:
   teleportRigidbody: {fileID: 0}
   teleportParticles: {fileID: 1536150674523069939}
   teleportSoundEffect: {fileID: 8300000, guid: 8ff2a2d7e79f81c40ac447512f879374, type: 3}
+  teleportModeSoundEffect: {fileID: 8300000, guid: df7d08a926729f743b0f2f5c878837cb, type: 3}
+  teleportTimeLimit: 10
   distractorObj: {fileID: 5176421219579962379, guid: f25fc6e9f71afbb489fed7ab66f8a754, type: 3}
   teleportCooldown: 10
   distractionCooldown: 15
@@ -3800,6 +3800,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8561baf82c0c55d4b918bfd8f81b87bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5780588698486984392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2233301078933843152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 609f49429392c476bb71685431efda79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - name: WalkingFootsteps
+    audioClips:
+    - {fileID: 8300000, guid: c41fb169b2991c247a5466e00faa6639, type: 3}
+    - {fileID: 8300000, guid: 3af6e561e364a274aa306461461c386b, type: 3}
+    - {fileID: 8300000, guid: 76c66b3ae15685a45a334b0628d1edd1, type: 3}
+    - {fileID: 8300000, guid: cb9aa4db4b3a12147bf2fe3d88fee270, type: 3}
+    - {fileID: 8300000, guid: 2e832dbb2c7c9ba4e97fd3005fe850b7, type: 3}
+    chanceOfPlaying: 100
+    volume: 0.26
+    volumeBySpeed: 0
+    minVolume: 0
+    pitchBySpeed: 0
+    minPitch: 0
+    maxPitch: 0
+  audioLoops: []
+  pitchByTimescale: 1
 --- !u!1 &2233301078933843156 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 679407113668150765, guid: 49be39be66a00a84d8db334d15ec191e, type: 3}

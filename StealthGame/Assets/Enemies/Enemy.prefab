@@ -16607,7 +16607,7 @@ MonoBehaviour:
   detectionAngle: 55
   detectionLayer:
     serializedVersion: 2
-    m_Bits: 136
+    m_Bits: 392
   obstructionLayer:
     serializedVersion: 2
     m_Bits: 513
@@ -16616,6 +16616,7 @@ MonoBehaviour:
   heardSomething: 0
   heardDistraction: 0
   lookingAtObstruction: 0
+  foundBody: 0
   inAttackRange: 0
   lastKnownPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &8147580646345741609
@@ -16682,6 +16683,7 @@ MonoBehaviour:
   enemyInventory: {fileID: 0}
   player: {fileID: 0}
   audioManager: {fileID: 0}
+  swordSheathe: {fileID: 3670986452362994407}
   playerMask:
     serializedVersion: 2
     m_Bits: 8

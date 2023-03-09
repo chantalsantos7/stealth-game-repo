@@ -48,28 +48,16 @@ public class EnemyPatrolState : EnemyState
         {
             context.SwitchState(context.attackState);
         } 
-        else if (context.detectionSystem.heardSomething
-            && context.suspicionSystem.suspicionMeter > context.suspicionSystem.searchSuspicionThreshold)
+        else if (context.suspicionSystem.suspicionMeter > context.suspicionSystem.searchSuspicionThreshold)
         {
             context.SwitchState(context.suspiciousState);
         }
 
         Vector3 distanceToWalkPoint = agent.transform.position - target;
 
-        if (distanceToWalkPoint.magnitude < 1f)
-        {
-            //rotate until detectionSystem isn't being blocked
-            if (context.detectionSystem.lookingAtObstruction)
-            {
-                //just rotate 180 degrees
-                context.enemyAnimatorManager.transform.Rotate(180f, 0, 0);
-            }
-        }
 
         if (distanceToWalkPoint.magnitude < 1f && idleTimeElapsed > idleTimeInSeconds)
         {
-            //Debug.Log("Time elapsed: " + idleTimeElapsed);
-            //Debug.Log(agent.pathStatus);
             idleTimeElapsed = -10; //gives the agent time to move to the next patrol point, so they will idle longer
             IterateWayPointIndex();
             UpdateDestination();

@@ -39,12 +39,16 @@ public class SuspicionSystem : MonoBehaviour
             if (detectionSystem.heardSomething)
             {
                 suspicionMeter += suspicionIncrement;
-
             }
 
             if (detectionSystem.canSeePlayer)
             {
                 suspicionMeter += suspicionIncrement * playerSeenIncreaseMultiplier;
+            }
+
+            if (detectionSystem.foundBody)
+            {
+                suspicionMeter += searchSuspicionThreshold + 200;
             }
 
             if (detectionSystem.inAttackRange)

@@ -26,6 +26,7 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
     public Rigidbody teleportRigidbody;
     public ParticleSystem teleportParticles;
     public AudioClip teleportSoundEffect;
+    public AudioClip teleportModeSoundEffect;
     
     [Tooltip("How much time the player has in teleport mode before they are automatically teleported.")]
     public float teleportTimeLimit = 15f;

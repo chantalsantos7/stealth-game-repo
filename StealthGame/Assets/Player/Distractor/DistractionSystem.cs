@@ -29,19 +29,16 @@ public class DistractionSystem : MonoBehaviour
         enemies = Physics.OverlapSphere(transform.position, enemyRange, enemyLayer);
         for (int i = 0; i < enemies.Length; i++)
         {
-            if (enemies[i].CompareTag("Enemy"))
+            if (enemies[i].TryGetComponent<EnemyStateManager>(out var esm))
             {
-                if (enemies[i].TryGetComponent<EnemyStateManager>(out var esm)) 
-                {
-                    //access the detection system through the ESM
-                    //set the lastKnownPosition to the distractor's position
-                    //then switch to search state
-                    //set suspicionMeter to above the search threshold too so it doesn't immediately go back to patrol
+                //access the detection system through the ESM
+                //set the lastKnownPosition to the distractor's position
+                //then switch to search state
+                //set suspicionMeter to above the search threshold too so it doesn't immediately go back to patrol
 
-                    esm.detectionSystem.lastKnownPosition = transform.position;
-                    esm.detectionSystem.heardSomething = true;
-                    esm.suspicionSystem.suspicionMeter = esm.searchSuspicionThreshold + 75;
-                }
+                esm.detectionSystem.lastKnownPosition = transform.position;
+                esm.detectionSystem.heardSomething = true;
+                esm.suspicionSystem.suspicionMeter = esm.searchSuspicionThreshold + 100;
             }
         }
         audioSource.Play();

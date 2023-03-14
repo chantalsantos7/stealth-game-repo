@@ -47,28 +47,24 @@ public class EnemyStateManager : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        //player = GameManager.Instance.player;
         enemyManager = GetComponent<EnemyManager>();
         enemyAnimatorManager = GetComponent<EnemyAnimatorManager>();
         detectionSystem = GetComponent<DetectionSystem>();
         suspicionSystem = GetComponent<SuspicionSystem>();
         enemyInventory = GetComponent<EnemyInventory>();
         audioManager = GetComponentInChildren<SFB_AudioManager>();
-        //sightRange = enemyManager.sightDetectionRadius;
 
         searchSuspicionThreshold = suspicionSystem.searchSuspicionThreshold;
         chaseSuspicionThreshold = suspicionSystem.chaseSuspicionThreshold;
         patrolSuspicionThreshold = suspicionSystem.patrolSuspicionThreshold;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         currentState = idleState; //switch to idle when patrol functionality complete
         currentState.EnterState(this);
     }
 
-    // Update is called once per frame
     void Update()
     {
         currentState.UpdateState(this);

@@ -64,7 +64,6 @@ public class SuspicionSystem : MonoBehaviour
         float delay = 0.5f;
         WaitForSeconds wait = new WaitForSeconds(delay);
 
-        //should always execute?
         while (true)
         {
             yield return wait;

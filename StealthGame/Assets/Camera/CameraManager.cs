@@ -15,7 +15,6 @@ public class CameraManager : MonoBehaviour
     public GameObject aimTeleportCam;
     public GameObject aimDistractorCam;
 
-    // Update is called once per frame
     void Update()
     {
         switch (cameraMode)
@@ -23,7 +22,6 @@ public class CameraManager : MonoBehaviour
             case CameraMode.AimTeleport:
                 basicCam.SetActive(false);
                 aimTeleportCam.SetActive(true);
-                //turn off player movement while in this mode, to prevent weird movement
                 break;
             case CameraMode.Basic:
                 basicCam.SetActive(true);

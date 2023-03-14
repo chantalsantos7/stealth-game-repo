@@ -8,13 +8,10 @@ public class EnemySearchState : EnemyState
     NavMeshAgent agent;
     SuspicionSystem suspicionSystem;
     DetectionSystem detectionSystem;
-    //WeaponsInventory weaponsInventory;
-
-    float suspicionThreshold;
-
+    
     float patrolThreshold;
     float chaseThreshold;
-    //if the enemy heard something, they should start navigating towards the position of where they heard something
+    
     public override void EnterState(EnemyStateManager context)
     {
         GameManager.Instance.EnemyIsSuspicious = true; //will activate suspicion indicator
@@ -29,12 +26,8 @@ public class EnemySearchState : EnemyState
     }
     
     public override void UpdateState(EnemyStateManager context)
-    {
-       //lastKnownPosition is only set if they heard something
-        
+    {   
         agent.SetDestination(detectionSystem.lastKnownPosition);
-
-        //if they heard something
 
         if (detectionSystem.canSeePlayer && suspicionSystem.suspicionMeter > chaseThreshold)
         {
@@ -50,24 +43,10 @@ public class EnemySearchState : EnemyState
         {
             context.SwitchState(context.attackState);
         }
-
-       
-
-        //if they cannot currently see or hear player and it has been some time, go back to patrolling
-       /* if (!detectionSystem.canSeePlayer && !detectionSystem.heardSomething && suspicionSystem.suspicionMeter < patrolThreshold)
-        {
-            context.SwitchState(context.patrolState);
-        }*/
-        //if can see player and suspicion above 
-
-        //exit the search state when the suspicion is 0
-        
     }
 
     public override void ExitState(EnemyStateManager context)
     {
-        //suspicionSystem.suspicionMeter = 0;
-        //only disarm if next state is patrol or idle
         GameManager.Instance.EnemyIsSuspicious = false;
     }
 

@@ -36,9 +36,6 @@ public class PlayerCombat : MonoBehaviour
 
     public void Attack()
     {
-        //randomly select one of the available anims
-        //select between the left and right weapons 'randomly'
-        //no, to keep it consistent w/ stealth attack, which does need an indication of what weapon to pick
         WeaponItem weapon = SelectWeapon();
         int animIndex = (int)Random.Range(0f, weapon.attackAnimations.Count - 1);
         playerAnimatorManager.PlayTargetAnimation(weapon.attackAnimations[animIndex], false);
@@ -50,9 +47,7 @@ public class PlayerCombat : MonoBehaviour
     {
         playerLocomotion.IsCrouched = false;
         Attack();
-        //Debug.Log("Sneak attack");
         Invoke(nameof(ResetCrouch), 1f);
-       
     }
 
     private void ResetCrouch()
@@ -63,7 +58,6 @@ public class PlayerCombat : MonoBehaviour
 
     private WeaponItem SelectWeapon()
     {
-        //have array of weaponHolderSlot in slotManager
         int randIndex = Random.Range(0, 2);
         return randIndex switch
         {
@@ -71,17 +65,5 @@ public class PlayerCombat : MonoBehaviour
             1 => playerInventory.weaponSlotManager.GetWeaponOnSlot(WeaponHand.Right),
             _ => null,
         };
-    }
-
-    public void StealthAttack(WeaponItem weapon)
-    {
-        //check if behind NPC - if not, do nothing
-
-        if (weapon.isUnarmed)
-        {
-            //play non-lethal animation
-        }
-        playerAnimatorManager.PlayTargetAnimation("SneakAttack", true);
-        //animatorManager.PlayTargetAnimation("StealthAttack", false);
     }
 }

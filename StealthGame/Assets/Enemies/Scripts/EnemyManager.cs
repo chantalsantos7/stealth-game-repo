@@ -34,7 +34,6 @@ public class EnemyManager : MonoBehaviour, IHealthManager
         isDead = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         isUnarmed = animatorManager.GetBool("IsUnarmed");
@@ -66,7 +65,6 @@ public class EnemyManager : MonoBehaviour, IHealthManager
         foreach (Rigidbody rb in rigidbodies)
         {
             rb.isKinematic = !state;
-            //rb.useGravity = false;
         }
     }
 

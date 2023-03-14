@@ -49,7 +49,7 @@ public class DetectionSystem : MonoBehaviour
         float delay = 0.2f;
         WaitForSeconds wait = new WaitForSeconds(delay);
         
-        //permanently searching for the player
+        //permanently searching for the player, unless they're dead
         while (true && !enemyManager.isDead)
         {
             yield return wait;
@@ -144,7 +144,6 @@ public class DetectionSystem : MonoBehaviour
                 if (!player.IsCrouched &&
                         player.IsMoving) //can only hear the player if they are not crouched
                 {
-                    //enter searching state, start going to position of that sound
                     lastKnownPosition = hearingRangeCheck[i].transform.position;
                     heardSomething = true;
                 }

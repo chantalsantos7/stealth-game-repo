@@ -79,7 +79,6 @@ public class UIManager : MonoBehaviour
     
     public void ToggleDeathScreen()
     {
-        //activate mouse cursor again
         EnableMouseCursor();
         PauseGame();
         TurnOffUI();

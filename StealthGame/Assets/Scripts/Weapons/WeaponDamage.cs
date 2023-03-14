@@ -17,7 +17,6 @@ public class WeaponDamage : MonoBehaviour
         damageCollider.gameObject.SetActive(true);
         damageCollider.isTrigger = true;
         damageCollider.enabled = false;
-        //opponentTags = new List<string>();
     }
 
     protected virtual void OnTriggerEnter(Collider other) {

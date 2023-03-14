@@ -9,9 +9,6 @@ public class EnemyMovement : MonoBehaviour
     private NavMeshAgent agent;
     private Animator animator;
 
-    private Vector2 velocity;
-    private Vector2 smoothDeltaPosition;
-
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -25,7 +22,6 @@ public class EnemyMovement : MonoBehaviour
 
     private void SynchroniseAnimatorAndAgent()
     {
-        //used to decide motion for enemy in blend tree, walking or running - could poss. be added to AnimatorManager to consolidate scripts
         animator.SetBool("IsMoving", agent.velocity.magnitude > 0.1f);
         animator.SetFloat("Velocity", agent.velocity.magnitude);
     }

@@ -6,8 +6,6 @@ using UnityEngine;
 public class WeaponHolderSlot : MonoBehaviour
 {
     public Transform parentOverride;
-    /*public bool isLeftHandSlot;
-    public bool isRightHandSlot;*/
     [Tooltip("Which hand the slot is attached to.")] 
     public WeaponHand weaponHand;
     public WeaponItem CurrentWeapon { get; private set; }

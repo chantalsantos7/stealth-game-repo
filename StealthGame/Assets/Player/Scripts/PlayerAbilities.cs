@@ -11,7 +11,6 @@ public class PlayerAbilities : MonoBehaviour
     bool sprinting;
     private WaitForSeconds regenTick = new WaitForSeconds(0.5f);
 
-    // Start is called before the first frame update
     private void Awake()
     {
         playerLocomotion = GetComponent<PlayerLocomotion>();
@@ -19,7 +18,6 @@ public class PlayerAbilities : MonoBehaviour
         currentStamina = playerManager.maxStamina;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Sprint();  
@@ -29,7 +27,6 @@ public class PlayerAbilities : MonoBehaviour
     {
         if (playerLocomotion.IsSprinting)
         {
-            //StopCoroutine(RechargeStamina());
             StopAllCoroutines();
             StartCoroutine(UseStamina(1));
             if (currentStamina <= 0)
@@ -57,9 +54,6 @@ public class PlayerAbilities : MonoBehaviour
 
     private IEnumerator RechargeStamina()
     {
-        //invoke this per second when stamina is 0
-        //yield return new WaitForSeconds(3f);
-        //yield return new WaitForSeconds(3f);
         while (currentStamina < playerManager.maxStamina)
         {
             currentStamina += 1f;

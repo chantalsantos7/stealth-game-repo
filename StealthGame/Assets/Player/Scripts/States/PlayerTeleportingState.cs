@@ -48,7 +48,6 @@ public class PlayerTeleportingState : PlayerAbilitiesState
         {
             context.audioSource.Stop();
             Teleport(context);
-            //context.inputManager.TeleportKeyPressed = false;
         }
 
         Vector3 moveDirection = new Vector3(context.cameraManager.transform.forward.x, 0f, context.cameraManager.transform.forward.z) * context.inputManager.verticalInput;

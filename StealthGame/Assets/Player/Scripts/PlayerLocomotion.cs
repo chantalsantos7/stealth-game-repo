@@ -15,13 +15,11 @@ public class PlayerLocomotion : MonoBehaviour
     public Rigidbody playerRigidbody;
     CapsuleCollider playerCollider;
 
-    //public Transform combatLookAt;
-
     [Header("Falling")]
     public float inAirTimer;
     public float leapingVelocity;
     public float fallingVelocity;
-    public float maxDistance = 0.5f; //if using floating weaponCollider for stairs, change this and rayCastHeightOffset to 0.8f
+    public float maxDistance = 0.5f;
     public LayerMask groundLayers;
     public float raycastHeightOffset = 0.5f;
 
@@ -46,12 +44,6 @@ public class PlayerLocomotion : MonoBehaviour
     [Header("Drag")]
     public float groundDrag;
 
-    [Header("Step Climbing")]
-    [SerializeField] GameObject stepRayUpper;
-    [SerializeField] GameObject stepRayLower;
-    [SerializeField] float stepHeight = 0.4f;
-    [SerializeField] float stepSmooth = 0.1f;
-
     public Vector3 movementVelocity;
     Vector3 movementDirection;
 
@@ -65,7 +57,6 @@ public class PlayerLocomotion : MonoBehaviour
         cameraManager = Camera.main.GetComponent<CameraManager>();
         playerCollider = GetComponent<CapsuleCollider>();
 
-        stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepHeight, stepRayUpper.transform.position.z);
         isGrounded = true;
         canMove = true;
     }
@@ -89,8 +80,6 @@ public class PlayerLocomotion : MonoBehaviour
         HandleFallingAndLanding();
         if (playerManager.isInteracting) return;
         HandleMovementAndRotation();
-        
-        
     }
 
     private bool GroundChecking()
@@ -153,13 +142,9 @@ public class PlayerLocomotion : MonoBehaviour
         RaycastHit hit;
         Vector3 raycastOrigin = transform.position;
         Vector3 targetPosition = transform.position;
-        raycastOrigin.y += raycastHeightOffset; //offset the height of the raycast so player does not fall through the world
+        raycastOrigin.y += raycastHeightOffset;
         if (!isGrounded)
         {
-            if (!playerManager.isInteracting) //HERE I need to not play if climbing down stairs
-            {
-                //playerAnimatorManager.PlayTargetAnimation("MidAir", true);
-            }
             inAirTimer += Time.deltaTime;
             playerRigidbody.drag = 0;
             playerRigidbody.AddForce(transform.forward * leapingVelocity);
@@ -170,8 +155,7 @@ public class PlayerLocomotion : MonoBehaviour
         if (Physics.SphereCast(raycastOrigin, 0.2f, -Vector3.up, out hit, maxDistance, groundLayers))
         {
             Vector3 heightDiff = raycastOrigin - hit.point;
-            //Debug.Log("Height to ground: " + heightDiff.y);
-            if (!isGrounded && playerManager.isInteracting && heightDiff.y > 0.6f) //how to detect when going down stairs?????
+            if (!isGrounded && playerManager.isInteracting && heightDiff.y > 0.6f)
             {
                 playerAnimatorManager.PlayTargetAnimation("JumpLanding", true);
             }
@@ -198,18 +182,4 @@ public class PlayerLocomotion : MonoBehaviour
             }
         }
     }
-
-    public void HandleJumping()
-    {
-        if (isGrounded && !IsCrouched)
-        {
-            playerAnimatorManager.animator.SetBool("IsJumping", true); 
-            playerAnimatorManager.PlayTargetAnimation("BasicMotions@Jump01", true);
-
-            float jumpingVelocity = Mathf.Sqrt(-2 * 9.81f * jumpHeight);
-            Vector3 playerVelocity = movementVelocity;
-            playerVelocity.y = 0f;
-            playerRigidbody.AddForce(jumpingVelocity * Vector3.up, ForceMode.Force);
-        }
-    }  
 }

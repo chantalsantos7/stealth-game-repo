@@ -15,7 +15,6 @@ public class EnemyDeathState : EnemyState
         {
             GameManager.Instance.achievementTracker.GuardsKilled++;
         }
-        //context.enemyManager.isDead = true;
     }
 
     public override void UpdateState(EnemyStateManager context)

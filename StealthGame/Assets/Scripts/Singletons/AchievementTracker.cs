@@ -12,11 +12,6 @@ public class AchievementTracker : MonoBehaviour
     public int DistractUsed { get { return playerStats.distractsUsed; } set { playerStats.distractsUsed = value; } }
     public string SessionDateTime { get { return playerStats.dateTime; } set { playerStats.dateTime = value; } }
 
-    private void Awake()
-    {
-        //SaveGameSessionStats();
-    }
-
     // Update is called once per frame
     void Update()
     {

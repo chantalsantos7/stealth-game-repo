@@ -22,16 +22,13 @@ public class PlayerAnimatorManager : AnimatorManager
 
     public void UpdateAnimatorValues(float horizontalMovement, float verticalMovement, bool isSprinting, bool isCrouched)
     {
-        //Animation Snapping
         if (!playerLocomotion.canMove) return;
         float snappedHorizontal = SnapMovementValue(horizontalMovement, 0.55f);
         float snappedVertical = SnapMovementValue(verticalMovement, 0.55f);
 
         if (isSprinting)
         {
-            //snappedHorizontal = SnapMovementValue(horizontalMovement, 0.55f);
             snappedVertical = 2;
-
         }
 
         animator.SetBool(crouched, isCrouched);

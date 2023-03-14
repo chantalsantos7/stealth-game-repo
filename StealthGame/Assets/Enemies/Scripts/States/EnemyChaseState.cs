@@ -12,21 +12,18 @@ public class EnemyChaseState : EnemyState
     {
         agent = context.agent;
         player = GameManager.Instance.player.transform;
-        Debug.Log("Entered Chase state");
     }
 
     public override void OnCollisionEnter(EnemyStateManager context, Collision other)
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void UpdateState(EnemyStateManager context)
     {
-        //Debug.Log("Chasing");
-        agent.speed = 4f;//set velocity to 2 (or running speed) 
+        agent.speed = 4f;
         agent.SetDestination(player.position);
-        //slow down velocity as enemy approaches player
-        //switch to attacking state when in range of player
+        
         if (context.detectionSystem.inAttackRange)
         {
             context.SwitchState(context.attackState);

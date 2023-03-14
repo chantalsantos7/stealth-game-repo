@@ -15,7 +15,6 @@ public class EndScreen : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("PrintOnEnable: script was enabled");
         var totalTime = GameManager.Instance.achievementTracker.TimeTaken;
         timerText.text = TimeSpan.FromSeconds(totalTime).ToString("hh\\:mm\\:ss");
         GameManager.Instance.achievementTracker.SaveGameSessionStats();

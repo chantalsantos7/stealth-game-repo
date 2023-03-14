@@ -21,7 +21,6 @@ public class FileManager : MonoBehaviour
 
     public static string ReadFromFile(string path)
     {
-        //string path = GetFilePath(path);
         StreamReader reader = new StreamReader(path);
         string fileContents = reader.ReadToEnd();
         reader.Close();

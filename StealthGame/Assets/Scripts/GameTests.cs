@@ -51,17 +51,4 @@ public class GameTests : MonoBehaviour
             cameraManager.cameraMode = CameraMode.Combat;
         }
     }
-
-    /*void EnemyCamView()
-    {
-        if (cameraManager.cameraMode == CameraMode.EnemyView)
-        {
-            cameraManager.cameraMode = CameraMode.Basic;
-            enemyCamView = false;
-        }
-        else
-        {
-            cameraManager.cameraMode = CameraMode.EnemyView;
-        }
-    }*/
 }

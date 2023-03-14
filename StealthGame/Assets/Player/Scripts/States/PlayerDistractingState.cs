@@ -8,8 +8,6 @@ public class PlayerDistractingState : PlayerAbilitiesState
     public float rotationSpeed = 10f;
     GameObject previewPos;
     GameObject distractor;
-    //Rigidbody distractRigidbody;
-    float distractRadiusLimit;
 
     public override void EnterState(PlayerAbilitiesStateManager context)
     {
@@ -44,9 +42,6 @@ public class PlayerDistractingState : PlayerAbilitiesState
         context.distractionAllowed = false;
         GameManager.Instance.uiManager.ToggleDistractDeploy();
         GameManager.Instance.uiManager.SetDistractIconTransparency(0);
-        //context.cameraManager.cameraMode = CameraMode.Basic;
-        //previewPos.SetActive(false);
-        //context.playerLocomotion.canMove = true;
     }
 
     public override void OnCollisionEnter(PlayerAbilitiesStateManager context, Collision collision)

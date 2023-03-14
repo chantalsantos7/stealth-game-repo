@@ -25,17 +25,11 @@ public class DistractionSystem : MonoBehaviour
     private IEnumerator EmitSound() 
     {
         yield return new WaitForSeconds(soundEmitDelay);
-        //BUG: Probable source of the memory leak errors that sometimes come up 
         enemies = Physics.OverlapSphere(transform.position, enemyRange, enemyLayer);
         for (int i = 0; i < enemies.Length; i++)
         {
             if (enemies[i].TryGetComponent<EnemyStateManager>(out var esm))
             {
-                //access the detection system through the ESM
-                //set the lastKnownPosition to the distractor's position
-                //then switch to search state
-                //set suspicionMeter to above the search threshold too so it doesn't immediately go back to patrol
-
                 esm.detectionSystem.lastKnownPosition = transform.position;
                 esm.detectionSystem.heardSomething = true;
                 esm.suspicionSystem.suspicionMeter = esm.searchSuspicionThreshold + 100;
@@ -55,6 +49,4 @@ public class DistractionSystem : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, enemyRange);
     }
-
-    //Delete object after a while - also a coroutine? 
 }

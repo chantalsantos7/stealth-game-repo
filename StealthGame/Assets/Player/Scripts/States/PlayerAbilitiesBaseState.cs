@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class PlayerAbilitiesBaseState : PlayerAbilitiesState
 {
-    float cooldown;
-
-    //public override PlayerAbilitiesStateManager context { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-
     public override void EnterState(PlayerAbilitiesStateManager context)
     {
         context.playerLocomotion.IsSprinting = false;
@@ -26,7 +22,6 @@ public class PlayerAbilitiesBaseState : PlayerAbilitiesState
     public override void UpdateState(PlayerAbilitiesStateManager context)
     {
         context.teleportTimeElapsed += Time.deltaTime;
-        //Debug.Log(teleportTimeElapsed);
         if (context.teleportTimeElapsed >= context.teleportCooldown)
         {
             context.teleportAllowed = true;
@@ -42,10 +37,5 @@ public class PlayerAbilitiesBaseState : PlayerAbilitiesState
             context.distractTimeElapsed = 0;
             GameManager.Instance.uiManager.SetDistractIconTransparency(0.15f);
         }
-
-        /*if (stateManager.playerLocomotion.IsSprinting)
-        {
-            stateManager.SwitchState(stateManager.sprintingState);
-        }*/
     }
 }

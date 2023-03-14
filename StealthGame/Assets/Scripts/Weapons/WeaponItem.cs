@@ -11,5 +11,4 @@ public class WeaponItem : Item
     [Header("Attack Animations")]
     [Tooltip("The names of the attack animations that should be used by this weapon (these should be the same names as the states in the animator).")]
     public List<string> attackAnimations;
-    //public string[] heavyAttackAnims;
 }

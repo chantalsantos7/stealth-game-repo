@@ -15,9 +15,6 @@ namespace Assets.Scripts.Weapons
                 {
                     if (other.GetComponentInParent<IHealthManager>() is IHealthManager opponent)
                     {
-                        //condition to check whether it was a stealth attack
-                        //get the player from a FindObjectsOfType call
-                        //DealDamage(opponent);
                         var player = FindObjectOfType<PlayerManager>();
                         if (player.InStealth)
                         {
@@ -35,7 +32,6 @@ namespace Assets.Scripts.Weapons
         private void DealStealthDamage(IHealthManager opponent)
         {
             float damage = Random.Range(damageMin, damageMax) * stealthDamageMultiplier;
-            Debug.Log("Damage dealt: " + damage);
             opponent.DamageHealth(damage);
         }
     }

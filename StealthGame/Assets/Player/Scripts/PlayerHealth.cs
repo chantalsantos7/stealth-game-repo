@@ -43,7 +43,6 @@ public class PlayerHealth : MonoBehaviour, IHealthManager
         foreach (Rigidbody rb in rigidbodies)
         {
             rb.isKinematic = !state;
-            //rb.useGravity = false;
         }
     }
 

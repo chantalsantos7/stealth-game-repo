@@ -18,7 +18,6 @@ public class PrevGamesScreen : MonoBehaviour
     private void OnEnable()
     {
         GameManager.Instance.uiManager.EnableMouseCursor();
-        //get all the json files in the persistent data path
         string[] jsonFiles = Directory.GetFiles(Application.persistentDataPath, "*.json");
         int counter = 0;
         foreach (string jsonFile in jsonFiles)

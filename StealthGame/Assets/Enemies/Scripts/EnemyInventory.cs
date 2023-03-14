@@ -17,7 +17,6 @@ public class EnemyInventory : WeaponsInventory
 
     protected override void Start()
     {
-        //base.Start();
         enemyAnimatorManager.SetBool("IsUnarmed", true);
         weaponSlotManager.LoadWeaponOnSlot(leftUnarmedItem, WeaponHand.Left);
         weaponSlotManager.LoadWeaponOnSlot(rightUnarmedItem, WeaponHand.Right);

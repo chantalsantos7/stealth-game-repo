@@ -8,7 +8,6 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
     public PlayerAbilitiesState currentState;
     public PlayerAbilitiesBaseState baseState = new PlayerAbilitiesBaseState();
     public PlayerTeleportingState teleportingState = new PlayerTeleportingState();
-    public PlayerSprintingState sprintingState = new PlayerSprintingState();
     public PlayerDistractingState distractingState = new PlayerDistractingState();
 
     [Header("Player Script References")]
@@ -42,7 +41,7 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
     public bool teleportAllowed;
     public bool distractionAllowed;
     [HideInInspector] public float teleportTimeElapsed; //set to 11 at initialisation so player can teleport immediately upon entering game
-    [HideInInspector] public float distractTimeElapsed;
+    [HideInInspector] public float distractTimeElapsed; //same as above
 
     public WaitForSeconds regenTick = new WaitForSeconds(0.5f);
 
@@ -55,7 +54,7 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
         audioSource = GetComponentInChildren<AudioSource>();
 
         teleportAllowed = true;
-        teleportTimeElapsed = 11; //set to 11 at initialisation so player can teleport immediately upon entering game
+        teleportTimeElapsed = 11;
         teleportRigidbody = teleportView.GetComponent<Rigidbody>();
 
         distractionAllowed = true;

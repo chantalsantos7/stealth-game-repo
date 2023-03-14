@@ -41,7 +41,6 @@ public class InputManager : MonoBehaviour
         playerCombat = GetComponent<PlayerCombat>();
         abilitiesManager = GetComponent<PlayerAbilitiesStateManager>();
         TeleportKeyPressed = false;
-        //crouchModifierPressed = false;
     }
 
     private void OnEnable()
@@ -57,11 +56,9 @@ public class InputManager : MonoBehaviour
             playerControls.UI.Interact.performed += i => InteractKeyPressed = true;
             playerControls.UI.Interact.canceled += i => InteractKeyPressed = false;
             playerControls.UI.ToggleObjectives.performed += i => GameManager.Instance.uiManager.ToggleObjectivesPanel();
-            //playerControls.UI.
 
             playerControls.PlayerActions.AimTeleport.performed += i =>
             {
-                //teleportModifierPressed = !teleportModifierPressed
                 if (teleportModifierPressed)
                 {
                     teleportModifierPressed = false;
@@ -69,7 +66,6 @@ public class InputManager : MonoBehaviour
                 }
                 else if (abilitiesManager.teleportAllowed)
                 {
-                    //teleportModifierPressed = !teleportModifierPressed;
                     teleportModifierPressed = true;
                     abilitiesManager.SwitchState(abilitiesManager.teleportingState);
                 } 
@@ -177,15 +173,6 @@ public class InputManager : MonoBehaviour
             playerLocomotion.IsCrouched = !playerLocomotion.IsCrouched;
             playerManager.InStealth = !playerManager.InStealth;
             crouchModifierPressed = !crouchModifierPressed;
-        }
-    }
-
-    public void HandleJumpInput()
-    {
-        if (jumpKeyPressed)
-        {
-            playerLocomotion.HandleJumping();
-            jumpKeyPressed = false;
         }
     }
 }

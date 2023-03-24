@@ -2,15 +2,24 @@
 Bolltree Fortress has been taken over by a tribe of barbarians, and the local lord isn't happy about it - you have been tasked with eliminating their leader. 
 
 ## Controls
-WASD - Directional Movement
-Ctrl - Crouch/enter stealth mode
-Shift - Hold to sprint
-1 - Activate Teleport mode
-T - Deploy Teleport
-2 - Activate Distract mode 
-G - Deploy Distraction
-Left Click (Mouse) - Attack
-E - Interact with Object
+WASD - Directional Movement  
+
+Ctrl - Crouch/enter stealth mode  
+
+Shift - Hold to sprint  
+
+1 - Activate Teleport mode  
+
+T - Deploy Teleport  
+
+2 - Activate Distract mode  
+
+G - Deploy Distraction  
+
+Left Click (Mouse) - Attack  
+
+E - Interact with Object  
+
 
 ## Abilities
 Teleport - the assassin can briefly leave their body behind to move to a new location. They have 10 seconds to move; Press T to teleport instantly, or at the end of the 10 seconds they will appear at the new position.

@@ -8,7 +8,6 @@ namespace Assets.Scripts.Weapons
         public float stealthDamageMultiplier;
         protected override void OnTriggerEnter(Collider other)
         {
-            Debug.Log(other.gameObject.tag);
             foreach (var tag in opponentTags)
             {
                 if (other.gameObject.CompareTag(tag))

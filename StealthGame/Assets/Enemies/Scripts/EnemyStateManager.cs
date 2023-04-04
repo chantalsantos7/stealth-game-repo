@@ -31,6 +31,7 @@ public class EnemyStateManager : MonoBehaviour
     [Header("Attack Variables")]
     public float timeBetweenAttacks;
     public bool inAttackState;
+    public float attackRunSpeed;
 
     [HideInInspector] public float searchSuspicionThreshold;
     [HideInInspector] public float chaseSuspicionThreshold;

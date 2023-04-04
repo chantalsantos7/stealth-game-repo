@@ -6,7 +6,6 @@ using UnityEngine.AI;
 
 public class EnemyAttackState : EnemyState
 {
-    bool alreadyAttacked;
     DetectionSystem detectionSystem;
     NavMeshAgent agent;
     Transform player;
@@ -15,6 +14,7 @@ public class EnemyAttackState : EnemyState
     WeaponItem weapon;
     float timeBetweenAttacks;
     float timeElapsed;
+    float attackRunSpeed;
 
     public override void EnterState(EnemyStateManager context)
     {
@@ -24,6 +24,7 @@ public class EnemyAttackState : EnemyState
         animatorManager = context.enemyAnimatorManager;
         inventory = context.enemyInventory;
         agent.speed = 0f;
+        attackRunSpeed = context.attackRunSpeed;
         timeBetweenAttacks = context.timeBetweenAttacks;
         timeElapsed = 0;
 
@@ -37,7 +38,8 @@ public class EnemyAttackState : EnemyState
     {
         if (!detectionSystem.inAttackRange)
         {
-            agent.speed = 2f;
+            Debug.Log("agent speed: " + agent.speed); 
+            agent.speed = attackRunSpeed;
             agent.SetDestination(player.position);
         }
         

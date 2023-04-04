@@ -16603,11 +16603,11 @@ MonoBehaviour:
   crouchCheckObj: {fileID: 5109843626937279890}
   sightDetectionRadius: 12.22
   hearingDetectionRadius: 12
-  attackRadius: 1.94
+  attackRadius: 2.8
   detectionAngle: 55
   detectionLayer:
     serializedVersion: 2
-    m_Bits: 392
+    m_Bits: 136
   obstructionLayer:
     serializedVersion: 2
     m_Bits: 513
@@ -16702,6 +16702,7 @@ MonoBehaviour:
   playerInSightRange: 0
   timeBetweenAttacks: 1
   inAttackState: 0
+  attackRunSpeed: 4
   searchSuspicionThreshold: 0
   chaseSuspicionThreshold: 0
   patrolSuspicionThreshold: 0

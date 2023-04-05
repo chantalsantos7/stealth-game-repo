@@ -5,22 +5,29 @@ using UnityEngine;
 
 public class PlayerTeleportingState : PlayerAbilitiesState
 {
-    public float movementSpeed = 3.5f;
-    public float rotationSpeed = 5f;
+    public float movementSpeed;
+    public float rotationSpeed;
+    public float gravity = -20f;
     float teleportTime;
     float timeCounter;
-    Rigidbody teleportRb;
+    CharacterController tpViewController;
+    //Rigidbody teleportRb;
     GameObject teleportView;
 
     public override void EnterState(PlayerAbilitiesStateManager context)
     {
         context.cameraManager.cameraMode = CameraMode.AimTeleport;
         teleportView = context.teleportView;
+        tpViewController = context.teleportViewController;
         teleportView.transform.position = context.transform.position + Vector3.right;
+
         context.playerLocomotion.canMove = false;
+        movementSpeed = context.playerLocomotion.teleportMovementSpeed;
+        rotationSpeed = context.playerLocomotion.teleportRotationSpeed;
+
         teleportView.SetActive(true);
         teleportTime = context.teleportTimeLimit;
-        teleportRb = context.teleportRigidbody;
+        //teleportRb = context.teleportRigidbody;
         timeCounter = 0f;
         GameManager.Instance.uiManager.ToggleTeleportDeploy();
         context.audioSource.PlayOneShot(context.teleportModeSoundEffect);
@@ -53,16 +60,18 @@ public class PlayerTeleportingState : PlayerAbilitiesState
         Vector3 moveDirection = new Vector3(context.cameraManager.transform.forward.x, 0f, context.cameraManager.transform.forward.z) * context.inputManager.verticalInput;
         moveDirection += context.cameraManager.transform.right * context.inputManager.horizontalInput;
 
-        teleportRb.velocity = moveDirection * movementSpeed;
+        moveDirection.y += gravity * Time.deltaTime;
+        tpViewController.Move(moveDirection * Time.deltaTime);
+        //teleportRb.velocity = moveDirection * movementSpeed;
 
-        Vector3 raycastOrigin = teleportRb.transform.position;
+        //Vector3 raycastOrigin = teleportRb.transform.position;
         
-        if (!Physics.SphereCast(raycastOrigin, 0.2f, Vector3.down, out RaycastHit hit, 
+        /*if (!Physics.SphereCast(raycastOrigin, 0.2f, Vector3.down, out RaycastHit hit, 
             context.playerLocomotion.maxDistance, context.playerLocomotion.groundLayers))
         {
             teleportRb.AddForce(context.playerLocomotion.fallingVelocity * Vector3.down);
             
-        }
+        }*/
         
         if (context.inputManager.TeleportKeyPressed)
         {

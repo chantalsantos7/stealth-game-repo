@@ -22,7 +22,8 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
 
     [Header("Teleportation")]
     public GameObject teleportView;
-    public Rigidbody teleportRigidbody;
+    public CharacterController teleportViewController;
+    //public Rigidbody teleportRigidbody;
     public ParticleSystem teleportParticles;
     public AudioClip teleportSoundEffect;
     public AudioClip teleportModeSoundEffect;
@@ -55,7 +56,7 @@ public class PlayerAbilitiesStateManager : MonoBehaviour
 
         teleportAllowed = true;
         teleportTimeElapsed = 11;
-        teleportRigidbody = teleportView.GetComponent<Rigidbody>();
+        //teleportRigidbody = teleportView.GetComponent<Rigidbody>();
 
         distractionAllowed = true;
         distractTimeElapsed = 11;

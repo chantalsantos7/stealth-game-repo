@@ -40,6 +40,8 @@ public class PlayerLocomotion : MonoBehaviour
     public float walkingSpeed = 3f;
     public float sprintingSpeed = 7f;
     public float rotationSpeed = 15;
+    public float teleportMovementSpeed;
+    public float teleportRotationSpeed;
 
     [Header("Drag")]
     public float groundDrag;

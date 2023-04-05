@@ -889,6 +889,8 @@ MonoBehaviour:
   walkingSpeed: 4
   sprintingSpeed: 8
   rotationSpeed: 15
+  teleportMovementSpeed: 30
+  teleportRotationSpeed: 10
   groundDrag: 4
   movementVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1698976723627222971
@@ -977,7 +979,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   distractorPreview: {fileID: 6586828882018161809}
   teleportView: {fileID: 1698976724378158101}
-  teleportRigidbody: {fileID: 0}
+  teleportViewController: {fileID: 0}
   teleportParticles: {fileID: 1536150674523069939}
   teleportSoundEffect: {fileID: 8300000, guid: 8ff2a2d7e79f81c40ac447512f879374, type: 3}
   teleportModeSoundEffect: {fileID: 8300000, guid: df7d08a926729f743b0f2f5c878837cb, type: 3}

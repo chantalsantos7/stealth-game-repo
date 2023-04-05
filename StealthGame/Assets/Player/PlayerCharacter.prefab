@@ -890,10 +890,6 @@ MonoBehaviour:
   sprintingSpeed: 8
   rotationSpeed: 15
   groundDrag: 4
-  stepRayUpper: {fileID: 3951880994711976867}
-  stepRayLower: {fileID: 824034696128832586}
-  stepHeight: 0.5
-  stepSmooth: 2
   movementVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1698976723627222971
 MonoBehaviour:
@@ -1185,7 +1181,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1698976724652231178}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

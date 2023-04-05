@@ -8,6 +8,11 @@ public class StartMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene("GameLevel");
+        SceneManager.LoadScene(1);
+    }
+
+    public void QuitGame()
+    {
+
     }
 }

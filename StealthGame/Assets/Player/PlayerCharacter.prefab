@@ -889,7 +889,7 @@ MonoBehaviour:
   walkingSpeed: 4
   sprintingSpeed: 8
   rotationSpeed: 15
-  teleportMovementSpeed: 30
+  teleportMovementSpeed: 6
   teleportRotationSpeed: 10
   groundDrag: 4
   movementVelocity: {x: 0, y: 0, z: 0}

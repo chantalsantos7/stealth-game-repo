@@ -59,9 +59,10 @@ public class PlayerTeleportingState : PlayerAbilitiesState
 
         Vector3 moveDirection = new Vector3(context.cameraManager.transform.forward.x, 0f, context.cameraManager.transform.forward.z) * context.inputManager.verticalInput;
         moveDirection += context.cameraManager.transform.right * context.inputManager.horizontalInput;
+        moveDirection.Normalize();
 
-        moveDirection.y += gravity * Time.deltaTime;
-        tpViewController.Move(moveDirection * Time.deltaTime);
+        moveDirection += (Vector3.up * gravity);
+        tpViewController.Move(moveDirection * movementSpeed * Time.deltaTime);
         //teleportRb.velocity = moveDirection * movementSpeed;
 
         //Vector3 raycastOrigin = teleportRb.transform.position;

@@ -11,7 +11,6 @@ public class PlayerTeleportingState : PlayerAbilitiesState
     float teleportTime;
     float timeCounter;
     CharacterController tpViewController;
-    //Rigidbody teleportRb;
     GameObject teleportView;
 
     public override void EnterState(PlayerAbilitiesStateManager context)
@@ -27,7 +26,6 @@ public class PlayerTeleportingState : PlayerAbilitiesState
 
         teleportView.SetActive(true);
         teleportTime = context.teleportTimeLimit;
-        //teleportRb = context.teleportRigidbody;
         timeCounter = 0f;
         GameManager.Instance.uiManager.ToggleTeleportDeploy();
         context.audioSource.PlayOneShot(context.teleportModeSoundEffect);
@@ -62,7 +60,7 @@ public class PlayerTeleportingState : PlayerAbilitiesState
         moveDirection.Normalize();
 
         moveDirection += (Vector3.up * gravity);
-        tpViewController.Move(moveDirection * movementSpeed * Time.deltaTime);
+        tpViewController.Move(movementSpeed * Time.deltaTime * moveDirection);
         //teleportRb.velocity = moveDirection * movementSpeed;
 
         //Vector3 raycastOrigin = teleportRb.transform.position;
@@ -76,8 +74,6 @@ public class PlayerTeleportingState : PlayerAbilitiesState
         
         if (context.inputManager.TeleportKeyPressed)
         {
-
-            Debug.Log("Teleport Pressed");
             Teleport(context);
             context.inputManager.TeleportKeyPressed = false;
         }

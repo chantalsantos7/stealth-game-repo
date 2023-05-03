@@ -27,7 +27,7 @@ public class WeaponDamage : MonoBehaviour
             {
                 if (other.GetComponentInParent<IHealthManager>() is IHealthManager opponent)
                 {
-                    DealDamage(opponent);
+                    DealDamage(opponent); 
                 }
             }
         }
@@ -42,7 +42,7 @@ public class WeaponDamage : MonoBehaviour
 
     public void EnableDamageCollider(bool value)
     {
-        damageCollider.enabled = value;
+        damageCollider.enabled = value; //disable this damage collider if enemy is dead
     }
 
 

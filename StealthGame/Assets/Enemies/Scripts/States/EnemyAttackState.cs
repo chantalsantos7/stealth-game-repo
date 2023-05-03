@@ -49,9 +49,9 @@ public class EnemyAttackState : EnemyState
             Attack();
         }
 
-        if (!detectionSystem.canSeePlayer && !detectionSystem.inAttackRange)
+        if (!detectionSystem.canSeePlayer && !detectionSystem.inAttackRange) //if player moves behind the enemy, then should the enemy still follow them?
         {
-            context.SwitchState(context.suspiciousState);
+            context.SwitchState(context.suspiciousState); //only enter suspiciousState if player has been out of their range for a while
         }
     }
 

@@ -56,6 +56,9 @@ public class EnemyManager : MonoBehaviour, IHealthManager
         SetRigidbodyState(true);
         SetColliderState(true);
         isDead = true;
+        //TODO: disable weapon damage colliders so they can't damage player after enemy is dead
+        /*enemyInventory.weaponSlotManager.CloseLeftHandDamageCollider(); //trying to get the player's damage collider now?
+        enemyInventory.weaponSlotManager.CloseRightHandDamageCollider();*/
         stateManager.SwitchState(stateManager.deathState);
     }
 

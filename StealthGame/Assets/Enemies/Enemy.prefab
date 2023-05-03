@@ -16616,7 +16616,6 @@ MonoBehaviour:
   heardSomething: 0
   heardDistraction: 0
   lookingAtObstruction: 0
-  foundBody: 0
   inAttackRange: 0
   lastKnownPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &8147580646345741609
@@ -17384,6 +17383,10 @@ PrefabInstance:
     - target: {fileID: 6793277532040491628, guid: 01c0b032d0b9f1c42bb71a5e652c0600, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 195.457
+      objectReference: {fileID: 0}
+    - target: {fileID: 8032127030265436130, guid: 01c0b032d0b9f1c42bb71a5e652c0600, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01c0b032d0b9f1c42bb71a5e652c0600, type: 3}

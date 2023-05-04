@@ -30,8 +30,10 @@ public class EnemyStateManager : MonoBehaviour
 
     [Header("Attack Variables")]
     public float timeBetweenAttacks;
-    public bool inAttackState;
     public float attackRunSpeed;
+    [Tooltip("Number of seconds that can pass without detecting the player before enemy exits attack state.")]
+    public float ExitAttackStateInSeconds;
+    [HideInInspector] public bool inAttackState;
 
     [HideInInspector] public float searchSuspicionThreshold;
     [HideInInspector] public float chaseSuspicionThreshold;

@@ -16611,6 +16611,7 @@ MonoBehaviour:
   obstructionLayer:
     serializedVersion: 2
     m_Bits: 513
+  timeSinceLastDetected: 0
   currentTarget: {fileID: 0}
   canSeePlayer: 0
   heardSomething: 0
@@ -16700,8 +16701,9 @@ MonoBehaviour:
   maxIdleTimeInSeconds: 30
   playerInSightRange: 0
   timeBetweenAttacks: 1
+  attackRunSpeed: 3.5
+  ExitAttackStateInSeconds: 3.75
   inAttackState: 0
-  attackRunSpeed: 4
   searchSuspicionThreshold: 0
   chaseSuspicionThreshold: 0
   patrolSuspicionThreshold: 0

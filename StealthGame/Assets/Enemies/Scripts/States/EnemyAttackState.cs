@@ -48,11 +48,16 @@ public class EnemyAttackState : EnemyState
         {
             Attack();
         }
-
-        if (!detectionSystem.canSeePlayer && !detectionSystem.inAttackRange) //if player moves behind the enemy, then should the enemy still follow them?
+        //TODO: review this, enemy stops moving if player ducks while they're attacking and moves out of attack range
+        //should just keep chasing them?
+        //There should be a chance for the player to get away, but it doesn't make sense for the enemy to just stop attacking when player is clearly still near them
+        if (!detectionSystem.canSeePlayer && !detectionSystem.inAttackRange 
+            && detectionSystem.timeSinceLastDetected >= context.ExitAttackStateInSeconds) //if player moves behind the enemy, then should the enemy still follow them?
         {
             context.SwitchState(context.suspiciousState); //only enter suspiciousState if player has been out of their range for a while
         }
+
+        //let's add a time since player was seen, in the detection system
     }
 
     public override void ExitState(EnemyStateManager context)

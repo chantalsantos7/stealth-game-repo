@@ -19,6 +19,7 @@ public class DetectionSystem : MonoBehaviour
     public LayerMask detectionLayer;
     public LayerMask obstructionLayer;
 
+    public float timeSinceLastDetected;
     [HideInInspector] public PlayerManager currentTarget;
 
     [HideInInspector] public bool canSeePlayer;
@@ -40,6 +41,12 @@ public class DetectionSystem : MonoBehaviour
     {
         playerRef = GameManager.Instance.player;
         StartCoroutine(DetectionRoutine());
+        //timeSinceLastDetected = 0f;
+    }
+
+    private void Update()
+    {
+        timeSinceLastDetected += Time.deltaTime;
     }
 
     //This coroutine only executes 5 times per second, so enemy is not searching for the player in every frame, lessening the performance load
@@ -80,14 +87,18 @@ public class DetectionSystem : MonoBehaviour
                     //check if anything is obstructing the player
                     if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionLayer))
                     {
+                        Debug.Log("Time since last detected: " + timeSinceLastDetected);
                         canSeePlayer = true;
+                        timeSinceLastDetected = 0;
                     }
                     else
                     {
                         //Lower starting position for a raycast, to see if player can be seen but is crouching
                         if (!Physics.Raycast(crouchCheckObj.transform.position, directionToTarget, distanceToTarget, obstructionLayer))
                         {
+                            Debug.Log("Time since last detected: " + timeSinceLastDetected);
                             canSeePlayer = true;
+                            timeSinceLastDetected = 0;
                         } 
                         else
                         {

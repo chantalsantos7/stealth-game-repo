@@ -5,13 +5,21 @@ Bolltree Fortress has been taken over by a tribe of barbarians, and the local lo
 
 ## Controls
 WASD - Directional Movement
+
 Ctrl - Crouch/enter stealth mode
+
 Shift - Hold to sprint
+
 1 - Activate Teleport mode
+
 T - Deploy Teleport
+
 2 - Activate Distract mode 
+
 G - Deploy Distraction
+
 Left Click (Mouse) - Attack
+
 E - Interact with Object
 
 ## Abilities

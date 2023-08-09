@@ -32,8 +32,6 @@ public class EnemyPatrolState : EnemyState
         }
         
         UpdateDestination();
-        //want idle time to be different for each patrol point
-        //Debug.Log("first target is: " + target);
     }
 
     public override void UpdateState(EnemyStateManager context)
@@ -74,6 +72,7 @@ public class EnemyPatrolState : EnemyState
     private void IterateWayPointIndex()
     {
         waypointIndex++;
+        Debug.Log("current wpI:" + waypointIndex);
         if (waypointIndex == waypoints.Length) 
         {
             waypointIndex = 0;

@@ -11,6 +11,8 @@ public class EnemySearchState : EnemyState
     
     float patrolThreshold;
     float chaseThreshold;
+
+    private Vector3 target;
     
     public override void EnterState(EnemyStateManager context)
     {
@@ -23,11 +25,23 @@ public class EnemySearchState : EnemyState
         patrolThreshold = context.patrolSuspicionThreshold;
         context.audioManager.PlayAudio("Suspicion");
         context.enemyInventory.TakeOutWeapon();
+
+        target = detectionSystem.lastKnownPosition;
+        agent.SetDestination(target);
+
     }
     
     public override void UpdateState(EnemyStateManager context)
-    {   
-        agent.SetDestination(detectionSystem.lastKnownPosition);
+    {
+        
+        //after it reaches the last known position, move around randomly until suspicion meter is down
+        Vector3 distanceToWalkPoint = agent.transform.position - target;
+
+        //walk to a position
+        if (distanceToWalkPoint.magnitude < 1f)
+        {
+
+        }
 
         if (detectionSystem.canSeePlayer && suspicionSystem.suspicionMeter > chaseThreshold)
         {
@@ -43,6 +57,11 @@ public class EnemySearchState : EnemyState
         {
             context.SwitchState(context.attackState);
         }
+    }
+
+    private void GenerateWalkpoints()
+    {
+
     }
 
     public override void ExitState(EnemyStateManager context)

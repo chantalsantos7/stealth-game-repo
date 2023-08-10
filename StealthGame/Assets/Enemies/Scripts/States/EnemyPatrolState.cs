@@ -72,7 +72,7 @@ public class EnemyPatrolState : EnemyState
     private void IterateWayPointIndex()
     {
         waypointIndex++;
-        Debug.Log("current wpI:" + waypointIndex);
+        //Debug.Log("current wpI:" + waypointIndex);
         if (waypointIndex == waypoints.Length) 
         {
             waypointIndex = 0;

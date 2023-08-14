@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyPatrolState : EnemyState
 {
-    //contains main enemy movement
     Transform[] waypoints;
     public LayerMask groundMask;
     int waypointIndex = 0;
@@ -25,7 +22,7 @@ public class EnemyPatrolState : EnemyState
         minIdleTimeInSeconds = context.minIdleTimeInSeconds;
         maxIdleTimeInSeconds = context.maxIdleTimeInSeconds;
         
-        //if enemy is armed from the search or attack states
+        //if enemy is armed from the search or attack states, disable the weapon models
         if (!context.enemyManager.isUnarmed)
         {
             context.enemyInventory.Disarm();
@@ -48,7 +45,7 @@ public class EnemyPatrolState : EnemyState
         } 
         else if (context.suspicionSystem.suspicionMeter > context.suspicionSystem.searchSuspicionThreshold)
         {
-            context.SwitchState(context.suspiciousState);
+            context.SwitchState(context.searchState);
         }
 
         Vector3 distanceToWalkPoint = agent.transform.position - target;
@@ -65,21 +62,20 @@ public class EnemyPatrolState : EnemyState
     private void UpdateDestination()
     {
         target = waypoints[waypointIndex].position;
-        CalculateIdleTime();
+        SelectIdleTimeAtDestination();
         agent.SetDestination(target);
     }
 
     private void IterateWayPointIndex()
     {
         waypointIndex++;
-        //Debug.Log("current wpI:" + waypointIndex);
         if (waypointIndex == waypoints.Length) 
         {
             waypointIndex = 0;
         }
     }
 
-    private void CalculateIdleTime()
+    private void SelectIdleTimeAtDestination() //Randomly selects how long the enemy should idle at a patrol point
     {
         idleTimeInSeconds = Random.Range(minIdleTimeInSeconds, maxIdleTimeInSeconds);
     }
@@ -88,11 +84,4 @@ public class EnemyPatrolState : EnemyState
     {
         //throw new System.NotImplementedException();
     }
-
-    public override void OnCollisionEnter(EnemyStateManager context, Collision other)
-    {
-        //throw new System.NotImplementedException();
-    }
-
-   
 }

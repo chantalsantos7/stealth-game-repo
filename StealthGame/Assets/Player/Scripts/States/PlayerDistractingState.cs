@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/*State for the Distraction ability - spawns a game object that emits a sound to attract the attention of enemies. */
 public class PlayerDistractingState : PlayerAbilitiesState
 {
     public float movementSpeed = 5f;
@@ -14,7 +13,7 @@ public class PlayerDistractingState : PlayerAbilitiesState
         previewPos = context.distractorPreview;
         previewPos.SetActive(true);
         distractor = context.distractorObj;
-        GameManager.Instance.uiManager.ToggleDistractDeploy();
+        GameManager.Instance.uiManager.ToggleDistractionDeployText();
     }
 
     public override void UpdateState(PlayerAbilitiesStateManager context)
@@ -29,9 +28,8 @@ public class PlayerDistractingState : PlayerAbilitiesState
 
     public void DeployAbility(PlayerAbilitiesStateManager context)
     {
-        //spawn a gameObject that functions as a distraction
         Vector3 emitterPosition = new Vector3(previewPos.transform.position.x, 0, previewPos.transform.position.z);
-        GameObject.Instantiate(distractor, emitterPosition, Quaternion.identity);
+        Object.Instantiate(distractor, emitterPosition, Quaternion.identity);
         GameManager.Instance.achievementTracker.DistractUsed++;
         context.SwitchState(context.baseState);
     }
@@ -40,12 +38,7 @@ public class PlayerDistractingState : PlayerAbilitiesState
     {
         previewPos.SetActive(false);
         context.distractionAllowed = false;
-        GameManager.Instance.uiManager.ToggleDistractDeploy();
+        GameManager.Instance.uiManager.ToggleDistractionDeployText();
         GameManager.Instance.uiManager.SetDistractIconTransparency(0);
-    }
-
-    public override void OnCollisionEnter(PlayerAbilitiesStateManager context, Collision collision)
-    {
-        
     }
 }

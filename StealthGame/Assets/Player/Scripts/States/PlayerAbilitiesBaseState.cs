@@ -14,11 +14,6 @@ public class PlayerAbilitiesBaseState : PlayerAbilitiesState
         
     }
 
-    public override void OnCollisionEnter(PlayerAbilitiesStateManager context, Collision collision)
-    {
-        
-    }
-
     public override void UpdateState(PlayerAbilitiesStateManager context)
     {
         context.teleportTimeElapsed += Time.deltaTime;

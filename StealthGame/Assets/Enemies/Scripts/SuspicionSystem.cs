@@ -9,16 +9,18 @@ public class SuspicionSystem : MonoBehaviour
     public EnemyManager enemyManager;
 
     [Header("Meter Values")]
+    [Tooltip("Value by which the suspicion meter will increase.")]
     public float suspicionIncrement;
+    [Tooltip("Value by which the suspicion meter will decrease.")]
     public float suspicionDecrement;
-    public float suspicionMeter;
+    [HideInInspector]public float suspicionMeter;
 
     [Header("Suspicion Thresholds & Multipliers")]
     public float searchSuspicionThreshold;
     public float chaseSuspicionThreshold;
     public float patrolSuspicionThreshold;
     public float heardDistractionMultiplier;
-    public float playerSeenIncreaseMultiplier;
+    public float playerSeenIncreaseMultiplier; //ensures suspicion meter will rapidly increase once enemy catches sight of player
     public float inAttackRangeMultiplier;
 
     private void Awake()
@@ -46,11 +48,6 @@ public class SuspicionSystem : MonoBehaviour
                 suspicionMeter += suspicionIncrement * playerSeenIncreaseMultiplier;
             }
 
-            /*if (detectionSystem.foundBody)
-            {
-                suspicionMeter += searchSuspicionThreshold + 200;
-            }*/
-
             if (detectionSystem.inAttackRange)
             {
                 suspicionMeter += suspicionIncrement * inAttackRangeMultiplier;
@@ -58,9 +55,9 @@ public class SuspicionSystem : MonoBehaviour
         }
     }
 
+    /* Decreases the enemy's suspicion once it has been raised, fires twice per second */
     private IEnumerator DecreaseSuspicion()
     {
-        //delay the execution so it only decreases every few seconds
         float delay = 0.5f;
         WaitForSeconds wait = new WaitForSeconds(delay);
 

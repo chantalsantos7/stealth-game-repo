@@ -27,7 +27,7 @@ public class PlayerTeleportingState : PlayerAbilitiesState
         teleportView.SetActive(true);
         teleportTime = context.teleportTimeLimit;
         timeCounter = 0f;
-        GameManager.Instance.uiManager.ToggleTeleportDeploy();
+        GameManager.Instance.uiManager.ToggleTeleportDeployText();
         context.audioSource.PlayOneShot(context.teleportModeSoundEffect);
     }
 
@@ -35,15 +35,10 @@ public class PlayerTeleportingState : PlayerAbilitiesState
     {
         context.cameraManager.cameraMode = CameraMode.Basic;
         context.teleportView.SetActive(false);
-        GameManager.Instance.uiManager.ToggleTeleportDeploy();
+        GameManager.Instance.uiManager.ToggleTeleportDeployText();
         GameManager.Instance.uiManager.SetTeleportIconTransparency(0);
         context.playerLocomotion.canMove = true;
         context.teleportAllowed = false;
-    }
-
-    public override void OnCollisionEnter(PlayerAbilitiesStateManager context, Collision collision)
-    {
-        
     }
 
     public override void UpdateState(PlayerAbilitiesStateManager context)
@@ -51,7 +46,6 @@ public class PlayerTeleportingState : PlayerAbilitiesState
         timeCounter += Time.deltaTime;
         if (timeCounter >= teleportTime)
         {
-            context.audioSource.Stop();
             Teleport(context);
         }
 
@@ -61,16 +55,6 @@ public class PlayerTeleportingState : PlayerAbilitiesState
 
         moveDirection += (Vector3.up * gravity);
         tpViewController.Move(movementSpeed * Time.deltaTime * moveDirection);
-        //teleportRb.velocity = moveDirection * movementSpeed;
-
-        //Vector3 raycastOrigin = teleportRb.transform.position;
-        
-        /*if (!Physics.SphereCast(raycastOrigin, 0.2f, Vector3.down, out RaycastHit hit, 
-            context.playerLocomotion.maxDistance, context.playerLocomotion.groundLayers))
-        {
-            teleportRb.AddForce(context.playerLocomotion.fallingVelocity * Vector3.down);
-            
-        }*/
         
         if (context.inputManager.TeleportKeyPressed)
         {
@@ -79,15 +63,16 @@ public class PlayerTeleportingState : PlayerAbilitiesState
         }
     }
 
+    
     private void Teleport(PlayerAbilitiesStateManager context)
     {
-        Vector3 TeleportPos = teleportView.transform.position;
-        context.playerLocomotion.playerRigidbody.position = TeleportPos;
+        context.playerLocomotion.playerRigidbody.position = teleportView.transform.position;
         GameManager.Instance.achievementTracker.TeleportUsed++;
+        
+        //Turn off the teleporting background sound, play the ability sound effect
         context.audioSource.Stop();
         context.audioSource.PlayOneShot(context.teleportSoundEffect);
+        
         context.SwitchState(context.baseState);
     }
-
-    
 }

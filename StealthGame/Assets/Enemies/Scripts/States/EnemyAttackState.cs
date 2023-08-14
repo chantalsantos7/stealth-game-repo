@@ -38,7 +38,6 @@ public class EnemyAttackState : EnemyState
     {
         if (!detectionSystem.inAttackRange)
         {
-            Debug.Log("agent speed: " + agent.speed); 
             agent.speed = attackRunSpeed;
             agent.SetDestination(player.position);
         }
@@ -48,27 +47,20 @@ public class EnemyAttackState : EnemyState
         {
             Attack();
         }
-        //TODO: review this, enemy stops moving if player ducks while they're attacking and moves out of attack range
-        //should just keep chasing them?
-        //There should be a chance for the player to get away, but it doesn't make sense for the enemy to just stop attacking when player is clearly still near them
+        
+        /*If the player has been out of sight and attack range for at least a few seconds, the enemy will return to the searching state
+         and search for the player, rather than directly attacking them */
         if (!detectionSystem.canSeePlayer && !detectionSystem.inAttackRange 
-            && detectionSystem.timeSinceLastDetected >= context.ExitAttackStateInSeconds) //if player moves behind the enemy, then should the enemy still follow them?
+            && detectionSystem.timeSinceLastDetected >= context.ExitAttackStateInSeconds) 
         {
-            context.SwitchState(context.suspiciousState); //only enter suspiciousState if player has been out of their range for a while
+            context.SwitchState(context.searchState);
         }
-
-        //let's add a time since player was seen, in the detection system
     }
 
     public override void ExitState(EnemyStateManager context)
     {
         
     }
-
-    public override void OnCollisionEnter(EnemyStateManager context, Collision other)
-    {
-        
-    }  
 
     private void Attack()
     {

@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/* State Manager for handling enemy AI. Basic state machine structure from iHeartGameDev: https://youtu.be/Vt8aZDPzRjI */
 public class EnemyStateManager : MonoBehaviour
 {
     [HideInInspector] public EnemyManager enemyManager;
@@ -44,7 +43,7 @@ public class EnemyStateManager : MonoBehaviour
     public EnemyPatrolState patrolState = new EnemyPatrolState();
     public EnemyAttackState attackState = new EnemyAttackState();
     public EnemyChaseState chaseState = new EnemyChaseState();
-    public EnemySearchState suspiciousState = new();
+    public EnemySearchState searchState = new();
     public EnemyDeathState deathState = new();
 
     private void Awake()
@@ -64,7 +63,7 @@ public class EnemyStateManager : MonoBehaviour
 
     void Start()
     {
-        currentState = idleState; //switch to idle when patrol functionality complete
+        currentState = idleState;
         currentState.EnterState(this);
     }
 

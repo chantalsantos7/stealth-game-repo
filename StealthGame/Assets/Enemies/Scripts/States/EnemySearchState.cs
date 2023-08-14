@@ -34,11 +34,9 @@ public class EnemySearchState : EnemyState
     
     public override void UpdateState(EnemyStateManager context)
     {
-        
-        //after it reaches the last known position, move around randomly until suspicion meter is down
         Vector3 distanceToWalkPoint = agent.transform.position - target;
 
-        //walk to a new position
+        //after it reaches the last known position, move around randomly until suspicion meter is down
         if (distanceToWalkPoint.magnitude < 0.5f && pointsSearched < searchPoints)
         {
             GenerateNewTargetSearchPosition();
@@ -46,10 +44,6 @@ public class EnemySearchState : EnemyState
             Debug.Log(pointsSearched);
             agent.SetDestination(target);
         }
-        /*else if (pointsSearched >= searchPoints && )
-        {
-            context.SwitchState(context.patrolState);
-        }*/
 
         if (detectionSystem.canSeePlayer && suspicionSystem.suspicionMeter > chaseThreshold)
         {
@@ -67,11 +61,9 @@ public class EnemySearchState : EnemyState
         }
     }
 
-    //Select a random position slightly displaced from the original target position, that the enemy will walk to
-    //problem now is making sure there isn't anything around that could stop enemy from moving on from that point
-    //Sample the position on the navmesh to make sure it's valid, if not find a valid point on the navmesh (Ai.NavMesh.SamplePosition)
-    //SamplePosition is working but probs causing memory problems w/ constant search, limit number of times a new walkPoint is generated
-    //also see if can restrict to 1 NavmeshArea
+    /* Selects a random position slightly displaced from the original target position, that the enemy will walk to
+    The new position is checked to make sure it is a valid position on the navmesh that the enemy can reach
+    otherwise a new position will be selected slightly farther away*/
     private void GenerateNewTargetSearchPosition()
     {
         
@@ -79,12 +71,13 @@ public class EnemySearchState : EnemyState
         NavMeshHit hit;
         while (!NavMesh.SamplePosition(newTargetPosition, out hit, 1.0f, NavMesh.AllAreas))
         {
-            newTargetPosition = SelectNewXorZCoordForPosition(target, 4f, 10f);
+            newTargetPosition = SelectNewXorZCoordForPosition(newTargetPosition, 4f, 10f);
         }
         target = hit.position;
         Debug.Log("target's new position is: " + target);
     }
 
+    /*Selects either a new X value or Z value for the new target position, so searching enemy will move to points close to the original*/
     private Vector3 SelectNewXorZCoordForPosition(Vector3 originalPosition, float minInclusiveRange, float maxInclusiveRange)
     {
         float newTargetX = originalPosition.x + Random.Range(minInclusiveRange, maxInclusiveRange);
@@ -99,11 +92,4 @@ public class EnemySearchState : EnemyState
     {
         GameManager.Instance.EnemyIsSuspicious = false;
     }
-
-    public override void OnCollisionEnter(EnemyStateManager context, Collision other)
-    {
-        
-    }
-
-    
 }

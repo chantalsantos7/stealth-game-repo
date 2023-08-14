@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DetectionSystem : MonoBehaviour
 {
-    public EnemyManager enemyManager;
+    [HideInInspector] public EnemyManager enemyManager;
 
     [Header("Object References")]
     public GameObject playerRef;
@@ -41,7 +42,6 @@ public class DetectionSystem : MonoBehaviour
     {
         playerRef = GameManager.Instance.player;
         StartCoroutine(DetectionRoutine());
-        //timeSinceLastDetected = 0f;
     }
 
     private void Update()
@@ -49,13 +49,14 @@ public class DetectionSystem : MonoBehaviour
         timeSinceLastDetected += Time.deltaTime;
     }
 
-    //This coroutine only executes 5 times per second, so enemy is not searching for the player in every frame, lessening the performance load
+    /*Calls the functions that check whether the player is within this enemy's search radius
+    The checks need to be executed regularly so the enemy can react appropriately to player movements but to avoid them searching
+    for the player in every frame, this coroutine only executes 5 times per second*/
     private IEnumerator DetectionRoutine()
     {
         float delay = 0.2f;
         WaitForSeconds wait = new WaitForSeconds(delay);
         
-        //permanently searching for the player
         while (true && !enemyManager.isDead)
         {
             yield return wait;
@@ -64,7 +65,11 @@ public class DetectionSystem : MonoBehaviour
             AttackRangeCheck();
         }
     }
+    
+    /*The following function all follow the same detection principle, as they check whether the player's collider is within a certain radius to the enemy's position
+      Each routine has different conditions to determine whether the player fulfills them */
 
+    /*Checks whether the player is within the enemy's field of view */
     private void FieldOfViewCheck()
     {
         Physics.OverlapSphereNonAlloc(transform.position, sightDetectionRadius, fovRangeCheck, detectionLayer);
@@ -119,6 +124,7 @@ public class DetectionSystem : MonoBehaviour
 
     }
 
+    /*Checks whether the enemy has heard a noise*/
     private void HearingDetection()
     {
         Physics.OverlapSphereNonAlloc(transform.position, hearingDetectionRadius, hearingRangeCheck, detectionLayer);
@@ -134,7 +140,7 @@ public class DetectionSystem : MonoBehaviour
             if (hearingRangeCheck[i] != null && hearingRangeCheck[i].transform.TryGetComponent<PlayerLocomotion>(out var player))
             {
                 if (!player.IsCrouched &&
-                        player.IsMoving) //can only hear the player if they are not crouched
+                        player.IsMoving) //can only hear the player if they are not in stealth mode
                 {
                     //enter searching state, start going to position of that sound
                     lastKnownPosition = hearingRangeCheck[i].transform.position;

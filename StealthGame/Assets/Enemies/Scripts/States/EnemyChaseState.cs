@@ -14,11 +14,6 @@ public class EnemyChaseState : EnemyState
         player = GameManager.Instance.player.transform;
     }
 
-    public override void OnCollisionEnter(EnemyStateManager context, Collision other)
-    {
-
-    }
-
     public override void UpdateState(EnemyStateManager context)
     {
         agent.speed = 4f;

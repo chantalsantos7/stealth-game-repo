@@ -26,11 +26,4 @@ public class EnemyDeathState : EnemyState
     {
         
     }
-
-    public override void OnCollisionEnter(EnemyStateManager context, Collision other)
-    {
-        
-    }
-
-    
 }

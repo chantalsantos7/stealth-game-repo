@@ -123,12 +123,12 @@ public class UIManager : MonoBehaviour
 
     #region Ability Bar
 
-    public void ToggleDistractDeploy()
+    public void ToggleDistractionDeployText()
     {
         distractDeployTxt.gameObject.SetActive(!distractDeployTxt.gameObject.activeSelf);
     }
 
-    public void ToggleTeleportDeploy()
+    public void ToggleTeleportDeployText()
     {
         teleportDeployTxt.gameObject.SetActive(!teleportDeployTxt.gameObject.activeSelf);
     }
@@ -139,7 +139,6 @@ public class UIManager : MonoBehaviour
         foreach (var img in images)
         {
             img.SetTransparency(value);
-            //Debug.Log(img.color.a.ToString());
         }
     }
 

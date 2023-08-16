@@ -39,4 +39,6 @@ Distract - the assassin can place a noise emitting object that will attract any 
 
 [Create Dark Souls in Unity by Sebastian Graves](https://www.youtube.com/playlist?list=PLD_vBJjpCwJtrHIW1SS5_BNRk6KZJZ7_d)  - basis of weapon inventory and combat system.
 
+[How to Program in Unity: State Machines Explained by iHeartGameDev](https://youtu.be/Vt8aZDPzRjI) - template for state machine structure of enemy AI.
+
 > Written with [StackEdit](https://stackedit.io/).
